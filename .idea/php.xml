@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/popper.js/umd" />
+      <path value="$PROJECT_DIR$/vendor/font-awesome/css" />
+      <path value="$PROJECT_DIR$/vendor/bootstrap/css" />
+      <path value="$PROJECT_DIR$/vendor/popper.js/esm" />
+      <path value="$PROJECT_DIR$/vendor/font-awesome/fonts" />
+      <path value="$PROJECT_DIR$/vendor/bootstrap/js" />
+      <path value="$PROJECT_DIR$/vendor/font-awesome/scss" />
+      <path value="$PROJECT_DIR$/vendor/font-awesome/less" />
+      <path value="$PROJECT_DIR$/vendor/@fancyapps/fancybox" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+    </include_path>
+  </component>
+</project>

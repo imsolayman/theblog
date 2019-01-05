@@ -1,1 +1,19 @@
 /* your styles go here */
+/*page contact.html*/
+.contact-form p {
+    font-family: open-sans;
+    color: #444 !important;
+    font-size: 18px !important;
+}
+/*contact.html button*/
+#sendMessageButton {
+    background: #000;
+    color: #ddd;
+    font-weight: 700;
+    font-size: 20px;
+    transition: all 0.3s ease-in;
+}
+#sendMessageButton:hover {
+    background: #444;
+    color: #fff;
+}
