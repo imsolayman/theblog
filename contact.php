@@ -9,32 +9,55 @@
                     <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
                     <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
                     <!-- To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
-                    <form name="sentMessage" id="contactForm" novalidate="">
+                    <?php
+                        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                            $name = $format->validation($_POST['name']);
+                            $email = $format->validation($_POST['email']);
+                            $subject = $format->validation($_POST['subject']);
+                            $description = $format->validation($_POST['description']);
+                            $name = mysqli_real_escape_string($database->link, $name);
+                            $email = mysqli_real_escape_string($database->link, $email);
+                            $subject = mysqli_real_escape_string($database->link, $subject);
+                            $description = mysqli_real_escape_string($database->link, $description);
+                            if($name == "" || $email == "" || $subject == "" || $description == ""){
+                                echo "<script>alert('Field Must not be emplty');</script>";
+                            }else {
+                                $query = "INSERT INTO list_contact (name, email, subject, description) VALUES ('$name', '$email', '$subject', '$description') ";
+                                $insert_row = $database->insert($query);
+                                if ($insert_row) {
+                                    echo "<script>alert('Thanks ! Message sent');</script>";
+                                } else {
+                                    echo "<script>alert('Sorry ! Mail not sent');</script>";
+                                }
+                            }
+                        }
+                    ?>
+                    <form name="sentMessage" id="contactForm" novalidate="" action="" method="post">
                         <div class="control-group">
                             <div class="form-group floating-label-form-group controls">
                                 <label>Name</label>
-                                <input type="text" class="form-control" placeholder="Name" id="name" required="" data-validation-required-message="Please enter your name.">
+                                <input type="text" name="name" class="form-control" placeholder="Name" id="name" required="" data-validation-required-message="Please enter your name.">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="control-group">
                             <div class="form-group floating-label-form-group controls">
                                 <label>Email Address</label>
-                                <input type="email" class="form-control" placeholder="Email Address" id="email" required="" data-validation-required-message="Please enter your email address.">
+                                <input type="email" name="email" class="form-control" placeholder="Email Address" id="email" required="" data-validation-required-message="Please enter your email address.">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Phone Number</label>
-                                <input type="tel" class="form-control" placeholder="Phone Number" id="phone" required="" data-validation-required-message="Please enter your phone number.">
+                                <label>Subject</label>
+                                <input type="text" name="subject" class="form-control" placeholder="Subject" id="subject" required="" data-validation-required-message="Please enter your subject.">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="control-group">
                             <div class="form-group floating-label-form-group controls">
                                 <label>Message</label>
-                                <textarea rows="5" class="form-control" placeholder="Message" id="message" required="" data-validation-required-message="Please enter a message."></textarea>
+                                <textarea rows="5" name="description" class="form-control" placeholder="Message" id="message" required="" data-validation-required-message="Please enter a message."></textarea>
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>

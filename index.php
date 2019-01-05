@@ -1,14 +1,24 @@
 <?php include 'inc/header.php'; ?>
     <!-- Hero Section-->
-    <section style="background: url(img/hero.jpg); background-size: cover; background-position: center center" class="hero">
+    <?php
+        $query = "SELECT * FROM list_posts ORDER BY id DESC LIMIT 1";
+        $post = $database->select($query);
+        if($post){
+        while($result = $post->fetch_assoc()){
+    ?>
+    <section style="background: url(<?php echo $result['image']; ?>); background-size: cover; background-position: center center" class="hero">
       <div class="container">
         <div class="row">
           <div class="col-lg-7">
-            <h1>Bootstrap 4 Blog - A free template by Bootstrap Temple</h1><a href="#" class="hero-link">Discover More</a>
+            <h1><?php echo $result['title']; ?></h1><a href="post.php?id=<?php echo $result['id']; ?>" class="hero-link">Discover More</a>
           </div>
         </div><a href=".intro" class="continue link-scroll"><i class="fa fa-long-arrow-down"></i> Scroll Down</a>
       </div>
     </section>
+    <?php
+         }
+        }
+    ?>
     <!-- Intro Section-->
     <section class="intro">
       <div class="container">
@@ -105,39 +115,27 @@
           <p class="text-big">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
         </header>
         <div class="row">
+            <?php
+                $query = "SELECT list_posts.id, title, description, image, created_at, list_posts.category, name  FROM list_posts, list_category WHERE list_category.id = list_posts.category ORDER BY list_posts.id DESC limit 3";
+                $post = $database->select($query);
+                if($post){
+                    while($result = $post->fetch_assoc()){
+             ?>
           <div class="post col-md-4">
-            <div class="post-thumbnail"><a href="post.php"><img src="img/blog-1.jpg" alt="..." class="img-fluid"></a></div>
+            <div class="post-thumbnail"><a href="post.php?id=<?php echo $result['id']; ?>"><img src="<?php echo $result['image']; ?>" alt="..." class="img-fluid" ></a></div> <!--width height will add-->
             <div class="post-details">
               <div class="post-meta d-flex justify-content-between">
-                <div class="date">20 May | 2016</div>
-                <div class="category"><a href="#">Business</a></div>
-              </div><a href="post.php">
-                <h3 class="h4">Ways to remember your important ideas</h3></a>
-              <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                <div class="date"><?php echo $format->formatDate($result['created_at']); ?></div>
+                <div class="category"><a href="#"><?php echo $result['name']; ?></a></div>
+              </div><a href="post.php?id=<?php echo $result['id']; ?>">
+                <h3 class="h4"><?php echo $result['title']; ?></h3></a>
+              <p class="text-muted"><?php echo $format->textShorten($result['description'], 80); ?></p>
             </div>
           </div>
-          <div class="post col-md-4">
-            <div class="post-thumbnail"><a href="post.php"><img src="img/blog-2.jpg" alt="..." class="img-fluid"></a></div>
-            <div class="post-details">
-              <div class="post-meta d-flex justify-content-between">
-                <div class="date">20 May | 2016</div>
-                <div class="category"><a href="#">Technology</a></div>
-              </div><a href="post.php">
-                <h3 class="h4">Diversity in Engineering: Effect on Questions</h3></a>
-              <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-            </div>
-          </div>
-          <div class="post col-md-4">
-            <div class="post-thumbnail"><a href="post.php"><img src="img/blog-3.jpg" alt="..." class="img-fluid"></a></div>
-            <div class="post-details">
-              <div class="post-meta d-flex justify-content-between">
-                <div class="date">20 May | 2016</div>
-                <div class="category"><a href="#">Financial</a></div>
-              </div><a href="post.php">
-                <h3 class="h4">Alberto Savoia Can Teach You About Interior</h3></a>
-              <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-            </div>
-          </div>
+            <?php
+                  }
+                }
+            ?>
         </div>
       </div>
     </section>
@@ -182,22 +180,20 @@
     <!-- Gallery Section-->
     <section class="gallery no-padding">    
       <div class="row">
+        <?php
+        $query = "SELECT * FROM list_posts ORDER BY id DESC LIMIT 4";
+        $post = $database->select($query);
+        if($post){
+            while($result = $post->fetch_assoc()){
+        ?>
         <div class="mix col-lg-3 col-md-3 col-sm-6">
-          <div class="item"><a href="img/gallery-1.jpg" data-fancybox="gallery" class="image"><img src="img/gallery-1.jpg" alt="..." class="img-fluid">
+          <div class="item"><a href="<?php echo $result['image']; ?>" data-fancybox="gallery" class="image"><img src="<?php echo $result['image']; ?>" alt="..." class="img-fluid">
               <div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div></a></div>
         </div>
-        <div class="mix col-lg-3 col-md-3 col-sm-6">
-          <div class="item"><a href="img/gallery-2.jpg" data-fancybox="gallery" class="image"><img src="img/gallery-2.jpg" alt="..." class="img-fluid">
-              <div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div></a></div>
-        </div>
-        <div class="mix col-lg-3 col-md-3 col-sm-6">
-          <div class="item"><a href="img/gallery-3.jpg" data-fancybox="gallery" class="image"><img src="img/gallery-3.jpg" alt="..." class="img-fluid">
-              <div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div></a></div>
-        </div>
-        <div class="mix col-lg-3 col-md-3 col-sm-6">
-          <div class="item"><a href="img/gallery-4.jpg" data-fancybox="gallery" class="image"><img src="img/gallery-4.jpg" alt="..." class="img-fluid">
-              <div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div></a></div>
-        </div>
+        <?php
+               }
+           }
+        ?>
       </div>
     </section>
 <?php include 'inc/footer.php'; ?>

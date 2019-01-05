@@ -17,3 +17,21 @@
     background: #444;
     color: #fff;
 }
+/*404 page*/
+.page-not-found{
+    padding: 60px 20px;
+}
+.page-not-found h1 {
+    display: block;
+    font-size: 50px;
+    color: #0e0e0e;
+    padding: 10px;
+}
+.page-not-found p > a {
+    font-size: 32px;
+    font-weight: 700;
+    color: #500a6f;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+}
