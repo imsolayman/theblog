@@ -5,10 +5,10 @@
         <header>
             <h3 class="h6">Search the blog</h3>
         </header>
-        <form action="#" class="search-form">
+        <form action="search.php" method="get">
             <div class="form-group">
-                <input type="search" placeholder="What are you looking for?">
-                <button type="submit" class="submit"><i class="icon-search"></i></button>
+                <input type="search" name="search" id="search" placeholder="What are you looking for?">
+                <button type="submit" class="submit"><i class="icon-search-1"></i></button>
             </div>
         </form>
     </div>
@@ -53,10 +53,12 @@
         if($category){
             while($result = $category->fetch_assoc()){
          ?>
-         <div class="item d-flex justify-content-between"><a href="#"><?php echo $result['name']; ?></a><span>12</span></div> <!--here is one static value-->
+         <div class="item d-flex justify-content-between"><a href="category.php?category=<?php echo $result['id']; ?>"><?php echo $result['name']; ?></a><span>12</span></div> <!--here is one static value-->
          <?php
+                     }
+                }else{
+                echo "<div class='item d-flex justify-content-between'><a href='#'>No Category Found</a></div>";
             }
-        }
         ?>
     </div>
     <!-- Widget [Tags Cloud Widget]-->

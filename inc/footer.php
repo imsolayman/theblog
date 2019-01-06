@@ -23,7 +23,7 @@
             <div class="col-md-4">
                 <div class="menus d-flex">
                     <ul class="list-unstyled">
-                        <li> <a href="http://theblog.test/admin/">My Account</a></li>
+                        <li> <a href="http://theblog.test/admin/" target="_blank">My Account</a></li>
                         <li> <a href="#">Add Listing</a></li>
                         <li> <a href="#">Pricing</a></li>
                         <li> <a href="#">Privacy &amp; Policy</a></li>

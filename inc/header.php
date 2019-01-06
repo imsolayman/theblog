@@ -43,7 +43,7 @@
                 <div class="close-btn"><i class="icon-close"></i></div>
                 <div class="row d-flex justify-content-center">
                     <div class="col-md-8">
-                        <form action="#">
+                        <form action="search.php" method="get">
                             <div class="form-group">
                                 <input type="search" name="search" id="search" placeholder="What are you looking for?">
                                 <button type="submit" class="submit"><i class="icon-search-1"></i></button>
@@ -65,9 +65,19 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a href="index.php" class="nav-link active ">Home</a>
                     </li>
-                    <li class="nav-item"><a href="blog.php" class="nav-link ">Blog</a>
+                    <?php
+                        $query = "SELECT * FROM list_category ORDER BY id ASC  LIMIT 3";
+                        $category = $database->select($query);
+                        if($category){
+                        while($result = $category->fetch_assoc()){
+                    ?>
+                    <li class="nav-item"><a href="category.php?category=<?php echo $result['id']; ?>" class="nav-link "><?php echo $result['name']; ?></a>
                     </li>
-                    <li class="nav-item"><a href="post.php" class="nav-link ">Post</a>
+                    <?php
+                            }
+                        }
+                    ?>
+                    <li class="nav-item"><a href="blog.php" class="nav-link ">Blog</a>
                     </li>
                     <li class="nav-item"><a href="contact.php" class="nav-link ">Contact</a>
                     </li>

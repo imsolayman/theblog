@@ -13,10 +13,10 @@
                 }
             ?>
             <?php
-            $query = "SELECT list_posts.id, title, description, image, tags, list_posts.created_at, list_posts.category, name, firstname, lastname  FROM list_posts, list_category, list_user WHERE list_category.id = list_posts.category AND list_user.id = list_posts.author AND list_posts.id = '$id' ";
-            $post = $database->select($query);
-            if($post){
-                while ($result = $post->fetch_assoc()) {
+                $query = "SELECT list_posts.id, title, description, image, tags, list_posts.created_at, list_posts.category, name, firstname, lastname  FROM list_posts, list_category, list_user WHERE list_category.id = list_posts.category AND list_user.id = list_posts.author AND list_posts.id = '$id' ";
+                $post = $database->select($query);
+                if($post){
+                    while ($result = $post->fetch_assoc()) {
             ?>
             <div class="post-single">
               <div class="post-thumbnail"><img src="<?php echo $result['image']; ?>" alt="..." class="img-fluid"></div>
@@ -67,58 +67,78 @@
               ?>
 <!--                  comment starts here-->
                 <div class="post-comments">
+                <?php
+                    $query = "SELECT *  FROM list_comment WHERE post = '$id' ";
+                    $comment = $database->select($query);
+//                    $comments = mysqli_num_rows($comment);
+                ?>
                   <header>
-                    <h3 class="h6">Post Comments<span class="no-of-comments">(3)</span></h3>
+                    <h3 class="h6">Post Comments<span class="no-of-comments">(<?php if($comment){
+                                $count = mysqli_num_rows($comment);
+                                echo $count;
+                            }else{
+                                echo 0;
+                            } ?>)</span>
+                    </h3>
                   </header>
+                    <?php
+                    if($comment){
+                    while ($result = $comment->fetch_assoc()) {
+                    ?>
                   <div class="comment">
                     <div class="comment-header d-flex justify-content-between">
                       <div class="user d-flex align-items-center">
                         <div class="image"><img src="img/user.svg" alt="..." class="img-fluid rounded-circle"></div>
-                        <div class="title"><strong>Jabi Hernandiz</strong><span class="date">May 2016</span></div>
+                        <div class="title"><strong><?php echo $result['name']; ?></strong><span class="date"><?php echo $format->formatYear($result['created_at']); ?></span></div>
                       </div>
                     </div>
                     <div class="comment-body">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                      <p><?php echo $result['comment']; ?></p>
                     </div>
                   </div>
-                  <div class="comment">
-                    <div class="comment-header d-flex justify-content-between">
-                      <div class="user d-flex align-items-center">
-                        <div class="image"><img src="img/user.svg" alt="..." class="img-fluid rounded-circle"></div>
-                        <div class="title"><strong>Nikolas</strong><span class="date">May 2016</span></div>
-                      </div>
-                    </div>
-                    <div class="comment-body">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                    </div>
-                  </div>
-                  <div class="comment">
-                    <div class="comment-header d-flex justify-content-between">
-                      <div class="user d-flex align-items-center">
-                        <div class="image"><img src="img/user.svg" alt="..." class="img-fluid rounded-circle"></div>
-                        <div class="title"><strong>John Doe</strong><span class="date">May 2016</span></div>
-                      </div>
-                    </div>
-                    <div class="comment-body">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                    </div>
-                  </div>
+                <?php
+                    }
+                    }
+                ?>
                 </div>
 <!--                  add comment starts here-->
                 <div class="add-comment">
                   <header>
                     <h3 class="h6">Leave a reply</h3>
                   </header>
-                  <form action="#" class="commenting-form">
+                    <?php
+                        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                            $name = $format->validation($_POST['name']);
+                            $email = $format->validation($_POST['email']);
+                            $comment = $_POST['comment'];
+                            $name = mysqli_real_escape_string($database->link, $name);
+                            $email = mysqli_real_escape_string($database->link, $email);
+//                            $comment = mysqli_real_escape_string($database->link, $comment);
+                            if($name == "" || $email == "" || $comment == ""){
+                                echo "<button class='btn btn-danger'>Error ! Field must not be empty</button>";
+                            }elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+                                echo "<button class='btn btn-danger'>Error ! Please enter a valid email address</button>";
+                            }else {
+                                $query = "INSERT INTO list_comment (post, name, email, comment) VALUES ('$id', '$name', '$email', '$comment') ";
+                                $insert_row = $database->insert($query);
+                                if ($insert_row) {
+                                    echo "<button class='btn btn-success'>Thanks ! Your comment is awaiting for moderation</button>";
+                                } else {
+                                    echo "<button class='btn btn-danger'>Error ! Something went woring</button>";
+                                }
+                            }
+                        }
+                    ?>
+                  <form action="" class="commenting-form" method="post">
                     <div class="row">
                       <div class="form-group col-md-6">
-                        <input type="text" name="username" id="username" placeholder="Name" class="form-control">
+                        <input type="text" name="name" id="username" placeholder="Name" class="form-control">
                       </div>
                       <div class="form-group col-md-6">
-                        <input type="email" name="username" id="useremail" placeholder="Email Address (will not be published)" class="form-control">
+                        <input type="eamil" name="email" id="useremail" placeholder="Email Address (will not be published)" class="form-control">
                       </div>
                       <div class="form-group col-md-12">
-                        <textarea name="usercomment" id="usercomment" placeholder="Type your comment" class="form-control"></textarea>
+                        <textarea name="comment" id="usercomment" placeholder="Type your comment" class="form-control"></textarea>
                       </div>
                       <div class="form-group col-md-12">
                         <button type="submit" class="btn btn-secondary">Submit Comment</button>

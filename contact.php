@@ -20,14 +20,16 @@
                             $subject = mysqli_real_escape_string($database->link, $subject);
                             $description = mysqli_real_escape_string($database->link, $description);
                             if($name == "" || $email == "" || $subject == "" || $description == ""){
-                                echo "<script>alert('Field Must not be emplty');</script>";
+                                echo "<button class='btn btn-danger'>Error ! Field must not be empty</button>";
+                            }elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+                                echo "<button class='btn btn-danger'>Error ! Please enter a valid email address</button>";
                             }else {
                                 $query = "INSERT INTO list_contact (name, email, subject, description) VALUES ('$name', '$email', '$subject', '$description') ";
                                 $insert_row = $database->insert($query);
                                 if ($insert_row) {
                                     echo "<script>alert('Thanks ! Message sent');</script>";
                                 } else {
-                                    echo "<script>alert('Sorry ! Mail not sent');</script>";
+                                    echo "<button class='btn btn-danger'>Error ! Message not Sent</button>";
                                 }
                             }
                         }

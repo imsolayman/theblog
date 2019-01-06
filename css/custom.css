@@ -35,3 +35,27 @@
     border: 1px solid #ddd;
     padding: 5px 10px;
 }
+/* error message */
+.elseMessage {
+    padding: 120px 20px !important;
+    display: block;
+    font-size: 50px;
+    color: #0e0e0e;
+    text-align: center;
+}
+.elseMessage span{
+    display: block;
+    text-align: center;
+}
+.elseMessage span > a{
+    font-size: 32px;
+    font-weight: 700;
+    color: #500a6f;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+}
+/*header style*/
+.navbar .navbar-nav a.nav-link {
+    text-transform: capitalize;
+}
