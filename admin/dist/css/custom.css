@@ -1,0 +1,8 @@
+/*customize.php form*/
+.form-inline.title-form input {
+    width: 315px;
+}
+/*menu.php form*/
+.menu-form{
+    padding: 10px 0;
+}
