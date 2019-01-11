@@ -34,79 +34,92 @@
       <div class="container">
         <!-- Post-->
         <div class="row d-flex align-items-stretch">
+            <?php
+            $query = "SELECT list_posts.id, title, description, image, list_posts.created_at, list_posts.category, name, firstname, lastname  FROM list_posts, list_category, list_user WHERE list_category.id = list_posts.category AND list_user.id = list_posts.author ORDER BY list_posts.id ASC limit 1 ";
+            $post = $database->select($query);
+            if($post){
+                while ($result = $post->fetch_assoc()) {
+            ?>
           <div class="text col-lg-7">
             <div class="text-inner d-flex align-items-center">
               <div class="content">
                 <header class="post-header">
-                  <div class="category"><a href="#">Business</a><a href="#">Technology</a></div><a href="post.php">
-                    <h2 class="h4">Alberto Savoia Can Teach You About Interior</h2></a>
+                  <div class="category"><a href="#"><?php echo $result['name']; ?></a></div><a href="post.php?id=<?php echo $result['id']; ?>">
+                    <h2 class="h4"><?php echo $result['title']; ?></h2></a>
                 </header>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrude consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-                <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
-                    <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid"></div>
-                    <div class="title"><span>John Doe</span></div></a>
-                  <div class="date"><i class="icon-clock"></i> 2 months ago</div>
+                <p><?php echo $format->textShorten($result['description'], 320); ?> <a href="post.php?id=<?php echo $result['id']; ?>" class="readmore"> Read More </a> </p>
+                <footer class="post-footer d-flex align-items-center"><a href="post.php?id=<?php echo $result['id']; ?>" class="author d-flex align-items-center flex-wrap">
+                    <div class="avatar"><img src="img/avatar-2.jpg" alt="..." class="img-fluid"></div>
+                    <div class="title"><span><?php echo $result['firstname'] . ' ' . $result['lastname']; ?></span></div></a>
+                  <div class="date"><i class="icon-clock"></i> <?php echo $format->humanTiming(strtotime($result['created_at'])); ?></div>
                   <div class="comments"><i class="icon-comment"></i>12</div>
                 </footer>
               </div>
             </div>
           </div>
-          <div class="image col-lg-5"><img src="img/featured-pic-1.jpeg" alt="..."></div>
+          <div class="image col-lg-5"><img src="<?php echo $result['image']; ?>" alt="..."></div>
+                <?php
+            }
+            }
+            ?>
         </div>
         <!-- Post        -->
-        <div class="row d-flex align-items-stretch">
-          <div class="image col-lg-5"><img src="img/featured-pic-2.jpeg" alt="..."></div>
+      <div class="row d-flex align-items-stretch row-image-left">
+        <?php
+        $query = "SELECT list_posts.id, title, description, image, list_posts.created_at, list_posts.category, name, firstname, lastname  FROM list_posts, list_category, list_user WHERE list_category.id = list_posts.category AND list_user.id = list_posts.author ORDER BY list_posts.id DESC limit 1 ";
+        $post = $database->select($query);
+        if($post){
+            while ($result = $post->fetch_assoc()) {
+                ?>
+          <div class="image col-lg-5"><img src="<?php echo $result['image']; ?>" alt="..."></div>
           <div class="text col-lg-7">
-            <div class="text-inner d-flex align-items-center">
-              <div class="content">
-                <header class="post-header">
-                  <div class="category"><a href="#">Business</a><a href="#">Technology</a></div><a href="post.php">
-                    <h2 class="h4">Alberto Savoia Can Teach You About Interior</h2></a>
-                </header>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrude consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-                <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
-                    <div class="avatar"><img src="img/avatar-2.jpg" alt="..." class="img-fluid"></div>
-                    <div class="title"><span>John Doe</span></div></a>
-                  <div class="date"><i class="icon-clock"></i> 2 months ago</div>
-                  <div class="comments"><i class="icon-comment"></i>12</div>
-                </footer>
+              <div class="text-inner d-flex align-items-center">
+                  <div class="content">
+                      <header class="post-header">
+                          <div class="category"><a href="#"><?php echo $result['name']; ?></a></div><a href="post.php?id=<?php echo $result['id']; ?>">
+                              <h2 class="h4"><?php echo $result['title']; ?></h2></a>
+                      </header>
+                      <p><?php echo $format->textShorten($result['description'], 320); ?> <a href="post.php?id=<?php echo $result['id']; ?>" class="readmore"> Read More </a> </p>
+                      <footer class="post-footer d-flex align-items-center"><a href="post.php?id=<?php echo $result['id']; ?>" class="author d-flex align-items-center flex-wrap">
+                              <div class="avatar"><img src="img/avatar-2.jpg" alt="..." class="img-fluid"></div>
+                              <div class="title"><span><?php echo $result['firstname'] . ' ' . $result['lastname']; ?></span></div></a>
+                          <div class="date"><i class="icon-clock"></i> <?php echo $format->humanTiming(strtotime($result['created_at'])); ?></div>
+                          <div class="comments"><i class="icon-comment"></i>12</div>
+                      </footer>
+                  </div>
               </div>
-            </div>
           </div>
-        </div>
+                <?php
+            }
+        }
+        ?>
+      </div>
         <!-- Post                            -->
         <div class="row d-flex align-items-stretch">
-          <div class="text col-lg-7">
-            <div class="text-inner d-flex align-items-center">
-              <div class="content">
-                <header class="post-header">
-                  <div class="category"><a href="#">Business</a><a href="#">Technology</a></div><a href="post.php">
-                    <h2 class="h4">Alberto Savoia Can Teach You About Interior</h2></a>
-                </header>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrude consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-                <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
-                    <div class="avatar"><img src="img/avatar-3.jpg" alt="..." class="img-fluid"></div>
-                    <div class="title"><span>John Doe</span></div></a>
-                  <div class="date"><i class="icon-clock"></i> 2 months ago</div>
-                  <div class="comments"><i class="icon-comment"></i>12</div>
-                </footer>
-              </div>
-            </div>
-          </div>
-          <div class="image col-lg-5"><img src="img/featured-pic-3.jpeg" alt="..."></div>
+<!--            third post will go here-->
         </div>
       </div>
     </section>
     <!-- Divider Section-->
-    <section style="background: url(img/divider-bg.jpg); background-size: cover; background-position: center bottom" class="divider">
+        <?php
+        $query = "SELECT * FROM list_posts ORDER BY id DESC LIMIT 1";
+        $post = $database->select($query);
+        if($post){
+            while($result = $post->fetch_assoc()){
+        ?>
+    <section style="background: url(<?php echo $result['image']; ?>); background-size: cover; background-position: center bottom" class="divider">
       <div class="container">
         <div class="row">
           <div class="col-md-7">
-            <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</h2><a href="#" class="hero-link">View More</a>
+            <h2><?php echo $result['title']; ?></h2><a href="post.php?id=<?php echo $result['id']; ?>" class="hero-link">View More</a>
           </div>
         </div>
       </div>
     </section>
+         <?php
+                }
+             }
+          ?>
     <!-- Latest Posts -->
     <section class="latest-posts"> 
       <div class="container">

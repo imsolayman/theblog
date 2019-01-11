@@ -1,9 +1,11 @@
 <?php include '../../config/config.php'; ?>
+<?php include '../../lib/session.php'; ?>
 <?php include '../../lib/database.php'; ?>
 <?php include '../../lib/format.php'; ?>
 <?php
-$database = new Database();
-$format = new Format();
+    Session::checkLogin();
+    $database = new Database();
+    $format = new Format();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,13 +51,34 @@ $format = new Format();
                         <h3 class="panel-title">Please Sign In</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form">
+                        <?php
+                            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                                $email = $format->validation($_POST['email']);
+                                $password = $format->validation(md5($_POST['password']));
+                                $email = mysqli_real_escape_string($database->link, $email);
+                                $password = mysqli_real_escape_string($database->link, $password);
+
+                                $query = "SELECT * FROM list_user WHERE email = '$email' AND password = '$password' ";
+                                $result = $database->select($query);
+                                if($result != false){
+                                    $value = $result->fetch_assoc();
+                                    session::set("login", true);
+                                    session::set("userName", $value['username']);
+                                    session::set("userId", $value['id']);
+                                    session::set("userRole", $value['role']);
+                                    header("Location: index.php");
+                                }else{
+                                    echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Incorrect email and password !!</div>";
+                                }
+                            }
+                        ?>
+                        <form action="" role="form" method="post">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                    <input class="form-control" placeholder="E-mail" name="email" type="text" required autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    <input class="form-control" placeholder="Password" name="password" type="password" value="" required>
                                 </div>
                                 <div class="checkbox">
                                     <label>
@@ -63,7 +86,7 @@ $format = new Format();
                                     </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a>
+                                <input type="submit" name="submit" class="btn btn-lg btn-success btn-block" value="Login">
                             </fieldset>
                         </form>
                     </div>

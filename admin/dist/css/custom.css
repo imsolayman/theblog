@@ -1,8 +1,23 @@
 /*customize.php form*/
-.form-inline.title-form input {
+.title-panel{
+    padding-top: 41px;
+    padding-bottom: 35px;
+}
+.form-inline.title-form input[type="text"] {
     width: 315px;
 }
 /*menu.php form*/
 .menu-form{
     padding: 10px 0;
+}
+.menu-list > li > a {
+    display: inline;
+    padding: 0;
+}
+.menu-list > li{
+    padding: 10px 10px;
+    border-bottom: 1px solid #ddd;
+}
+.menu-list li .btn-info {
+    width: 100%;
 }

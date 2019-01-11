@@ -39,7 +39,7 @@
                                 <div class="title">
                                     <span><?php echo $result['firstname'] . ' ' . $result['lastname']; ?></span></div>
                             </a>
-                            <div class="date"><i class="icon-clock"></i> 2 months ago</div>
+                            <div class="date"><i class="icon-clock"></i><?php echo $format->humanTiming(strtotime($result['created_at'])); ?></div>
                             <div class="comments meta-last"><i class="icon-comment"></i>12</div>
                         </footer>
                     </div>

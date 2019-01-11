@@ -1,9 +1,17 @@
 <?php include '../../config/config.php'; ?>
+<?php include '../../lib/session.php'; ?>
 <?php include '../../lib/database.php'; ?>
 <?php include '../../lib/format.php'; ?>
 <?php
-$database = new Database();
-$format = new Format();
+    Session::checkSession();
+    $database = new Database();
+    $format = new Format();
+?>
+<?php
+    header("Cache-Control: no-cache, must-revalidate"); //HTTP 1.1
+    header("Pragma: no-cache"); //HTTP 1.0
+    header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+    header("Cache-Control: max-age=2592000");
 ?>
 
 <!DOCTYPE html>
@@ -62,6 +70,9 @@ $format = new Format();
         <!-- /.navbar-header -->
 
         <ul class="nav navbar-top-links navbar-right">
+            <li>
+                <a href="http://theblog.test/" target="_blank"><i class="fa fa-globe fa-fw"></i></a>
+            </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
@@ -257,12 +268,17 @@ $format = new Format();
                     <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
+                    <?php
+                        if(isset($_GET['action']) && $_GET['action'] == "logout"){
+                            Session::destroy();
+                        }
+                    ?>
                     <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
                     </li>
                     <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="login.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a href="?action=logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->

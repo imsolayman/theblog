@@ -56,31 +56,36 @@
         <div class="container">
             <!-- Navbar Brand -->
             <div class="navbar-header d-flex align-items-center justify-content-between">
-                <!-- Navbar Brand --><a href="index.php" class="navbar-brand">Bootstrap Blog</a>
+                <?php
+                    $query = "SELECT * FROM list_customize WHERE id = '1'  ";
+                    $data = $database->select($query);
+                    if($data){
+                    while($result = $data->fetch_assoc()){
+                ?>
+                <!-- Navbar Brand --><a href="index.php" class="navbar-brand"> <img src="admin/<?php echo $result['logo']; ?>" alt="" height="25px" width="25px"> <?php echo $result['title']; ?></a>
                 <!-- Toggle Button-->
                 <button type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span></span><span></span><span></span></button>
+                <?php
+                        }
+                    }
+                ?>
             </div>
             <!-- Navbar Menu -->
             <div id="navbarcollapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="index.php" class="nav-link active ">Home</a>
-                    </li>
                     <?php
-                        $query = "SELECT * FROM list_category ORDER BY id ASC  LIMIT 3";
-                        $category = $database->select($query);
-                        if($category){
-                        while($result = $category->fetch_assoc()){
+                        $query = "SELECT * FROM list_mainmenu ORDER BY id ASC";
+                        $data = $database->select($query);
+                        if($data){
+                            while($result = $data->fetch_assoc()){
                     ?>
-                    <li class="nav-item"><a href="category.php?category=<?php echo $result['id']; ?>" class="nav-link "><?php echo $result['name']; ?></a>
+                    <li class="nav-item"><a href="<?php echo $result['link']; ?>" class="nav-link "><?php echo $result['title']; ?></a> <!--class active was added earlier-->
                     </li>
-                    <?php
+                    </li>
+                     <?php
                             }
                         }
                     ?>
-                    <li class="nav-item"><a href="blog.php" class="nav-link ">Blog</a>
-                    </li>
-                    <li class="nav-item"><a href="contact.php" class="nav-link ">Contact</a>
-                    </li>
                 </ul>
                 <div class="navbar-text"><a href="#" class="search-btn"><i class="icon-search-1"></i></a></div>
                 <ul class="langs navbar-text"><a href="#" class="active">EN</a><span>           </span><a href="#">ES</a></ul>

@@ -5,51 +5,101 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="logo">
-                    <h6 class="text-white">Bootstrap Blog</h6>
+                    <?php
+                        $query = "SELECT * FROM list_customize";
+                        $data = $database->select($query);
+                        if($data){
+                        while($result = $data->fetch_assoc()){
+                    ?>
+                    <h6 class="text-white"><?php echo $result['title']; ?></h6>
+                    <?php
+                            }
+                        }
+                    ?>
                 </div>
                 <div class="contact-details">
-                    <p>53 Broadway, Broklyn, NY 11249</p>
-                    <p>Phone: (020) 123 456 789</p>
-                    <p>Email: <a href="mailto:info@company.com">Info@Company.com</a></p>
+                    <?php
+                        $query = "SELECT * FROM list_customize";
+                        $data = $database->select($query);
+                        if($data){
+                        while($result = $data->fetch_assoc()){
+                    ?>
+                    <p><?php echo $result['address']; ?></p>
+                    <p><?php echo $result['phone']; ?></p>
+                    <p><?php echo $result['email']; ?></p>
+                    <?php
+                           }
+                        }
+                    ?>
                     <ul class="social-menu">
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-behance"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                        <?php
+                            $query = "SELECT * FROM list_social";
+                            $data = $database->select($query);
+                            if($data){
+                            while($result = $data->fetch_assoc()){
+                        ?>
+                        <li class="list-inline-item"><a href="<?php echo $result['facebook']; ?>" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="<?php echo $result['twitter']; ?>" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="<?php echo $result['instagram']; ?>" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="<?php echo $result['skype']; ?>" target="_blank"><i class="fa fa-skype"></i></a></li>
+                        <li class="list-inline-item"><a href="<?php echo $result['linkedin']; ?>" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                        <li class="list-inline-item"><a href="<?php echo $result['youtube']; ?>" target="_blank"><i class="fa fa-youtube"></i></a></li>
+                        <?php
+                                }
+                            }
+                        ?>
                     </ul>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="menus d-flex">
                     <ul class="list-unstyled">
-                        <li> <a href="http://theblog.test/admin/" target="_blank">My Account</a></li>
-                        <li> <a href="#">Add Listing</a></li>
-                        <li> <a href="#">Pricing</a></li>
-                        <li> <a href="#">Privacy &amp; Policy</a></li>
+                        <?php
+                            $query = "SELECT * FROM list_footermenu ORDER BY id ASC LIMIT 4";
+                            $data = $database->select($query);
+                            if($data){
+                            while($result = $data->fetch_assoc()){
+                        ?>
+                        <li> <a href="<?php echo $result['link']; ?>"><?php echo $result['title']; ?></a></li>
+                        <?php
+                                }
+                            }
+                        ?>
                     </ul>
                     <ul class="list-unstyled">
-                        <li> <a href="#">Our Partners</a></li>
-                        <li> <a href="#">FAQ</a></li>
-                        <li> <a href="#">How It Works</a></li>
-                        <li> <a href="#">Contact</a></li>
+                        <?php
+                            $query = "SELECT * FROM list_footermenu ORDER BY id DESC LIMIT 4";
+                            $data = $database->select($query);
+                            if($data){
+                            while($result = $data->fetch_assoc()){
+                        ?>
+                        <li> <a href="<?php echo $result['link']; ?>"><?php echo $result['title']; ?></a></li>
+                        <?php
+                             }
+                          }
+                        ?>
                     </ul>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="latest-posts"><a href="#">
+                <div class="latest-posts">
+                    <?php
+                        $query = "SELECT * FROM list_posts ORDER BY id DESC LIMIT 2";
+                        $post = $database->select($query);
+                        if($post){
+                        while($result = $post->fetch_assoc()){
+                    ?>
+                    <a href="post.php?id=<?php echo $result['id']; ?>">
                         <div class="post d-flex align-items-center">
-                            <div class="image"><img src="img/small-thumbnail-1.jpg" alt="..." class="img-fluid"></div>
-                            <div class="title"><strong>Hotels for all budgets</strong><span class="date last-meta">October 26, 2016</span></div>
-                        </div></a><a href="#">
-                        <div class="post d-flex align-items-center">
-                            <div class="image"><img src="img/small-thumbnail-2.jpg" alt="..." class="img-fluid"></div>
-                            <div class="title"><strong>Great street atrs in London</strong><span class="date last-meta">October 26, 2016</span></div>
-                        </div></a><a href="#">
-                        <div class="post d-flex align-items-center">
-                            <div class="image"><img src="img/small-thumbnail-3.jpg" alt="..." class="img-fluid"></div>
-                            <div class="title"><strong>Best coffee shops in Sydney</strong><span class="date last-meta">October 26, 2016</span></div>
-                        </div></a></div>
+                            <div class="image"><img src="<?php echo $result['image']; ?>" alt="..." class="img-fluid"></div>
+                            <div class="title"><strong><?php echo $result['title']; ?></strong><span class="date last-meta"><?php echo $format->formatYear($result['created_at']); ?></span></div>
+                        </div>
+                    </a>
+                    <?php
+                            }
+                        }
+                    ?>
+                </div>
             </div>
         </div>
     </div>
@@ -57,7 +107,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p>&copy; 2017. All rights reserved. Your great site.</p>
+                    <?php
+                        $query = "SELECT * FROM list_customize";
+                        $post = $database->select($query);
+                        if($post){
+                        while($result = $post->fetch_assoc()){
+                    ?>
+                    <p>&copy; <?php echo $result['copyright']; ?></p>
+                    <?php
+                            }
+                        }
+                    ?>
                 </div>
                 <div class="col-md-6 text-right">
                     <p>Template By <a href="https://bootstraptemple.com" class="text-white">Bootstrap Temple</a>

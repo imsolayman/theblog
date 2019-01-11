@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 05, 2019 at 06:38 AM
+-- Generation Time: Jan 11, 2019 at 10:35 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.11
 
@@ -39,7 +39,144 @@ CREATE TABLE `list_category` (
 
 INSERT INTO `list_category` (`id`, `name`) VALUES
 (1, 'wordpress'),
-(2, 'self development');
+(2, 'lifestyle'),
+(3, 'marketing'),
+(4, 'mobile');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `list_comment`
+--
+
+CREATE TABLE `list_comment` (
+  `id` int(11) NOT NULL,
+  `post` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `comment` text NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `list_comment`
+--
+
+INSERT INTO `list_comment` (`id`, `post`, `name`, `email`, `comment`, `status`, `created_at`) VALUES
+(1, 6, 'Jhon doe', 'jhon@mail.com', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy t', 0, '2019-01-06 06:29:23'),
+(2, 6, 'Tahsin Alam', 'tah@gmaio.com', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy t', 0, '2019-01-06 06:30:35'),
+(3, 1, 'Solayman Hossain', 'moshir@gmail.com', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy t', 0, '2019-01-06 08:01:33'),
+(4, 6, 'Arif Rahman', 'arfi@mailc.om', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy t', 0, '2019-01-06 08:05:40'),
+(5, 5, 'Fahad Masud', 'alim@mail.com', '&lt;p&gt;Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard &lt;a href=&quot;#&quot;&gt;dummy&lt;/a&gt; tafsd&lt;/p&gt;', 0, '2019-01-06 08:07:47'),
+(6, 1, 'Moh sm', 'mail@ma.co', '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard <a href=\"#\">dummy</a> tafsd</p>', 0, '2019-01-06 08:29:06'),
+(7, 6, 'My name', 'alim@mail.com', 'gsdfa', 0, '2019-01-06 08:31:41');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `list_contact`
+--
+
+CREATE TABLE `list_contact` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `list_contact`
+--
+
+INSERT INTO `list_contact` (`id`, `name`, `email`, `subject`, `description`, `status`, `created_at`) VALUES
+(1, 'Solayman Hossain', 'solaymanict@gmail.com', 'Test Mail', 'Lorem Ipsum ha sido el texto de relleno estÃ¡ndar de las industrias desde el aÃ±o 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usÃ³ una galerÃ­a de textos y los mezclÃ³ de tal manera que logrÃ³ hacer un libro de textos especimen. No sÃ³lo sobreviviÃ³ 500 aÃ±os, sino que tambien ingresÃ³ como texto de relleno en documentos electrÃ³nicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creaciÃ³n de las hojas &quot;Letraset&quot;, las cuales contenian pasajes de Lorem Ipsum, y mÃ¡s recientemente con software de autoediciÃ³n, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.', 1, '2019-01-05 17:34:46'),
+(2, 'Nabil Chowdhury', 'nail@mgila.com', 'Nabil query', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 1, '2019-01-05 17:37:50'),
+(3, 'Abdu;', 'alim@mail.com', 'Alim\'s mail', 'He is a jklaf eed', 1, '2019-01-06 05:09:20'),
+(4, 'fsa', 'fds', 'fsdf', 'dsaf', 1, '2019-01-06 05:09:41'),
+(5, 'Abdul', 'halim@gmailc.om', 'You suybeje', 'Je akdsfj kl afsd', 1, '2019-01-06 05:13:24');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `list_customize`
+--
+
+CREATE TABLE `list_customize` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `tagline` varchar(255) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `logo` varchar(255) NOT NULL,
+  `textlogo` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `copyright` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
+  `updated_at` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `list_customize`
+--
+
+INSERT INTO `list_customize` (`id`, `title`, `tagline`, `url`, `logo`, `textlogo`, `address`, `phone`, `email`, `copyright`, `status`, `updated_at`) VALUES
+(1, 'Bootstrap Blog', 'B4 Template by Bootstrap Temple', 'http://theblog.test', 'upload/logo.png', 'Bootstrap Blog', '53 Broadway, Broklyn, NY 11249', 'Phone: (+88) 01650 604 060', 'Email: Info@mycompany.com', '2019. All rights reserved. Your great site.', 1, '2019-01-11 09:17:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `list_footermenu`
+--
+
+CREATE TABLE `list_footermenu` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `link` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `list_footermenu`
+--
+
+INSERT INTO `list_footermenu` (`id`, `title`, `link`) VALUES
+(1, 'My Account', 'http://theblog.test/admin/'),
+(3, 'Add Listing', '#'),
+(6, 'Pricing', '#'),
+(10, 'Privacy &amp; Policy', '#'),
+(12, 'Our Partners', '#'),
+(13, 'FAQ', '#'),
+(14, 'How it works', '#'),
+(15, 'Contact', '#');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `list_mainmenu`
+--
+
+CREATE TABLE `list_mainmenu` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `link` varchar(255) NOT NULL,
+  `parent_id` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `list_mainmenu`
+--
+
+INSERT INTO `list_mainmenu` (`id`, `title`, `link`, `parent_id`) VALUES
+(5, 'Home', 'http://theblog.test/index.php', 0),
+(7, 'WordPress', 'http://theblog.test/category.php?category=1', 0),
+(8, 'Lifestyle', 'http://theblog.test/category.php?category=2', 0),
+(14, 'Marketing', 'http://theblog.test/category.php?category=3', 0),
+(18, 'Blog', 'http://theblog.test/blog.php', 0),
+(19, 'Contact', 'http://theblog.test/contact.php', 0);
 
 -- --------------------------------------------------------
 
@@ -64,8 +201,36 @@ CREATE TABLE `list_posts` (
 --
 
 INSERT INTO `list_posts` (`id`, `title`, `description`, `category`, `image`, `tags`, `author`, `userid`, `created_at`) VALUES
-(1, 'Diversity in Engineering: The Effect on Questions', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 1, '', 'wordpress, website, freelancing', 1, 1, '2019-01-04 18:01:02'),
-(2, 'Alberto Savoia Can Teach You About Interior', 'div Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda temporibus iusto voluptates deleniti similique rerum ducimus sint ex odio saepe. Sapiente quae pariatur ratione quis perspiciatis deleniti accusantium\r\n\r\n    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.\r\n    Someone famous in Source Title\r\n\r\nquasi nam. Libero dicta eum recusandae, commodi, ad, autem at ea iusto numquam veritatis, officiis. Accusantium optio minus, voluptatem? Quia reprehenderit, veniam quibusdam provident, fugit iusto ullam voluptas neque soluta adipisci ad.\r\n\r\ndiv Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda temporibus iusto voluptates deleniti similique rerum ducimus sint ex odio saepe. Sapiente quae pariatur ratione quis perspiciatis deleniti accusantium\r\n\r\n    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.\r\n    Someone famous in Source Title\r\n\r\nquasi nam. Libero dicta eum recusandae, commodi, ad, autem at ea iusto numquam veritatis, officiis. Accusantium optio minus, voluptatem? Quia reprehenderit, veniam quibusdam provident, fugit iusto ullam voluptas neque soluta adipisci ad.', 2, '', 'life, development, health', 2, 2, '2019-01-04 18:02:05');
+(1, 'Diversity in Engineering: The Effect on ', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\r\n                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\r\n                  <h3>Lorem Ipsum Dolor</h3>\r\n                  <p>div Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda temporibus iusto voluptates deleniti similique rerum ducimus sint ex odio saepe. Sapiente quae pariatur ratione quis perspiciatis deleniti accusantium</p>\r\n                  <blockquote class=\"blockquote\">\r\n                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>\r\n                    <footer class=\"blockquote-footer\">Someone famous in\r\n                      <cite title=\"Source Title\">Source Title</cite>\r\n                    </footer>\r\n                  </blockquote>\r\n                  <p>quasi nam. Libero dicta eum recusandae, commodi, ad, autem at ea iusto numquam veritatis, officiis. Accusantium optio minus, voluptatem? Quia reprehenderit, veniam quibusdam provident, fugit iusto ullam voluptas neque soluta adipisci ad.</p>', 1, 'img/blog-2.jpg', 'wordpress', 1, 1, '2019-01-04 18:01:02'),
+(2, 'Alberto Savoia Can Teach You About Interior', '<p>div Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda temporibus iusto voluptates deleniti similique rerum ducimus sint ex odio saepe. Sapiente quae pariatur ratione quis perspiciatis deleniti accusantium\r\n\r\n    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.\r\n    Someone famous in Source Title\r\n\r\nquasi nam. Libero dicta eum recusandae, commodi, ad, autem at ea iusto numquam veritatis, officiis. Accusantium optio minus, voluptatem? Quia reprehenderit, veniam quibusdam provident, fugit iusto ullam voluptas neque soluta adipisci ad.\r\n\r\ndiv Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda temporibus iusto voluptates deleniti similique rerum ducimus sint ex odio saepe. Sapiente quae pariatur ratione quis perspiciatis deleniti accusantium\r\n\r\n    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.\r\n    Someone famous in Source Title</p>\r\n\r\n<p>quasi nam. Libero dicta eum recusandae, commodi, ad, autem at ea iusto numquam veritatis, officiis. Accusantium optio minus, voluptatem? Quia reprehenderit, veniam quibusdam provident, fugit iusto ullam voluptas neque soluta adipisci ad.</p>', 3, 'img/blog-3.jpg', 'life', 2, 2, '2019-01-04 18:02:05'),
+(3, 'Ways to remember your important ideas', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\r\n                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\r\n                  <h3>Lorem Ipsum Dolor</h3>\r\n                  <p>div Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda temporibus iusto voluptates deleniti similique rerum ducimus sint ex odio saepe. Sapiente quae pariatur ratione quis perspiciatis deleniti accusantium</p>\r\n                  <blockquote class=\"blockquote\">\r\n                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>\r\n                    <footer class=\"blockquote-footer\">Someone famous in\r\n                      <cite title=\"Source Title\">Source Title</cite>\r\n                    </footer>\r\n                  </blockquote>\r\n                  <p>quasi nam. Libero dicta eum recusandae, commodi, ad, autem at ea iusto numquam veritatis, officiis. Accusantium optio minus, voluptatem? Quia reprehenderit, veniam quibusdam provident, fugit iusto ullam voluptas neque soluta adipisci ad.</p>', 4, 'img/blog-1.jpg', 'site, blog', 1, 1, '2019-01-05 06:48:38'),
+(4, 'Readable content of a page when looking at its layout', '<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc. \r\n\r\nThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All</p><p> the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>', 2, 'img/blog-3.jpg', 'lifestyle', 1, 1, '2019-01-05 08:28:54'),
+(5, 'De usar Lorem Ipsum es que tiene una distribución más', '<p>Mr korim ali Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\r\n                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\r\n                  <h3>Lorem Ipsum Dolor</h3>\r\n                  <p>div Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda temporibus iusto voluptates deleniti similique rerum ducimus sint ex odio saepe. Sapiente quae pariatur ratione quis perspiciatis deleniti accusantium</p>\r\n                  <blockquote class=\"blockquote\">\r\n                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>\r\n                    <footer class=\"blockquote-footer\">Someone famous in\r\n                      <cite title=\"Source Title\">Source Title</cite>\r\n                    </footer>\r\n                  </blockquote>\r\n                  <p>quasi nam. Libero dicta eum recusandae, commodi, ad, autem at ea iusto numquam veritatis, officiis. Accusantium optio minus, voluptatem? Quia reprehenderit, veniam quibusdam provident, fugit iusto ullam voluptas neque soluta adipisci ad.</p>', 2, 'img/blog-1.jpg', 'blog', 1, 1, '2019-01-05 08:46:26'),
+(6, 'Dcomo por ejemplo Aldus PageMaker, el cual incluye', '<p>Lorem Ipsum ha sido el texto de relleno estándar de las  nabil besi buje industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas \"Letraset\", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum. \r\nLorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer </p><p>un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas \"Letraset\", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.</p>', 1, 'img/blog-2.jpg', 'php', 2, 2, '2019-01-05 08:47:24'),
+(7, 'Place a nice introduction here to catch \r\n', 'Place a nice introduction here to catch reader\'s attention. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderi.\r\n\r\nPlace a nice introduction here to catch reader\'s attention. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderi.\r\n\r\nPlace a nice introduction here to catch reader\'s attention. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderi.', 4, 'img/blog-1.jpg', 'mobile', 1, 1, '2019-01-11 08:15:32');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `list_social`
+--
+
+CREATE TABLE `list_social` (
+  `id` int(11) NOT NULL,
+  `facebook` varchar(255) NOT NULL,
+  `twitter` varchar(255) NOT NULL,
+  `instagram` varchar(255) NOT NULL,
+  `skype` varchar(255) NOT NULL,
+  `linkedin` varchar(255) NOT NULL,
+  `youtube` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `list_social`
+--
+
+INSERT INTO `list_social` (`id`, `facebook`, `twitter`, `instagram`, `skype`, `linkedin`, `youtube`) VALUES
+(1, 'https://www.facebook.com/company', 'https://www.twitter.com/company', 'https://www.instagram.com/company', 'live:company', 'https://www.linkedin.com/company', 'https://www.youtube.com/channel/company');
 
 -- --------------------------------------------------------
 
@@ -89,7 +254,8 @@ INSERT INTO `list_subscribe` (`id`, `email`) VALUES
 (4, 'demo4@mail.com'),
 (5, 'demo5@mail.com'),
 (6, 'demo4@emaol.com'),
-(7, 'nabil@mail.com');
+(7, 'nabil@mail.com'),
+(8, 'alim@mail.com');
 
 -- --------------------------------------------------------
 
@@ -116,7 +282,7 @@ CREATE TABLE `list_user` (
 --
 
 INSERT INTO `list_user` (`id`, `firstname`, `lastname`, `username`, `photo`, `email`, `details`, `password`, `birth`, `role`, `created_at`) VALUES
-(1, 'Solayman', 'Hossain', 'solaymanict', '', 'solaymanict@gmail.com', 'This is Solayman Hossain, a professional web developer. ', '', '1995-08-16', 1, '2019-01-04 17:56:53'),
+(1, 'Solayman', 'Hossain', 'solaymanict', '', 'admin@mail.com', 'This is Solayman Hossain, a professional web developer. ', 'e10adc3949ba59abbe56e057f20f883e', '1995-08-16', 1, '2019-01-04 17:56:53'),
 (2, 'Nabil', 'Chowdhury', 'nabil1', '', 'nabil@gmail.com', 'This is Mr Nabil', '', '2019-01-09', 1, '2019-01-04 17:58:21');
 
 --
@@ -130,6 +296,37 @@ ALTER TABLE `list_category`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `list_comment`
+--
+ALTER TABLE `list_comment`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `post` (`post`);
+
+--
+-- Indexes for table `list_contact`
+--
+ALTER TABLE `list_contact`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `list_customize`
+--
+ALTER TABLE `list_customize`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `list_footermenu`
+--
+ALTER TABLE `list_footermenu`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `list_mainmenu`
+--
+ALTER TABLE `list_mainmenu`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `list_posts`
 --
 ALTER TABLE `list_posts`
@@ -137,6 +334,12 @@ ALTER TABLE `list_posts`
   ADD KEY `category` (`category`),
   ADD KEY `author` (`author`),
   ADD KEY `userid` (`userid`);
+
+--
+-- Indexes for table `list_social`
+--
+ALTER TABLE `list_social`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `list_subscribe`
@@ -158,19 +361,55 @@ ALTER TABLE `list_user`
 -- AUTO_INCREMENT for table `list_category`
 --
 ALTER TABLE `list_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `list_comment`
+--
+ALTER TABLE `list_comment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `list_contact`
+--
+ALTER TABLE `list_contact`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `list_customize`
+--
+ALTER TABLE `list_customize`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `list_footermenu`
+--
+ALTER TABLE `list_footermenu`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `list_mainmenu`
+--
+ALTER TABLE `list_mainmenu`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `list_posts`
 --
 ALTER TABLE `list_posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `list_social`
+--
+ALTER TABLE `list_social`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `list_subscribe`
 --
 ALTER TABLE `list_subscribe`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `list_user`
@@ -181,6 +420,12 @@ ALTER TABLE `list_user`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `list_comment`
+--
+ALTER TABLE `list_comment`
+  ADD CONSTRAINT `list_comment_ibfk_1` FOREIGN KEY (`post`) REFERENCES `list_posts` (`id`);
 
 --
 -- Constraints for table `list_posts`

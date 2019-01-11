@@ -1,141 +1,288 @@
-<?php include 'inc/header.php'; ?>
-    <div class="container">
-      <div class="row">
-        <!-- Latest Posts -->
-        <main class="post blog-post col-lg-8">
-          <div class="container">
-<!--              post starts here-->
-            <?php
-                if(!isset($_GET['id']) || $_GET['id'] == null){
-                    header("Location: 404.php");
-                }else{
-                    $id = $_GET['id'];
-                }
-            ?>
-            <?php
-            $query = "SELECT list_posts.id, title, description, image, tags, list_posts.created_at, list_posts.category, name, firstname, lastname  FROM list_posts, list_category, list_user WHERE list_category.id = list_posts.category AND list_user.id = list_posts.author AND list_posts.id = '$id' ";
-            $post = $database->select($query);
-            if($post){
-                while ($result = $post->fetch_assoc()) {
-            ?>
-            <div class="post-single">
-              <div class="post-thumbnail"><img src="<?php echo $result['image']; ?>" alt="..." class="img-fluid"></div>
-              <div class="post-details">
-                <div class="post-meta d-flex justify-content-between">
-                  <div class="category"><a href="#"><?php echo $result['name']; ?></a></div>
-                </div>
-                <h1><?php echo $result['title']; ?><a href="#"><i class="fa fa-bookmark-o"></i></a></h1>
-                <div class="post-footer d-flex align-items-center flex-column flex-sm-row"><a href="#" class="author d-flex align-items-center flex-wrap">
-                    <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid"></div>
-                    <div class="title"><span><?php echo $result['firstname'].' '.$result['lastname']; ?></span></div></a>
-                  <div class="d-flex align-items-center flex-wrap">
-                    <div class="date"><i class="icon-clock"></i> 2 months ago</div>
-                    <div class="views"><i class="icon-eye"></i> 500</div>
-                    <div class="comments meta-last"><i class="icon-comment"></i>12</div>
-                  </div>
-                </div>
-                <div class="post-body">
-                  <p class="lead"><?php echo $result['description']; ?></p>
-                </div>
-                <div class="post-tags"><a href="#" class="tag">#<?php echo $result['tags']; ?></a></div>
-<!--                  related post starts here-->
-                <div class="posts-nav d-flex justify-content-between align-items-stretch flex-column flex-md-row">
-                <?php
-                    $category = $result['category'];
-                    $query = "SELECT * FROM list_posts WHERE category = '$category' ORDER BY rand() LIMIT 1";
-                    $post = $database->select($query);
-                    if($post){
-                        while($result = $post->fetch_assoc()){
-                ?>
-                    <a href="#" class="prev-post text-left d-flex align-items-center">
-                    <div class="icon prev"><i class="fa fa-angle-left"></i></div>
-                    <div class="text"><strong class="text-primary">Previous Post </strong>
-                      <h6><?php echo $result['title']; ?></h6>
-                    </div></a>
+<?php include '../inc/header.php'; ?>
+<?php include '../inc/sidebar.php'; ?>
 
-                    <a href="#" class="next-post text-right d-flex align-items-center justify-content-end">
-                    <div class="text"><strong class="text-primary">Next Post </strong>
-                      <h6><?php echo $result['title']; ?></h6>
-                    </div>
-                    <div class="icon next"><i class="fa fa-angle-right">   </i></div></a>
-                 <?php
-                        }
-                    }else{
-                        echo "<h6>No related post available.</h6>";
-                    }
-                ?>
-                </div>
-              <?php
-                    }
-                }
-              ?>
-<!--                  comment starts here-->
-                <div class="post-comments">
-                  <header>
-                    <h3 class="h6">Post Comments<span class="no-of-comments">(3)</span></h3>
-                  </header>
-                  <div class="comment">
-                    <div class="comment-header d-flex justify-content-between">
-                      <div class="user d-flex align-items-center">
-                        <div class="image"><img src="img/user.svg" alt="..." class="img-fluid rounded-circle"></div>
-                        <div class="title"><strong>Jabi Hernandiz</strong><span class="date">May 2016</span></div>
-                      </div>
-                    </div>
-                    <div class="comment-body">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                    </div>
-                  </div>
-                  <div class="comment">
-                    <div class="comment-header d-flex justify-content-between">
-                      <div class="user d-flex align-items-center">
-                        <div class="image"><img src="img/user.svg" alt="..." class="img-fluid rounded-circle"></div>
-                        <div class="title"><strong>Nikolas</strong><span class="date">May 2016</span></div>
-                      </div>
-                    </div>
-                    <div class="comment-body">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                    </div>
-                  </div>
-                  <div class="comment">
-                    <div class="comment-header d-flex justify-content-between">
-                      <div class="user d-flex align-items-center">
-                        <div class="image"><img src="img/user.svg" alt="..." class="img-fluid rounded-circle"></div>
-                        <div class="title"><strong>John Doe</strong><span class="date">May 2016</span></div>
-                      </div>
-                    </div>
-                    <div class="comment-body">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                    </div>
-                  </div>
-                </div>
-<!--                  add comment starts here-->
-                <div class="add-comment">
-                  <header>
-                    <h3 class="h6">Leave a reply</h3>
-                  </header>
-                  <form action="#" class="commenting-form">
-                    <div class="row">
-                      <div class="form-group col-md-6">
-                        <input type="text" name="username" id="username" placeholder="Name" class="form-control">
-                      </div>
-                      <div class="form-group col-md-6">
-                        <input type="email" name="username" id="useremail" placeholder="Email Address (will not be published)" class="form-control">
-                      </div>
-                      <div class="form-group col-md-12">
-                        <textarea name="usercomment" id="usercomment" placeholder="Type your comment" class="form-control"></textarea>
-                      </div>
-                      <div class="form-group col-md-12">
-                        <button type="submit" class="btn btn-secondary">Submit Comment</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-<!--                  add comment starts here-->
-              </div>
+<!-- Page Content -->
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Customize</h1>
             </div>
-          </div>
-        </main>
-<?php include 'inc/sidebar.php'; ?>
-      </div>
+            <!-- /.col-lg-12 -->
+            <!--            customize content starts here-->
+            <div id="menu-panel">
+                <div class="col-lg-3">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Main Menu
+                        </div>
+                        <div class="panel-body">
+                            <div class="navbar-default">
+                                <div class="sidebar-nav">
+                                    <?php
+                                        if(isset($_GET['deletemain'])){
+                                            $id = $_GET['deletemain'];
+                                            $query = "DELETE FROM list_mainmenu WHERE id = '$id' ";
+                                            $deleted_row = $database->delete($query);
+                                            if($deleted_row){
+                                                echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Menu Deleted Successfully !</div>";
+                                            }else{
+                                                echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Something Went Woring !</div>";
+                                            }
+                                        }
+                                    ?>
+                                    <ul class="nav menu-list" id="side-menu">
+                                        <?php
+                                            $query = "SELECT * FROM list_mainmenu  ORDER BY id ASC";
+                                            $menu = $database->select($query);
+                                            if($menu){
+                                            while($result = $menu->fetch_assoc()){
+                                        ?>
+                                        <li>
+                                            <a href="<?php echo $result['link']; ?>" target="_blank"> <?php echo $result['title']; ?></a> <a href=""><i class="fa fa-edit fa-fw"></i></a>
+                                            <a onclick="return confirm('Are you sure?')" href="?deletemain=<?php echo $result['id']; ?>"><i class="fa fa-trash fa-fw"></i></a>
+                                        </li>
+                                        <?php
+                                              }
+                                            }
+                                        ?>
+                                        <li><button class="btn btn-info" data-target="#addMainMenu" data-toggle="modal">Add New Menu <i class="fa fa-plus fa-fw"></i></button></li>
+                                    </ul>
+<!--                                    update modal starts here-->
+                                    <div class="modal fade" id="addMainMenu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Main Menu</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="tab-pane fade active in" id="home">
+                                                        <?php
+                                                            if(isset($_POST["mainmenu"])){
+                                                                $title = $format->validation($_POST['title']);
+                                                                $link = $format->validation($_POST['link']);
+                                                                $title = mysqli_real_escape_string($database->link, $title);
+                                                                $link = mysqli_real_escape_string($database->link, $link);
+                                                                if($title == "" || $link == "" ){
+                                                                    echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Field must not be empty !</div>";
+                                                                }else{
+                                                                    $query = "INSERT INTO list_mainmenu (title, link) VALUES ('$title', '$link') ";
+                                                                    $inserted_row = $database->update($query);
+                                                                    if($inserted_row){
+                                                                        echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Title updated successfully !</div>";
+                                                                    }else{
+                                                                        echo "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Title not updated !</div>";
+                                                                    }
+                                                                }
+                                                            }
+                                                        ?>
+                                                        <form class="menu-form" action="" method="post">
+                                                            <div class="form-group col-md-4">
+                                                                <input type="text" name="title" class="form-control" id="inputPassword2" placeholder="title">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <input type="text" name="link" class="form-control" id="inputPassword2" placeholder="link">
+                                                            </div>
+                                                            <input type="submit" class="btn btn-primary mb-2" name="mainmenu" value="Add">
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+<!--                                update modal closes here-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            Add New Menu
+                        </div>
+                        <div class="panel-body">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#home" data-toggle="tab">Main Menu</a>
+                                </li>
+                                <li><a href="#profile" data-toggle="tab">Footer Menu</a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="home">
+                                    <?php
+                                    if(isset($_POST["mainmenu"])){
+                                        $title = $format->validation($_POST['title']);
+                                        $link = $format->validation($_POST['link']);
+                                        $title = mysqli_real_escape_string($database->link, $title);
+                                        $link = mysqli_real_escape_string($database->link, $link);
+                                        if($title == "" || $link == "" ){
+                                            echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Field must not be empty !</div>";
+                                        }else{
+                                            $query = "INSERT INTO list_mainmenu (title, link) VALUES ('$title', '$link') ";
+                                            $main_menu = $database->update($query);
+                                            if($main_menu){
+                                                echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Menu updated successfully !</div>";
+                                            }else{
+                                                echo "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Menu not updated !</div>";
+                                            }
+                                        }
+                                    }
+                                    ?>
+                                    <form class="menu-form" action="" method="post">
+                                        <div class="form-group col-md-4">
+                                            <input type="text" name="title" class="form-control" id="inputPassword2" placeholder="title">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="text" name="link" class="form-control" id="inputPassword2" placeholder="link">
+                                        </div>
+                                        <input type="submit" class="btn btn-primary mb-2" name="mainmenu" value="Add">
+                                    </form>
+                                </div>
+                                <div class="tab-pane fade" id="profile">
+                                    <?php
+                                    if(isset($_POST["footermenu"])){
+                                        $title = $format->validation($_POST['title']);
+                                        $link = $format->validation($_POST['link']);
+                                        $title = mysqli_real_escape_string($database->link, $title);
+                                        $link = mysqli_real_escape_string($database->link, $link);
+                                        if($title == "" || $link == "" ){
+                                            echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Field must not be empty !</div>";
+                                        }else{
+                                            $query = "INSERT INTO list_footermenu (title, link) VALUES ('$title', '$link') ";
+                                            $footer_menu = $database->update($query);
+                                            if($footer_menu){
+                                                echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Menu updated successfully !</div>";
+                                            }else{
+                                                echo "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Menu not updated !</div>";
+                                            }
+                                        }
+                                    }
+                                    ?>
+                                    <form class="menu-form" action="" method="post">
+                                        <div class="form-group col-md-4">
+                                            <input type="text" name="title" class="form-control" id="inputPassword2" placeholder="title">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="text" name="link" class="form-control" id="inputPassword2" placeholder="link">
+                                        </div>
+                                        <input type="submit" class="btn btn-primary mb-2" name="footermenu" value="Add">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-lg-4 -->
+                <div class="col-lg-3">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Footer Menu
+                        </div>
+                        <div class="panel-body">
+                            <div class="navbar-default">
+                                <div class="sidebar-nav">
+                                    <?php
+                                    if(isset($_GET['deletefooter'])){
+                                        $id = $_GET['deletefooter'];
+                                        $query = "DELETE FROM list_footermenu WHERE id = '$id' ";
+                                        $deleted_row = $database->delete($query);
+                                        if($deleted_row){
+                                            echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Menu Deleted Successfully !</div>";
+                                        }else{
+                                            echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Something Went Woring !</div>";
+                                        }
+                                    }
+                                    ?>
+                                    <ul class="nav menu-list" id="side-menu">
+                                        <?php
+                                            $query = "SELECT * FROM list_footermenu ORDER BY id ASC";
+                                            $menu = $database->select($query);
+                                            if($menu){
+                                                while($result = $menu->fetch_assoc()){
+                                                    ?>
+                                                    <li>
+                                                        <a href="<?php echo $result['link']; ?>" target="_blank"> <?php echo $result['title']; ?></a> <a href=""><i class="fa fa-edit fa-fw"></i></a>
+                                                        <a onclick="return confirm('Are you sure?')" href="?deletefooter=<?php echo $result['id']; ?>"><i class="fa fa-trash fa-fw"></i></a>
+                                                    </li>
+                                                    <?php
+                                                }
+                                            }
+                                        ?>
+                                        <li><button class="btn btn-info" data-target="#addFooterMenu" data-toggle="modal">Add New Menu <i class="fa fa-plus fa-fw"></i></button></li>
+                                    </ul>
+                                    <!--                                    update modal starts here-->
+                                    <div class="modal fade" id="addFooterMenu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Footer Menu</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="tab-pane fade active in" id="home">
+                                                        <?php
+                                                        if(isset($_POST["footermenu"])){
+                                                            $title = $format->validation($_POST['title']);
+                                                            $link = $format->validation($_POST['link']);
+                                                            $title = mysqli_real_escape_string($database->link, $title);
+                                                            $link = mysqli_real_escape_string($database->link, $link);
+                                                            if($title == "" || $link == "" ){
+                                                                echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Field must not be empty !</div>";
+                                                            }else{
+                                                                $query = "INSERT INTO list_footermenu (title, link) VALUES ('$title', '$link') ";
+                                                                $inserted_row = $database->update($query);
+                                                                if($inserted_row){
+                                                                    echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Title updated successfully !</div>";
+                                                                }else{
+                                                                    echo "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Title not updated !</div>";
+                                                                }
+                                                            }
+                                                        }
+                                                        ?>
+                                                        <form class="menu-form" action="" method="post">
+                                                            <div class="form-group col-md-4">
+                                                                <input type="text" name="title" class="form-control" id="inputPassword2" placeholder="title">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <input type="text" name="link" class="form-control" id="inputPassword2" placeholder="link">
+                                                            </div>
+                                                            <input type="submit" class="btn btn-primary mb-2" name="footermenu" value="Add">
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--                                update modal closes here-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-lg-4 -->
+            </div>
+            <!--            customize content starts here-->
+
+        </div>
+        <!-- /.row -->
     </div>
-<?php include 'inc/footer.php'; ?>
+    <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->
+<?php include '../inc/footer.php'; ?>
