@@ -47,7 +47,7 @@
                   <div class="category"><a href="#"><?php echo $result['name']; ?></a></div><a href="post.php?id=<?php echo $result['id']; ?>">
                     <h2 class="h4"><?php echo $result['title']; ?></h2></a>
                 </header>
-                <p><?php echo $format->textShorten($result['description'], 320); ?> <a href="post.php?id=<?php echo $result['id']; ?>" class="readmore"> Read More </a> </p>
+                <p><?php echo $format->textShorten($result['description'], 320); ?> <a href="post.php?id=<?php echo $result['id']; ?>" class="hero-link"> Read More </a> </p>
                 <footer class="post-footer d-flex align-items-center"><a href="post.php?id=<?php echo $result['id']; ?>" class="author d-flex align-items-center flex-wrap">
                     <div class="avatar"><img src="img/avatar-2.jpg" alt="..." class="img-fluid"></div>
                     <div class="title"><span><?php echo $result['firstname'] . ' ' . $result['lastname']; ?></span></div></a>
@@ -79,7 +79,7 @@
                           <div class="category"><a href="#"><?php echo $result['name']; ?></a></div><a href="post.php?id=<?php echo $result['id']; ?>">
                               <h2 class="h4"><?php echo $result['title']; ?></h2></a>
                       </header>
-                      <p><?php echo $format->textShorten($result['description'], 320); ?> <a href="post.php?id=<?php echo $result['id']; ?>" class="readmore"> Read More </a> </p>
+                      <p><?php echo $format->textShorten($result['description'], 320); ?> <a href="post.php?id=<?php echo $result['id']; ?>" class="hero-link"> Read More </a> </p>
                       <footer class="post-footer d-flex align-items-center"><a href="post.php?id=<?php echo $result['id']; ?>" class="author d-flex align-items-center flex-wrap">
                               <div class="avatar"><img src="img/avatar-2.jpg" alt="..." class="img-fluid"></div>
                               <div class="title"><span><?php echo $result['firstname'] . ' ' . $result['lastname']; ?></span></div></a>

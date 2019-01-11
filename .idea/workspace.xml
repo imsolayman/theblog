@@ -2,29 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2433a49a-024c-44eb-9622-d594f20674cf" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/admin/dist/css/custom.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/inc/footer.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/inc/header.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/inc/sidebar.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/pages/blank.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/pages/buttons.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/pages/customize.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/pages/flot.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/pages/forms.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/pages/grid.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/pages/icons.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/pages/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/pages/login.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/pages/menu.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/pages/morris.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/pages/notifications.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/pages/panels-wells.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/pages/tables.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/pages/typography.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/category.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/search.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/pages/editmenu.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/upload/logo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/dist/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/admin/dist/css/custom.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/inc/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/inc/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/pages/customize.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/pages/customize.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/pages/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/pages/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/pages/menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/pages/menu.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backup.txt" beforeDir="false" afterPath="$PROJECT_DIR$/backup.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog.php" beforeDir="false" afterPath="$PROJECT_DIR$/blog.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/custom.css" afterDir="false" />
@@ -110,7 +95,7 @@
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="323">
-              <caret line="113" column="37" selection-start-line="113" selection-start-column="37" selection-end-line="113" selection-end-column="37" />
+              <caret line="49" column="151" selection-start-line="49" selection-start-column="151" selection-end-line="49" selection-end-column="151" />
               <folding>
                 <element signature="e#5818#5921#0#HTML" expanded="true" />
               </folding>
@@ -127,20 +112,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin/dist/css/custom.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
-              <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+              <caret line="2" column="22" lean-forward="true" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/css/custom.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="573">
-              <caret line="65" column="1" selection-start-line="65" selection-start-column="1" selection-end-line="65" selection-end-column="1" />
+            <state relative-caret-position="556">
+              <caret line="64" column="1" selection-start-line="64" selection-start-column="1" selection-end-line="64" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -216,9 +201,9 @@
         <option value="$PROJECT_DIR$/admin/pages/customize.php" />
         <option value="$PROJECT_DIR$/inc/header.php" />
         <option value="$PROJECT_DIR$/post.php" />
-        <option value="$PROJECT_DIR$/css/custom.css" />
-        <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/admin/dist/css/custom.css" />
+        <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/css/custom.css" />
       </list>
     </option>
   </component>
@@ -354,12 +339,12 @@
       <workItem from="1547027237104" duration="11816000" />
       <workItem from="1547100011802" duration="9068000" />
       <workItem from="1547130107832" duration="10918000" />
-      <workItem from="1547193668755" duration="8931000" />
+      <workItem from="1547193668755" duration="9367000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="105234000" />
+    <option name="totallyTimeSpent" value="105670000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -661,27 +646,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/css/custom.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="573">
-          <caret line="65" column="1" selection-start-line="65" selection-start-column="1" selection-end-line="65" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/post.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="15" column="256" selection-start-line="15" selection-start-column="256" selection-end-line="15" selection-end-column="256" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="113" column="37" selection-start-line="113" selection-start-column="37" selection-end-line="113" selection-end-column="37" />
-          <folding>
-            <element signature="e#5818#5921#0#HTML" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -695,7 +663,24 @@
     <entry file="file://$PROJECT_DIR$/admin/dist/css/custom.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
-          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+          <caret line="2" column="22" lean-forward="true" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="49" column="151" selection-start-line="49" selection-start-column="151" selection-end-line="49" selection-end-column="151" />
+          <folding>
+            <element signature="e#5818#5921#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/custom.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="556">
+          <caret line="64" column="1" selection-start-line="64" selection-start-column="1" selection-end-line="64" selection-end-column="1" />
         </state>
       </provider>
     </entry>
