@@ -19,7 +19,7 @@
                     while ($result = $post->fetch_assoc()) {
             ?>
             <div class="post-single">
-              <div class="post-thumbnail"><img src="<?php echo $result['image']; ?>" alt="..." class="img-fluid"></div>
+              <div class="post-thumbnail"><img src="admin/<?php echo $result['image']; ?>" alt="..." class="img-fluid"></div>
               <div class="post-details">
                 <div class="post-meta d-flex justify-content-between">
                   <div class="category"><a href="#"><?php echo $result['name']; ?></a></div>
@@ -29,9 +29,21 @@
                     <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid"></div>
                     <div class="title"><span><?php echo $result['firstname'].' '.$result['lastname']; ?></span></div></a>
                   <div class="d-flex align-items-center flex-wrap">
-                    <div class="date"><i class="icon-clock"></i> 2 months ago</div>
+                    <div class="date"><i class="icon-clock"></i> <?php echo $format->humanTiming(strtotime($result['created_at'])); ?></div>
                     <div class="views"><i class="icon-eye"></i> 500</div>
-                    <div class="comments meta-last"><i class="icon-comment"></i>12</div>
+                    <div class="comments meta-last"><i class="icon-comment"></i>
+                        <?php
+                            $comid = $result['id'];
+                            $query = "SELECT * FROM list_comment WHERE post = '$comid' ";
+                            $comcount = $database->select($query);
+                            if($comcount){
+                                $count = mysqli_num_rows($comcount);
+                                echo $count;
+                            }else{
+                                echo 0;
+                            }
+                        ?>
+                    </div>
                   </div>
                 </div>
                 <div class="post-body">
@@ -68,7 +80,7 @@
 <!--                  comment starts here-->
                 <div class="post-comments">
                 <?php
-                    $query = "SELECT *  FROM list_comment WHERE post = '$id' ";
+                    $query = "SELECT *  FROM list_comment WHERE post = '$id' AND status = '1' ";
                     $comment = $database->select($query);
 //                    $comments = mysqli_num_rows($comment);
                 ?>
@@ -113,13 +125,14 @@
                             $comment = $_POST['comment'];
                             $name = mysqli_real_escape_string($database->link, $name);
                             $email = mysqli_real_escape_string($database->link, $email);
-//                            $comment = mysqli_real_escape_string($database->link, $comment);
+                            $ip = $_SERVER['REMOTE_ADDR']?:($_SERVER['HTTP_X_FORWARDED_FOR']?:$_SERVER['HTTP_CLIENT_IP']);
+
                             if($name == "" || $email == "" || $comment == ""){
                                 echo "<button class='btn btn-danger'>Error ! Field must not be empty</button>";
                             }elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
                                 echo "<button class='btn btn-danger'>Error ! Please enter a valid email address</button>";
                             }else {
-                                $query = "INSERT INTO list_comment (post, name, email, comment) VALUES ('$id', '$name', '$email', '$comment') ";
+                                $query = "INSERT INTO list_comment (post, name, email, comment, ip) VALUES ('$id', '$name', '$email', '$comment', '$ip') ";
                                 $insert_row = $database->insert($query);
                                 if ($insert_row) {
                                     echo "<button class='btn btn-success'>Thanks ! Your comment is awaiting for moderation</button>";

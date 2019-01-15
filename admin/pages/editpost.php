@@ -29,7 +29,6 @@
                             $tags = mysqli_real_escape_string($database->link, $_POST['tags']);
                             $metatitle = mysqli_real_escape_string($database->link, $_POST['metatitle']);
                             $metadescription = mysqli_real_escape_string($database->link, $_POST['metadescription']);
-                            $author = mysqli_real_escape_string($database->link, Session::get('userId'));
 
                             $permited  = array('jpg', 'jpeg', 'png', 'gif');
                             $file_name = $_FILES['image']['name'];
@@ -40,33 +39,32 @@
                             $file_ext = strtolower(end($div));
                             $unique_image = substr(md5(time()), 0, 10).'.'.$file_ext;
                             $uploaded_image = "../upload/post/".$unique_image;
-                            if($title == "" || $description == "" || $category == "" || $tags == "" || $metatitle == "" || $metadescription == "" || $author == ""){
+                            if($title == "" || $description == "" || $category == ""){
                                 echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Field must not be empty !</div>";
-                            }elseif($file_size>1048567){
+                            }else{
+                                if(!empty($file_name)){
+                                    if($file_size>1048567){
                                 echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Image Size should be less then 1MB !</div>";
                             }elseif(in_array($file_ext, $permited) === false) {
-                                echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>You can upload only:-"
-                                    .implode(', ', $permited)."</div>";
-                            }else{
-                                move_uploaded_file($file_temp, $uploaded_image);
-                                $query = "UPDATE list_posts
-                                          SET
-                                         'title' = '$title',
-                                         'description' = '$description',
-                                         'category' = '$category',
-                                         'image' = 'upload/post/$unique_image',
-                                         'tags' = '$tags',
-                                         'metatitle' = '$metatitle',
-                                         'metadescription' = '$metadescription',
-                                         'author' = '$author'
-                                         WHERE
-                                         id = '$id';
-                                        ";
-                                $updated_row = $database->insert($query);
-                                if($updated_row){
-                                    echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post updated successfully !</div>";
+                                echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>You can upload only:-".implode(', ', $permited)."</div>";
                                 }else{
-                                    echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post not updated !</div>";
+                                        move_uploaded_file($file_temp, $uploaded_image);
+                                        $query = "UPDATE `list_posts` SET `title`='$title',`description`='$description',`category`='$category',`image`='upload/post/$unique_image',`tags`='$tags',`metatitle`='$metatitle',`metadescription`='$metadescription' WHERE `id` = $id ";
+                                        $updated_row = $database->insert($query);
+                                        if($updated_row){
+                                            echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post updated successfully !  <a href='posts.php' class='btn btn-primary'>Back</a></div>";
+                                        }else{
+                                            echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post not updated !</div>";
+                                        }
+                                    }
+                                }else{
+                                    $query = "UPDATE `list_posts` SET `title`='$title',`description`='$description',`category`='$category', `tags`='$tags',`metatitle`='$metatitle',`metadescription`='$metadescription' WHERE `id` = $id ";
+                                    $updated_row = $database->insert($query);
+                                    if($updated_row){
+                                        echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post updated successfully !  <a href='posts.php' class='btn btn-primary'>Back</a></div>";
+                                    }else{
+                                        echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post not updated !</div>";
+                                    }
                                 }
                             }
                         }
@@ -97,7 +95,7 @@
                             </div>
                             <!-- /.col-lg-6 (nested) -->
                             <div class="col-lg-2">
-                                <input type="submit" name="publish" class="btn btn-success col-md-12 publish" value="Publish">
+                                <input type="submit" name="publish" class="btn btn-success col-md-12 publish" value="Update">
                                 <div class="form-group">
                                     <label for="">Tags</label>
                                     <input class="form-control"  name="tags" value="<?php echo $result['tags']; ?>">

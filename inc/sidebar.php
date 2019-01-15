@@ -26,7 +26,7 @@
              ?>
             <a href="post.php?id=<?php echo $result['id']; ?>">
                 <div class="item d-flex align-items-center">
-                    <div class="image"><img src="<?php echo $result['image']; ?>" alt="..." class="img-fluid" width="60px" height="60px"></div>
+                    <div class="image"><img src="admin/<?php echo $result['image']; ?>" alt="..." class="img-fluid" width="60px" height="60px"></div>
                     <div class="title"><strong><?php echo $result['title']; ?></strong>
                         <div class="d-flex align-items-center">
 <!--                            static elements-->
@@ -53,7 +53,21 @@
         if($category){
             while($result = $category->fetch_assoc()){
          ?>
-         <div class="item d-flex justify-content-between"><a href="category.php?category=<?php echo $result['id']; ?>"><?php echo $result['name']; ?></a><span>12</span></div> <!--here is one static value-->
+         <div class="item d-flex justify-content-between"><a href="category.php?category=<?php echo $result['id']; ?>"><?php echo $result['name']; ?></a>
+             <span>
+                <?php
+                $catid = $result['id'];
+                $query = "SELECT * FROM list_posts WHERE category = '$catid' ";
+                $catcount = $database->select($query);
+                if($catcount){
+                    $count = mysqli_num_rows($catcount);
+                    echo $count;
+                }else{
+                    echo 0;
+                }
+                ?>
+             </span>
+         </div> <!--here is one static value-->
          <?php
                      }
                 }else{

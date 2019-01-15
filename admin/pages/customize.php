@@ -85,11 +85,12 @@
                                             $same_name = 'logo'.'.'.$file_ext;
                                             $uploaded_image = "../upload/".$same_name;
 
-                                            if($file_size >1048567) {
+                                            if(empty($file_temp)){
+                                                echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Please select a logo !</div>";
+                                            }elseif($file_size >1048567) {
                                                 echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>File size can't be so much !</div>";
                                             }elseif(in_array($file_ext, $permited) === false) {
-                                                echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>You can upload only:-"
-                                                    .implode(', ', $permited)."</div>";
+                                                echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>You can upload only:-".implode(', ', $permited)."</div>";
                                             } else{
                                                 move_uploaded_file($file_temp, $uploaded_image);
                                                 $query = "UPDATE list_customize

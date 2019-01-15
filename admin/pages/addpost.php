@@ -1,13 +1,5 @@
 <?php include '../inc/header.php'; ?>
 <?php include '../inc/sidebar.php'; ?>
-<?php
-    if(!isset($_GET['edit']) || $_GET['edit'] == NULL){
-        echo "<script type='text/javascript'> window.location ='posts.php'; </script>";
-        //header("Location: posts.php");
-    }else{
-        $id = $_GET['edit'];
-    }
-?>
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
@@ -40,7 +32,7 @@
                             $file_ext = strtolower(end($div));
                             $unique_image = substr(md5(time()), 0, 10).'.'.$file_ext;
                             $uploaded_image = "../upload/post/".$unique_image;
-                            if($title == "" || $description == "" || $category == "" || $tags == "" || $metatitle == "" || $metadescription == "" || $author == ""){
+                            if($title == "" || $description == "" || $category == ""){
                                 echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Field must not be empty !</div>";
                             }elseif($file_size>1048567){
                                 echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Image Size should be less then 1MB !</div>";
@@ -49,50 +41,32 @@
                                     .implode(', ', $permited)."</div>";
                             }else{
                                 move_uploaded_file($file_temp, $uploaded_image);
-                                $query = "UPDATE list_posts
-                                          SET
-                                         'title' = '$title',
-                                         'description' = '$description',
-                                         'category' = '$category',
-                                         'image' = 'upload/post/$unique_image',
-                                         'tags' = '$tags',
-                                         'metatitle' = '$metatitle',
-                                         'metadescription' = '$metadescription',
-                                         'author' = '$author'
-                                         WHERE
-                                         id = '$id';
-                                        ";
-                                $updated_row = $database->insert($query);
-                                if($updated_row){
-                                    echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post updated successfully !</div>";
+                                $query = "INSERT INTO list_posts (title, description, category, image, tags, metatitle, metadescription, author) VALUES ('$title', '$description', '$category', 'upload/post/$unique_image', '$tags', '$metatitle', '$metadescription', '$author')";
+                                $inserted_row = $database->insert($query);
+                                if($inserted_row){
+                                    echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post inserted successfully !</div>";
                                 }else{
-                                    echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post not updated !</div>";
+                                    echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post not inserted !</div>";
                                 }
                             }
                         }
                         ?>
                         <form role="form" action="" method="post" enctype="multipart/form-data">
-                            <?php
-                                $query = "SELECT * FROM list_posts WHERE id = '$id' ";
-                                $posts = $database->select($query);
-                                if($posts){
-                                    while($result = $posts->fetch_assoc()){
-                            ?>
                             <div class="col-lg-9">
                                 <div class="form-group">
-                                    <input class="form-control" name="title" value="<?php echo $result['title']; ?>">
+                                    <input class="form-control" name="title" placeholder="Enter title here ">
                                 </div>
                                 <div class="form-group">
                                     <label>Write Post</label>
-                                    <textarea class="form-control" name="description" rows="10" id="summernote"  name="editordata"><?php echo $result['description']; ?></textarea>
+                                    <textarea class="form-control" name="description" rows="10" id="summernote" name="editordata"></textarea>
                                 </div>
                                 <div class="form-group has-success">
                                     <label class="control-label" for="inputSuccess">Meta Title</label>
-                                    <input type="text"  name="metatitle" class="form-control" id="inputSuccess" value="<?php echo $result['metatitle']; ?>">
+                                    <input type="text"  name="metatitle" class="form-control" id="inputSuccess">
                                 </div>
                                 <div class="form-group has-success">
                                     <label class="control-label" for="inputSuccess">Meta Description</label>
-                                    <input type="text"  name="metadescription" class="form-control" id="inputSuccess" value="<?php echo $result['metadescription']; ?>">
+                                    <input type="text"  name="metadescription" class="form-control" id="inputSuccess">
                                 </div>
                             </div>
                             <!-- /.col-lg-6 (nested) -->
@@ -100,7 +74,7 @@
                                 <input type="submit" name="publish" class="btn btn-success col-md-12 publish" value="Publish">
                                 <div class="form-group">
                                     <label for="">Tags</label>
-                                    <input class="form-control"  name="tags" value="<?php echo $result['tags']; ?>">
+                                    <input class="form-control"  name="tags" placeholder="Tags ">
                                 </div>
                                 <div class="form-group">
                                     <label>Category</label>
@@ -109,9 +83,9 @@
                                         $query = "SELECT * FROM list_category";
                                         $category = $database->select($query);
                                         if($category){
-                                            while($categories = $category->fetch_assoc()){
+                                            while($result = $category->fetch_assoc()){
                                                 ?>
-                                                <option <?php if($result['category'] == $categories['id']){ ?> selected="selected" <?php } ?> value="<?php echo $categories['id']; ?>"><?php echo $categories['name']; ?></option>
+                                                <option value="<?php echo $result['id']; ?>"><?php echo $result['name']; ?></option>
                                                 <?php
                                             }
                                         }
@@ -122,14 +96,7 @@
                                     <label>Featured Image</label>
                                     <input type="file" name="image">
                                 </div>
-                                <div class="col-md-4">
-                                    <img src="../<?php echo $result['image']; ?>" alt="" width="160px" height="120px">
-                                </div>
                             </div>
-                            <?php
-                                    }
-                                }
-                            ?>
                         </form>
                         <!-- /.col-lg-6 (nested) -->
                     </div>

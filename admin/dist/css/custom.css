@@ -1,3 +1,13 @@
+/*general style*/
+a.doneMessage{
+    text-decoration: none;
+}
+p.done, a.done{
+    color: #60d560;;
+}
+p.error, a.error{
+    color: #ff0000;
+}
 /*customize.php form*/
 .title-panel{
     padding-top: 41px;
@@ -20,4 +30,9 @@
 }
 .menu-list li .btn-info {
     width: 100%;
+}
+/*add new post*/
+.btn.btn-success.col-md-12.publish {
+    margin-bottom: 20px;
+    font-weight: 700;
 }

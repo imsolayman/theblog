@@ -21,7 +21,7 @@
                                  while ($result = $post->fetch_assoc()) {
                         ?>
                             <div class="post col-xl-6">
-                                <div class="post-thumbnail"><a href="post.php?id=<?php echo $result['id']; ?>"><img src="<?php echo $result['image']; ?>" alt="..."
+                                <div class="post-thumbnail"><a href="post.php?id=<?php echo $result['id']; ?>"><img src="admin/<?php echo $result['image']; ?>" alt="..."
                                                                                                                     class="img-fluid"></a></div>
                                 <div class="post-details">
                                     <div class="post-meta d-flex justify-content-between">
@@ -39,7 +39,19 @@
                                             <span>Author Name</span></div>
                                         </a>
                                         <div class="date"><i class="icon-clock"></i> 2 months ago</div>
-                                        <div class="comments meta-last"><i class="icon-comment"></i>12</div>
+                                        <div class="comments meta-last"><i class="icon-comment"></i>
+                                            <?php
+                                            $comid = $result['id'];
+                                            $query = "SELECT * FROM list_comment WHERE post = '$comid' ";
+                                            $comcount = $database->select($query);
+                                            if($comcount){
+                                                $count = mysqli_num_rows($comcount);
+                                                echo $count;
+                                            }else{
+                                                echo 0;
+                                            }
+                                            ?>
+                                        </div>
                                     </footer>
                                 </div>
                             </div>

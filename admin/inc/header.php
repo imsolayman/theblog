@@ -25,7 +25,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>Ezeblog Admin - Bootstrap Admin Theme</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -37,8 +37,17 @@
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
     <link href="../dist/css/custom.css" rel="stylesheet">
 
+    <!-- DataTables CSS -->
+    <link href="../vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="../vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+
     <!-- Morris Charts CSS -->
     <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- SummerNote CSS -->
+    <link href="../vendor/summernote/summernote-bs4.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -65,13 +74,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.php">SB Admin v2.0</a>
+            <a class="navbar-brand" href="index.php">Ezeblog Admin v1.0</a>
         </div>
         <!-- /.navbar-header -->
 
         <ul class="nav navbar-top-links navbar-right">
             <li>
-                <a href="http://theblog.test/" target="_blank"><i class="fa fa-globe fa-fw"></i></a>
+                <a href="<?php echo SITE_URL; ?>" target="_blank"><i class="fa fa-globe fa-fw"></i></a>
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">

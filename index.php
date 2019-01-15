@@ -6,7 +6,7 @@
         if($post){
         while($result = $post->fetch_assoc()){
     ?>
-    <section style="background: url(<?php echo $result['image']; ?>); background-size: cover; background-position: center center" class="hero">
+    <section style="background: url(admin/<?php echo $result['image']; ?>); background-size: cover; background-position: center center" class="hero">
       <div class="container">
         <div class="row">
           <div class="col-lg-7">
@@ -52,12 +52,24 @@
                     <div class="avatar"><img src="img/avatar-2.jpg" alt="..." class="img-fluid"></div>
                     <div class="title"><span><?php echo $result['firstname'] . ' ' . $result['lastname']; ?></span></div></a>
                   <div class="date"><i class="icon-clock"></i> <?php echo $format->humanTiming(strtotime($result['created_at'])); ?></div>
-                  <div class="comments"><i class="icon-comment"></i>12</div>
+                    <div class="comments meta-last"><i class="icon-comment"></i>
+                        <?php
+                        $comid = $result['id'];
+                        $query = "SELECT * FROM list_comment WHERE post = '$comid' ";
+                        $comcount = $database->select($query);
+                        if($comcount){
+                            $count = mysqli_num_rows($comcount);
+                            echo $count;
+                        }else{
+                            echo 0;
+                        }
+                        ?>
+                    </div>
                 </footer>
               </div>
             </div>
           </div>
-          <div class="image col-lg-5"><img src="<?php echo $result['image']; ?>" alt="..."></div>
+          <div class="image col-lg-5"><img src="admin/<?php echo $result['image']; ?>" alt="..."></div>
                 <?php
             }
             }
@@ -71,7 +83,7 @@
         if($post){
             while ($result = $post->fetch_assoc()) {
                 ?>
-          <div class="image col-lg-5"><img src="<?php echo $result['image']; ?>" alt="..."></div>
+          <div class="image col-lg-5"><img src="admin/<?php echo $result['image']; ?>" alt="..."></div>
           <div class="text col-lg-7">
               <div class="text-inner d-flex align-items-center">
                   <div class="content">
@@ -84,7 +96,19 @@
                               <div class="avatar"><img src="img/avatar-2.jpg" alt="..." class="img-fluid"></div>
                               <div class="title"><span><?php echo $result['firstname'] . ' ' . $result['lastname']; ?></span></div></a>
                           <div class="date"><i class="icon-clock"></i> <?php echo $format->humanTiming(strtotime($result['created_at'])); ?></div>
-                          <div class="comments"><i class="icon-comment"></i>12</div>
+                          <div class="comments meta-last"><i class="icon-comment"></i>
+                              <?php
+                              $comid = $result['id'];
+                              $query = "SELECT * FROM list_comment WHERE post = '$comid' ";
+                              $comcount = $database->select($query);
+                              if($comcount){
+                                  $count = mysqli_num_rows($comcount);
+                                  echo $count;
+                              }else{
+                                  echo 0;
+                              }
+                              ?>
+                          </div>
                       </footer>
                   </div>
               </div>
@@ -102,12 +126,12 @@
     </section>
     <!-- Divider Section-->
         <?php
-        $query = "SELECT * FROM list_posts ORDER BY id DESC LIMIT 1";
+        $query = "SELECT * FROM list_posts ORDER BY id ASC LIMIT 1";
         $post = $database->select($query);
         if($post){
             while($result = $post->fetch_assoc()){
         ?>
-    <section style="background: url(<?php echo $result['image']; ?>); background-size: cover; background-position: center bottom" class="divider">
+    <section style="background: url(admin/<?php echo $result['image']; ?>); background-size: cover; background-position: center bottom" class="divider">
       <div class="container">
         <div class="row">
           <div class="col-md-7">
@@ -121,36 +145,36 @@
              }
           ?>
     <!-- Latest Posts -->
-    <section class="latest-posts"> 
-      <div class="container">
-        <header> 
-          <h2>Latest from the blog</h2>
-          <p class="text-big">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-        </header>
-        <div class="row">
+    <section class="latest-posts">
+        <div class="container">
+            <header>
+                <h2>Latest from the blog</h2>
+                <p class="text-big">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+            </header>
+            <div class="row">
             <?php
-                $query = "SELECT list_posts.id, title, description, image, created_at, list_posts.category, name  FROM list_posts, list_category WHERE list_category.id = list_posts.category ORDER BY list_posts.id DESC limit 3";
+                $query = "SELECT list_posts.id, title, description, image, list_posts.created_at, list_posts.category, name, firstname, lastname  FROM list_posts, list_category, list_user WHERE list_category.id = list_posts.category AND list_user.id = list_posts.author ORDER BY list_posts.id DESC limit 3 ";
                 $post = $database->select($query);
                 if($post){
                     while($result = $post->fetch_assoc()){
              ?>
-          <div class="post col-md-4">
-            <div class="post-thumbnail"><a href="post.php?id=<?php echo $result['id']; ?>"><img src="<?php echo $result['image']; ?>" alt="..." class="img-fluid" ></a></div> <!--width height will add-->
-            <div class="post-details">
-              <div class="post-meta d-flex justify-content-between">
-                <div class="date"><?php echo $format->formatDate($result['created_at']); ?></div>
-                <div class="category"><a href="#"><?php echo $result['name']; ?></a></div>
-              </div><a href="post.php?id=<?php echo $result['id']; ?>">
-                <h3 class="h4"><?php echo $result['title']; ?></h3></a>
-              <p class="text-muted"><?php echo $format->textShorten($result['description'], 80); ?></p>
-            </div>
-          </div>
-            <?php
-                  }
+                <div class="post col-md-4">
+                    <div class="post-thumbnail"><a href=""><img src="admin/<?php echo $result['image']; ?>" alt="..." class="img-fluid"></a></div>
+                    <div class="post-details">
+                        <div class="post-meta d-flex justify-content-between">
+                            <div class="date"><?php echo $format->formatYear($result['created_at']); ?></div>
+                            <div class="category"><a href="#"><?php echo $result['name']; ?></a></div>
+                        </div><a href="post.php?id=<?php echo $result['id']; ?>">
+                            <h3 class="h4"><?php echo $result['title']; ?></h3></a>
+                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                    </div>
+                </div>
+             <?php
+                    }
                 }
-            ?>
+             ?>
+            </div>
         </div>
-      </div>
     </section>
     <!-- Newsletter Section-->
     <section class="newsletter no-padding-top">    
@@ -200,7 +224,7 @@
             while($result = $post->fetch_assoc()){
         ?>
         <div class="mix col-lg-3 col-md-3 col-sm-6">
-          <div class="item"><a href="<?php echo $result['image']; ?>" data-fancybox="gallery" class="image"><img src="<?php echo $result['image']; ?>" alt="..." class="img-fluid">
+          <div class="item"><a href="admin/<?php echo $result['image']; ?>" data-fancybox="gallery" class="image"><img src="admin/<?php echo $result['image']; ?>" alt="..." class="img-fluid">
               <div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div></a></div>
         </div>
         <?php

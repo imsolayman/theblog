@@ -91,7 +91,7 @@
                     ?>
                     <a href="post.php?id=<?php echo $result['id']; ?>">
                         <div class="post d-flex align-items-center">
-                            <div class="image"><img src="<?php echo $result['image']; ?>" alt="..." class="img-fluid"></div>
+                            <div class="image"><img src="admin/<?php echo $result['image']; ?>" alt="..." class="img-fluid"></div>
                             <div class="title"><strong><?php echo $result['title']; ?></strong><span class="date last-meta"><?php echo $format->formatYear($result['created_at']); ?></span></div>
                         </div>
                     </a>

@@ -18,12 +18,21 @@
                                     <i class="fa fa-comments fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">26</div>
+                                    <div class="huge">
+                                        <?php
+                                        $query = "SELECT * FROM list_comment";
+                                        $comments = $database->select($query);
+                                        if($comments){
+                                            $count = mysqli_num_rows($comments);
+                                            echo $count;
+                                        }
+                                        ?>
+                                    </div>
                                     <div>New Comments!</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="comments.php">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -37,15 +46,24 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-tasks fa-5x"></i>
+                                    <i class="fa fa-newspaper-o fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">12</div>
-                                    <div>New Tasks!</div>
+                                    <div class="huge">
+                                        <?php
+                                            $query = "SELECT * FROM list_posts";
+                                            $comments = $database->select($query);
+                                            if($comments){
+                                                $count = mysqli_num_rows($comments);
+                                                echo $count;
+                                            }
+                                        ?>
+                                    </div>
+                                    <div>New Posts!</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="posts.php">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -59,15 +77,24 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-shopping-cart fa-5x"></i>
+                                    <i class="fa fa-bookmark fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">124</div>
-                                    <div>New Orders!</div>
+                                    <div class="huge">
+                                        <?php
+                                            $query = "SELECT * FROM list_subscribe";
+                                            $comments = $database->select($query);
+                                            if($comments){
+                                                $count = mysqli_num_rows($comments);
+                                                echo $count;
+                                            }
+                                        ?>
+                                    </div>
+                                    <div>New Subscribers!</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="newsletter.php">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -81,15 +108,24 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-support fa-5x"></i>
+                                    <i class="fa fa-envelope fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">13</div>
-                                    <div>Support Tickets!</div>
+                                    <div class="huge">
+                                        <?php
+                                            $query = "SELECT * FROM list_contact";
+                                            $comments = $database->select($query);
+                                            if($comments){
+                                                $count = mysqli_num_rows($comments);
+                                                echo $count;
+                                            }
+                                        ?>
+                                    </div>
+                                    <div>New Emails!</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="inbox.php">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
