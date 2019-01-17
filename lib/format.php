@@ -1,11 +1,18 @@
 <?php
-    class Format{
+
+class Format{
 
         public function formatDate($date){
             return date('F j, Y, g:i a', strtotime($date));
         }
         public function formatYear($date){
             return date('F j, Y', strtotime($date));
+        }
+        public function datePicker($date){
+            return date("Y-m-d",strtotime($date));;
+        }
+        public function reverseDatePicker($date){
+            return date("m/d/Y",strtotime($date));;
         }
         public function humanTiming($time){
             $time = time() - $time; // to get the time since that moment
@@ -39,6 +46,10 @@
             $data = stripcslashes($data);
             $data = htmlspecialchars($data);
             return $data;
+        }
+        public function slug($string){
+            $string = preg_replace('/[^a-z0-9-]+/', '-', trim(strtolower($string)));
+            return $string;
         }
 
     }

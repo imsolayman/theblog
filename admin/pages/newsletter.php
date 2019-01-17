@@ -1,6 +1,9 @@
 <?php include '../inc/header.php'; ?>
 <?php include '../inc/sidebar.php'; ?>
 <?php
+if(Session::get('userRole') != '1'){
+    echo "<script type='text/javascript'> window.location ='index.php'; </script>";
+}
 if(isset($_GET['confirm'])){
     $id = $_GET['confirm'];
     $query = "UPDATE list_subscribe SET status = '0' WHERE id = '$id' ";

@@ -82,13 +82,15 @@
                             <?php
                             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                 $name = $format->validation($_POST['name']);
+                                $slug = $format->slug($name);
                                 $name = mysqli_real_escape_string($database->link, $name);
                                 if($name == ""){
                                     echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Field must not be empty !</div>";
                                 }else{
                                     $query = "UPDATE list_category
                                                 SET 
-                                                name = '$name'
+                                                name = '$name',
+                                                slug = '$slug'
                                                 WHERE
                                                 id = '$id' ";
                                     $updated_row = $database->update($query);

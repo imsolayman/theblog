@@ -1,5 +1,9 @@
 {
   "autoload": {
-    "psr-4": {"theblog\\": "lib/"}
+    "psr-4":
+    {"theblog\\": "lib/"}
   }
 }
+
+
+

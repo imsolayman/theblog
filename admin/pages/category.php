@@ -35,40 +35,40 @@ if(isset($_GET['delete'])){
                                 <tr>
                                     <th>No</th>
                                     <th>Name</th>
-                                    <th>Count</th>
+                                    <th>Posts</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                $query = "SELECT * FROM list_category ORDER BY id DESC";
-                                $category = $database->select($query);
-                                if($category){
-                                    $i = 0;
-                                    while($result = $category->fetch_assoc()){
-                                        $i++
-                                        ?>
-                                        <tr class="odd gradeX">
-                                            <td><?php echo $i; ?></td>
-                                            <td  class="center"><?php echo $result['name']; ?></td>
-                                            <td>
-                                                <?php
-                                                    $catid = $result['id'];
-                                                    $query = "SELECT * FROM list_posts WHERE category = '$catid' ";
-                                                    $catcount = $database->select($query);
-                                                    if($catcount){
-                                                        $count = mysqli_num_rows($catcount);
-                                                        echo $count;
-                                                    }else{
-                                                        echo 0;
-                                                    }
-                                                ?>
-                                            </td>
-                                            <td  class="center"> <a href="editcategory.php?edit=<?php echo $result['id']; ?>"> <i class="fa fa-edit  fa-fw"></i></a>  <a onclick="return confirm('Are you sure?')" href="?delete=<?php echo $result['id']; ?>"><i class="fa fa-trash  fa-fw"></i></a>  </td>
-                                        </tr>
-                                        <?php
+                                    $query = "SELECT * FROM list_category ORDER BY id DESC";
+                                    $category = $database->select($query);
+                                    if($category){
+                                        $i = 0;
+                                        while($result = $category->fetch_assoc()){
+                                            $i++
+                                 ?>
+                                    <tr class="odd gradeX">
+                                        <td><?php echo $i; ?></td>
+                                        <td  class="center"><?php echo $result['name']; ?></td>
+                                        <td>
+                                            <?php
+                                                $catid = $result['id'];
+                                                $query = "SELECT * FROM list_posts WHERE category = '$catid' ";
+                                                $catcount = $database->select($query);
+                                                if($catcount){
+                                                    $count = mysqli_num_rows($catcount);
+                                                    echo $count;
+                                                }else{
+                                                    echo 0;
+                                                }
+                                            ?>
+                                        </td>
+                                        <td  class="center"> <a href="editcategory.php?edit=<?php echo $result['id']; ?>"> <i class="fa fa-edit  fa-fw"></i></a>  <a onclick="return confirm('Are you sure?')" href="?delete=<?php echo $result['id']; ?>"><i class="fa fa-trash  fa-fw"></i></a>  </td>
+                                    </tr>
+                                <?php
+                                        }
                                     }
-                                }
                                 ?>
                                 </tbody>
                             </table>
@@ -87,10 +87,11 @@ if(isset($_GET['delete'])){
                                 if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                     $name = $format->validation($_POST['name']);
                                     $name = mysqli_real_escape_string($database->link, $name);
+                                    $slug = $format->slug($name);
                                     if($name == ""){
                                         echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Field must not be empty !</div>";
                                     }else{
-                                        $query = "INSERT INTO list_category (name) VALUES ('$name') ";
+                                        $query = "INSERT INTO list_category (name, slug) VALUES ('$name', '$slug') ";
                                         $inserted_row = $database->insert($query);
                                         if($inserted_row){
                                             echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Category inserted successfully !</div>";

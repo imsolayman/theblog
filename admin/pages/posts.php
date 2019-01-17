@@ -4,7 +4,7 @@
 if(isset($_GET['delete'])){
     $id = $_GET['delete'];
     $query = "DELETE FROM list_posts WHERE id = '$id' ";
-    $deleted_row = $database->update($query);
+    $deleted_row = $database->delete($query);
     if($deleted_row){
         echo "<script>alert('Post deleted successfully');</script>";
     }else{

@@ -27,8 +27,14 @@
 
     <title>Ezeblog Admin - Bootstrap Admin Theme</title>
 
+    <!--    favicon-->
+    <link rel="icon" href="../upload/favicon.png" sizes="16x16" type="image/png">
+
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery UI-->
+    <link href="../vendor/jquery-ui/jquery-ui.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
@@ -282,7 +288,7 @@
                             Session::destroy();
                         }
                     ?>
-                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    <li><a href="profile.php"><i class="fa fa-user fa-fw"></i> User Profile</a>
                     </li>
                     <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                     </li>

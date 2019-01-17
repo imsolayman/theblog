@@ -21,7 +21,9 @@
                             $tags = mysqli_real_escape_string($database->link, $_POST['tags']);
                             $metatitle = mysqli_real_escape_string($database->link, $_POST['metatitle']);
                             $metadescription = mysqli_real_escape_string($database->link, $_POST['metadescription']);
+                            $metakeywords = mysqli_real_escape_string($database->link, $_POST['metakeywords']);
                             $author = mysqli_real_escape_string($database->link, Session::get('userId'));
+                            $slug = $format->slug($title);
 
                             $permited  = array('jpg', 'jpeg', 'png', 'gif');
                             $file_name = $_FILES['image']['name'];
@@ -37,11 +39,10 @@
                             }elseif($file_size>1048567){
                                 echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Image Size should be less then 1MB !</div>";
                             }elseif(in_array($file_ext, $permited) === false) {
-                                echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>You can upload only:-"
-                                    .implode(', ', $permited)."</div>";
+                                echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>You can upload only:-".implode(', ', $permited)."</div>";
                             }else{
                                 move_uploaded_file($file_temp, $uploaded_image);
-                                $query = "INSERT INTO list_posts (title, description, category, image, tags, metatitle, metadescription, author) VALUES ('$title', '$description', '$category', 'upload/post/$unique_image', '$tags', '$metatitle', '$metadescription', '$author')";
+                                $query = "INSERT INTO list_posts (title, description, category, image, tags, metatitle, metadescription, metakeywords, slug, author) VALUES ('$title', '$description', '$category', 'upload/post/$unique_image', '$tags', '$metatitle', '$metadescription', '$metakeywords', '$slug', '$author')";
                                 $inserted_row = $database->insert($query);
                                 if($inserted_row){
                                     echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post inserted successfully !</div>";
@@ -67,6 +68,10 @@
                                 <div class="form-group has-success">
                                     <label class="control-label" for="inputSuccess">Meta Description</label>
                                     <input type="text"  name="metadescription" class="form-control" id="inputSuccess">
+                                </div>
+                                <div class="form-group has-success">
+                                    <label class="control-label" for="inputSuccess">Meta Keywords</label>
+                                    <input type="text"  name="metakeywords" class="form-control" id="inputSuccess">
                                 </div>
                             </div>
                             <!-- /.col-lg-6 (nested) -->

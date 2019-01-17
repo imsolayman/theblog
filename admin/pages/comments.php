@@ -47,18 +47,18 @@
                             }
                         }
                     ?>
-                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-subscribe">
+                    <table width="100%" class="table table-striped table-bordered table-hover comments" id="dataTables-subscribe">
                         <thead>
                         <tr>
-                            <th>No</th>
-                            <th>IP</th>
-                            <th>Post Id</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Comment</th>
-                            <th>Time</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <th width="6%">No</th>
+                            <th width="8%">IP</th>
+                            <th width="10%">Post Id</th>
+                            <th width="10%">Name</th>
+                            <th width="10%">Email</th>
+                            <th width="30%">Comment</th>
+                            <th width="10%">Time</th>
+                            <th width="8%">Status</th>
+                            <th width="8%">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -79,14 +79,14 @@
                                     <td><?php echo $format->textShorten($result['comment'], 100); ?></td>
                                     <td><?php echo $format->humanTiming(strtotime($result['created_at'])); ?></td>
                                     <td>
-                                        <a onclick="return confirm('Are you sure?')" href="?approved=<?php echo $result['id']; ?>" class="doneMessage">
+                                        <a onclick="return confirm('Are you sure to approve?')" href="?approved=<?php echo $result['id']; ?>" class="doneMessage">
                                         <?php
                                             if($result['status'] == 0){
                                                 echo "<p class='error'>Unapproved</p>";
                                             }
                                         ?>
                                         </a>
-                                        <a onclick="return confirm('Are you sure?')" href="?unapproved=<?php echo $result['id']; ?>" class="doneMessage">
+                                        <a onclick="return confirm('Are you sure to unapprove?')" href="?unapproved=<?php echo $result['id']; ?>" class="doneMessage">
                                         <?php
                                             if($result['status'] == 1){
                                                 echo "<p class='done'>Approved</p>";

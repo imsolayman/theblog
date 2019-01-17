@@ -4,7 +4,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Inbox</h1>
+            <h1 class="page-header">Spam</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -13,17 +13,17 @@
         <div class="col-lg-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Recent Mails
+                    Spam Mails
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <?php
-                    if(isset($_GET['spam'])){
-                        $id = $_GET['spam'];
-                        $query = "UPDATE list_contact SET status = '0' WHERE id = '$id' ";
+                    if(isset($_GET['restore'])){
+                        $id = $_GET['restore'];
+                        $query = "UPDATE list_contact SET status = '1' WHERE id = '$id' ";
                         $updated_row = $database->update($query);
                         if($updated_row){
-                            echo "<script>alert('Mail sent to spam !');</script>";
+                            echo "<script>alert('Mail has been restored !');</script>";
                         }else{
                             echo "<script>alert('Something went wrong');</script>";
                         }
@@ -48,27 +48,25 @@
                         </thead>
                         <tbody>
                         <?php
-                        $query = "SELECT * FROM list_contact WHERE status = '1' ORDER BY id DESC";
+                        $query = "SELECT * FROM list_contact WHERE status = '0' ORDER BY id DESC";
                         $mail = $database->select($query);
                         if($mail){
                             while($result = $mail->fetch_assoc()){
-                         ?>
+                                ?>
                                 <tr class="odd gradeX">
                                     <td width="15%"><?php echo $result['name']; ?></td>
                                     <td class="mail-caption"  width="68%">
                                         <div class="mail-message">
-                                            <?php echo $result['subject'].' - '.$format->textShorten($result['description'], 100); ?>
+                                            <?php echo $result['subject'].' - '.$format->textShorten($result['description'], 110); ?>
                                         </div>
                                         <div class="mail-icon-overlay">
                                             <span class="single-icon"><a onclick="return confirm('Are you sure to delete?')" href="?delete=<?php echo $result['id']; ?>"><i class="fa fa-trash  fa-fw"></i></a></span>
-                                            <span class="single-icon"><a onclick="return confirm('Are you sure to sent spam?')" href="?spam=<?php echo $result['id']; ?>"><i class="fa fa-exclamation-triangle  fa-fw"></i></a></span>
-                                            <span class="single-icon"><a href=""><i class="fa fa-paper-plane-o fa-fw"></i></a></span>
-                                            <span class="single-icon"><a href=""><i class="fa fa-eye fa-fw"></i></a></span>
+                                            <span class="single-icon"><a onclick="return confirm('Are you sure to restore?')" href="?restore=<?php echo $result['id']; ?>"><i class="fa fa-undo  fa-fw"></i></a></span>
                                         </div>
                                     </td>
                                     <td width="17%"><?php echo $format->formatDate($result['created_at']); ?></td>
                                 </tr>
-                         <?php
+                                <?php
                             }
                         }
                         ?>

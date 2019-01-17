@@ -1,5 +1,10 @@
 <?php include '../inc/header.php'; ?>
 <?php include '../inc/sidebar.php'; ?>
+<?php
+    if(Session::get('userRole') != '1'){
+        echo "<script type='text/javascript'> window.location ='index.php'; </script>";
+    }
+?>
 
 <!-- Page Content -->
 <div id="page-wrapper">

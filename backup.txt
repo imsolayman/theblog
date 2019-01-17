@@ -1,139 +1,108 @@
 <?php include '../inc/header.php'; ?>
 <?php include '../inc/sidebar.php'; ?>
-<?php
-    if(!isset($_GET['edit']) || $_GET['edit'] == NULL){
-        echo "<script type='text/javascript'> window.location ='posts.php'; </script>";
-        //header("Location: posts.php");
-    }else{
-        $id = $_GET['edit'];
-    }
-?>
+
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Add New Post</h1>
+            <h1 class="page-header">Comments</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Recent Comments
+                </div>
+                <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <div class="row">
+                    <?php
+                    if(isset($_GET['approved'])){
+                        $id = $_GET['approved'];
+                        $query = "UPDATE list_comment SET status = '1' WHERE id = '$id' ";
+                        $updated_row = $database->update($query);
+                        if($updated_row){
+                            echo "<script>alert('Comment has been approved !');</script>";
+                        }else{
+                            echo "<script>alert('Something went wrong');</script>";
+                        }
+                    }elseif(isset($_GET['unapproved'])){
+                        $id = $_GET['unapproved'];
+                        $query = "UPDATE list_comment SET status = '0' WHERE id = '$id' ";
+                        $updated_row = $database->update($query);
+                        if($updated_row){
+                            echo "<script>alert('Comment has been unapproved !');</script>";
+                        }else{
+                            echo "<script>alert('Something went wrong');</script>";
+                        }
+                    }elseif(isset($_GET['delete'])){
+                        $id = $_GET['delete'];
+                        $query = "DELETE FROM list_comment WHERE id = '$id' ";
+                        $deleted_row = $database->delete($query);
+                        if($deleted_row){
+                            echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Comment deleted successfully !</div>";
+                        }else{
+                            echo "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Comment not deleted !</div>";
+                        }
+                    }
+                    ?>
+                    <table width="100%" class="table table-striped table-bordered table-hover comments" id="dataTables-contact">
+                        <thead>
+                        <tr>
+                            <th width="6%">No</th>
+                            <th width="8%">IP</th>
+                            <th width="10%">Post Id</th>
+                            <th width="10%">Name</th>
+                            <th width="10%">Email</th>
+                            <th width="30%">Comment</th>
+                            <th width="10%">Time</th>
+                            <th width="8%">Status</th>
+                            <th width="8%">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
                         <?php
-                        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-                            $title = mysqli_real_escape_string($database->link, $_POST['title']);
-                            $description = mysqli_real_escape_string($database->link, $_POST['description']);
-                            $category = mysqli_real_escape_string($database->link, $_POST['category']);
-                            $tags = mysqli_real_escape_string($database->link, $_POST['tags']);
-                            $metatitle = mysqli_real_escape_string($database->link, $_POST['metatitle']);
-                            $metadescription = mysqli_real_escape_string($database->link, $_POST['metadescription']);
-                            $author = mysqli_real_escape_string($database->link, Session::get('userId'));
-
-                            $permited  = array('jpg', 'jpeg', 'png', 'gif');
-                            $file_name = $_FILES['image']['name'];
-                            $file_size = $_FILES['image']['size'];
-                            $file_temp = $_FILES['image']['tmp_name'];
-
-                            $div = explode('.', $file_name);
-                            $file_ext = strtolower(end($div));
-                            $unique_image = substr(md5(time()), 0, 10).'.'.$file_ext;
-                            $uploaded_image = "../upload/post/".$unique_image;
-                            if($title == "" || $description == "" || $category == "" || $tags == "" || $metatitle == "" || $metadescription == "" || $author == ""){
-                                echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Field must not be empty !</div>";
-                            }elseif($file_size>1048567){
-                                echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Image Size should be less then 1MB !</div>";
-                            }elseif(in_array($file_ext, $permited) === false) {
-                                echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>You can upload only:-"
-                                    .implode(', ', $permited)."</div>";
-                            }else{
-                                move_uploaded_file($file_temp, $uploaded_image);
-                                $query = "UPDATE list_posts
-                                          SET
-                                         'title' = '$title',
-                                         'description' = '$description',
-                                         'category' = '$category',
-                                         'image' = 'upload/post/$unique_image',
-                                         'tags' = '$tags',
-                                         'metatitle' = '$metatitle',
-                                         'metadescription' = '$metadescription',
-                                         'author' = '$author'
-                                         WHERE
-                                         id = '$id';
-                                        ";
-                                $updated_row = $database->insert($query);
-                                if($updated_row){
-                                    echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post updated successfully !</div>";
-                                }else{
-                                    echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post not updated !</div>";
-                                }
+                        $query = "SELECT * FROM list_comment ORDER BY id DESC";
+                        $comment = $database->select($query);
+                        if($comment){
+                            $i = 0;
+                            while($result = $comment->fetch_assoc()){
+                                $i++
+                                ?>
+                                <tr class="odd gradeX">
+                                    <td><?php echo $i; ?></td>
+                                    <td  class="center"><?php echo $result['ip']; ?></td>
+                                    <td><?php echo $result['post']; ?></td>
+                                    <td><?php echo $result['name']; ?></td>
+                                    <td><?php echo $result['email']; ?></td>
+                                    <td><?php echo $format->textShorten($result['comment'], 100); ?></td>
+                                    <td><?php echo $format->humanTiming(strtotime($result['created_at'])); ?></td>
+                                    <td>
+                                        <a onclick="return confirm('Are you sure to approve?')" href="?approved=<?php echo $result['id']; ?>" class="doneMessage">
+                                            <?php
+                                            if($result['status'] == 0){
+                                                echo "<p class='error'>Unapproved</p>";
+                                            }
+                                            ?>
+                                        </a>
+                                        <a onclick="return confirm('Are you sure to unapprove?')" href="?unapproved=<?php echo $result['id']; ?>" class="doneMessage">
+                                            <?php
+                                            if($result['status'] == 1){
+                                                echo "<p class='done'>Approved</p>";
+                                            }
+                                            ?>
+                                        </a>
+                                    </td>
+                                    <td  class="center"><a href="<?php echo SITE_URL; ?>post.php?id=<?php echo $result['post']; ?>" target="_blank"> <i class="fa fa-eye fa-fw"></i></a>  <a onclick="return confirm('Are you sure?')" href="?delete=<?php echo $result['id']; ?>"><i class="fa fa-trash  fa-fw"></i></a>  </td>
+                                </tr>
+                                <?php
                             }
                         }
                         ?>
-                        <form role="form" action="" method="post" enctype="multipart/form-data">
-                            <?php
-                                $query = "SELECT * FROM list_posts WHERE id = '$id' ";
-                                $posts = $database->select($query);
-                                if($posts){
-                                    while($result = $posts->fetch_assoc()){
-                            ?>
-                            <div class="col-lg-9">
-                                <div class="form-group">
-                                    <input class="form-control" name="title" value="<?php echo $result['title']; ?>">
-                                </div>
-                                <div class="form-group">
-                                    <label>Write Post</label>
-                                    <textarea class="form-control" name="description" rows="10" id="summernote"  name="editordata"><?php echo $result['description']; ?></textarea>
-                                </div>
-                                <div class="form-group has-success">
-                                    <label class="control-label" for="inputSuccess">Meta Title</label>
-                                    <input type="text"  name="metatitle" class="form-control" id="inputSuccess" value="<?php echo $result['metatitle']; ?>">
-                                </div>
-                                <div class="form-group has-success">
-                                    <label class="control-label" for="inputSuccess">Meta Description</label>
-                                    <input type="text"  name="metadescription" class="form-control" id="inputSuccess" value="<?php echo $result['metadescription']; ?>">
-                                </div>
-                            </div>
-                            <!-- /.col-lg-6 (nested) -->
-                            <div class="col-lg-2">
-                                <input type="submit" name="publish" class="btn btn-success col-md-12 publish" value="Publish">
-                                <div class="form-group">
-                                    <label for="">Tags</label>
-                                    <input class="form-control"  name="tags" value="<?php echo $result['tags']; ?>">
-                                </div>
-                                <div class="form-group">
-                                    <label>Category</label>
-                                    <select class="form-control"  name="category">
-                                        <?php
-                                        $query = "SELECT * FROM list_category";
-                                        $category = $database->select($query);
-                                        if($category){
-                                            while($categories = $category->fetch_assoc()){
-                                                ?>
-                                                <option <?php if($result['category'] == $categories['id']){ ?> selected="selected" <?php } ?> value="<?php echo $categories['id']; ?>"><?php echo $categories['name']; ?></option>
-                                                <?php
-                                            }
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Featured Image</label>
-                                    <input type="file" name="image">
-                                </div>
-                                <div class="col-md-4">
-                                    <img src="../<?php echo $result['image']; ?>" alt="" width="160px" height="120px">
-                                </div>
-                            </div>
-                            <?php
-                                    }
-                                }
-                            ?>
-                        </form>
-                        <!-- /.col-lg-6 (nested) -->
-                    </div>
-                    <!-- /.row (nested) -->
+                        </tbody>
+                    </table>
+                    <!-- /.table-responsive -->
                 </div>
                 <!-- /.panel-body -->
             </div>
@@ -142,13 +111,16 @@
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
+    <!-- /.row -->
 </div>
 <!-- /#page-wrapper -->
 <?php include '../inc/footer.php'; ?>
+
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script>
-    $('#summernote').summernote({
-        placeholder: 'Write post here',
-        tabsize: 2,
-        height: 200
+    $(document).ready(function() {
+        $('#dataTables-contact').DataTable({
+            responsive: true
+        });
     });
 </script>

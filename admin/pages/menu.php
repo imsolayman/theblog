@@ -1,5 +1,10 @@
 <?php include '../inc/header.php'; ?>
 <?php include '../inc/sidebar.php'; ?>
+<?php
+if(Session::get('userRole') != '1'){
+    echo "<script type='text/javascript'> window.location ='index.php'; </script>";
+}
+?>
 
 <!-- Page Content -->
 <div id="page-wrapper">
@@ -160,12 +165,12 @@
                                             $menu = $database->select($query);
                                             if($menu){
                                                 while($result = $menu->fetch_assoc()){
-                                                    ?>
+                                          ?>
                                                     <li>
                                                         <a href="<?php echo $result['link']; ?>" target="_blank"> <?php echo $result['title']; ?></a> <a href="editmenu.php?editfooter=<?php echo $result['id']; ?>"><i class="fa fa-edit fa-fw"></i></a>
                                                         <a onclick="return confirm('Are you sure?')" href="?deletefooter=<?php echo $result['id']; ?>"><i class="fa fa-trash fa-fw"></i></a>
                                                     </li>
-                                                    <?php
+                                         <?php
                                                 }
                                             }
                                         ?>
