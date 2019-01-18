@@ -107,17 +107,32 @@
                                     <label>Write Post</label>
                                     <textarea class="form-control" name="description" rows="10" id="summernote"  name="editordata"><?php echo $result['description']; ?></textarea>
                                 </div>
-                                <div class="form-group has-success">
-                                    <label class="control-label" for="inputSuccess">Meta Title</label>
-                                    <input type="text"  name="metatitle" class="form-control" id="inputSuccess" value="<?php echo $result['metatitle']; ?>">
-                                </div>
-                                <div class="form-group has-success">
-                                    <label class="control-label" for="inputSuccess">Meta Description</label>
-                                    <input type="text"  name="metadescription" class="form-control" id="inputSuccess" value="<?php echo $result['metadescription']; ?>">
-                                </div>
-                                <div class="form-group has-success">
-                                    <label class="control-label" for="inputSuccess">Meta Keywords</label>
-                                    <input type="text"  name="metakeywords" class="form-control" id="inputSuccess" value="<?php echo $result['metakeywords']; ?>>
+                                <div class="panel-body seo-meta-panel">
+                                    <div class="panel-group" id="accordion">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">SEO Meta Data</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseThree" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <div class="form-group has-success">
+                                                        <label class="control-label" for="inputSuccess">Meta Title</label>
+                                                        <input type="text"  name="metatitle" class="form-control" id="inputSuccess" value="<?php echo $result['metatitle']; ?>">
+                                                    </div>
+                                                    <div class="form-group has-success">
+                                                        <label class="control-label" for="inputSuccess">Meta Description</label>
+                                                        <input type="text"  name="metadescription" class="form-control" id="inputSuccess" value="<?php echo $result['metadescription']; ?>">
+                                                    </div>
+                                                    <div class="form-group has-success">
+                                                        <label class="control-label" for="inputSuccess">Meta Keywords</label>
+                                                        <input type="text"  name="metakeywords" class="form-control" id="inputSuccess" value="<?php echo $result['metakeywords']; ?>">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <!-- /.col-lg-6 (nested) -->

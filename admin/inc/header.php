@@ -28,7 +28,7 @@
     <title>Ezeblog Admin - Bootstrap Admin Theme</title>
 
     <!--    favicon-->
-    <link rel="icon" href="../upload/favicon.png" sizes="16x16" type="image/png">
+    <link rel="icon" href="../upload/favicon.ico" sizes="16x16" type="image/ico">
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -290,7 +290,7 @@
                     ?>
                     <li><a href="profile.php"><i class="fa fa-user fa-fw"></i> User Profile</a>
                     </li>
-                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    <li><a href="profile.php"><i class="fa fa-gear fa-fw"></i> Settings</a>
                     </li>
                     <li class="divider"></li>
                     <li><a href="?action=logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>

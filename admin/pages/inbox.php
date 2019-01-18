@@ -60,10 +60,10 @@
                                             <?php echo $result['subject'].' - '.$format->textShorten($result['description'], 100); ?>
                                         </div>
                                         <div class="mail-icon-overlay">
-                                            <span class="single-icon"><a onclick="return confirm('Are you sure to delete?')" href="?delete=<?php echo $result['id']; ?>"><i class="fa fa-trash  fa-fw"></i></a></span>
-                                            <span class="single-icon"><a onclick="return confirm('Are you sure to sent spam?')" href="?spam=<?php echo $result['id']; ?>"><i class="fa fa-exclamation-triangle  fa-fw"></i></a></span>
-                                            <span class="single-icon"><a href=""><i class="fa fa-paper-plane-o fa-fw"></i></a></span>
-                                            <span class="single-icon"><a href=""><i class="fa fa-eye fa-fw"></i></a></span>
+                                            <span class="single-icon"><a onclick="return confirm('Are you sure to delete?')" href="?delete=<?php echo $result['id']; ?>"><abbr title="Delete"><i class="fa fa-trash  fa-fw"></i></abbr></a></span>
+                                            <span class="single-icon"><a onclick="return confirm('Are you sure to sent spam?')" href="?spam=<?php echo $result['id']; ?>"><abbr title="Spam"><i class="fa fa-exclamation-triangle  fa-fw"></i></abbr></a></span>
+                                            <span class="single-icon"><a href=""><abbr title="Reply"><i class="fa fa-paper-plane-o fa-fw"></abbr></i></a></span>
+                                            <span class="single-icon"><a href=""><abbr title="View"><i class="fa fa-eye fa-fw"></i></abbr></a></span>
                                         </div>
                                     </td>
                                     <td width="17%"><?php echo $format->formatDate($result['created_at']); ?></td>

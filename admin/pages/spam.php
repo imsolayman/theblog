@@ -57,11 +57,11 @@
                                     <td width="15%"><?php echo $result['name']; ?></td>
                                     <td class="mail-caption"  width="68%">
                                         <div class="mail-message">
-                                            <?php echo $result['subject'].' - '.$format->textShorten($result['description'], 110); ?>
+                                            <?php echo $result['subject'].' - '.$format->textShorten($result['description'], 100); ?>
                                         </div>
                                         <div class="mail-icon-overlay">
-                                            <span class="single-icon"><a onclick="return confirm('Are you sure to delete?')" href="?delete=<?php echo $result['id']; ?>"><i class="fa fa-trash  fa-fw"></i></a></span>
-                                            <span class="single-icon"><a onclick="return confirm('Are you sure to restore?')" href="?restore=<?php echo $result['id']; ?>"><i class="fa fa-undo  fa-fw"></i></a></span>
+                                            <span class="single-icon"><a onclick="return confirm('Are you sure to delete?')" href="?delete=<?php echo $result['id']; ?>"><abbr title="Delete"><i class="fa fa-trash  fa-fw"></i></abbr></a></span>
+                                            <span class="single-icon"><a onclick="return confirm('Are you sure to restore?')" href="?restore=<?php echo $result['id']; ?>"><abbr title="Restore"><i class="fa fa-undo  fa-fw"></i></abbr></a></span>
                                         </div>
                                     </td>
                                     <td width="17%"><?php echo $format->formatDate($result['created_at']); ?></td>

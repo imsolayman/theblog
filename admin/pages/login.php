@@ -20,6 +20,9 @@
 
     <title>Ezeblog Admin - Bootstrap Admin Theme</title>
 
+    <!--    favicon-->
+    <link rel="icon" href="../upload/favicon.ico" sizes="16x16" type="image/ico">
+
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 

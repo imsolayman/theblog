@@ -116,7 +116,7 @@
                 <a href="seo.php"><i class="fa fa-line-chart fa-fw"></i> SEO</a>
             </li>
             <li>
-                <a href="settings.php"><i class="fa fa-cog fa-fw"></i> Settings</a>
+                <a href="theme.php"><i class="fa fa-cog fa-fw"></i> Theme Options</a>
             </li>
         </ul>
     </div>

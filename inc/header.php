@@ -11,10 +11,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Ezeblog - Simple Dynamic Blog Template</title>
-    <link rel="icon" href="admin/upload/favicon.png" sizes="16x16" type="image/png">
+    <link rel="icon" href="admin/upload/favicon.ico" sizes="16x16" type="image/ico">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
+    <!--    Google verification-->
+    <meta name="google-site-verification" content="w9_oQ7sF8QulKrv8FCU3z6UF9X-pl151c5YjUqGCb5Q" />
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome CSS-->
