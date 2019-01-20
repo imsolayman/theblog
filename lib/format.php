@@ -34,6 +34,9 @@ class Format{
             }
 
         }
+        public function textImplode($text){
+            return  implode(",", $text);
+        }
         public function textShorten($text, $limit = 400){
             $text = $text." ";
             $text = substr($text, 0, $limit);

@@ -107,33 +107,47 @@
                                     <label>Write Post</label>
                                     <textarea class="form-control" name="description" rows="10" id="summernote"  name="editordata"><?php echo $result['description']; ?></textarea>
                                 </div>
-                                <div class="panel-body seo-meta-panel">
-                                    <div class="panel-group" id="accordion">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">SEO Meta Data</a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapseThree" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    <div class="form-group has-success">
-                                                        <label class="control-label" for="inputSuccess">Meta Title</label>
-                                                        <input type="text"  name="metatitle" class="form-control" id="inputSuccess" value="<?php echo $result['metatitle']; ?>">
-                                                    </div>
-                                                    <div class="form-group has-success">
-                                                        <label class="control-label" for="inputSuccess">Meta Description</label>
-                                                        <input type="text"  name="metadescription" class="form-control" id="inputSuccess" value="<?php echo $result['metadescription']; ?>">
-                                                    </div>
-                                                    <div class="form-group has-success">
-                                                        <label class="control-label" for="inputSuccess">Meta Keywords</label>
-                                                        <input type="text"  name="metakeywords" class="form-control" id="inputSuccess" value="<?php echo $result['metakeywords']; ?>">
+                                            <div class="panel-body seo-meta-panel">
+                                                <?php
+                                                $query = "SELECT * FROM list_seo WHERE id = '1' ";
+                                                $seo = $database->select($query);
+                                                if($seo){
+                                                while($data = $seo->fetch_assoc()){
+                                                ?>
+                                                    <?php if($data['checkcontent'] == '2' || $data['checkcontent'] == '1,2' || $data['checkcontent'] == '2,3' || $data['checkcontent'] == '1,2,3') {?>
+                                                <div class="panel-group" id="accordion">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">SEO Meta Data</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id = "collapseThree" class="panel-collapse collapse" >
+                                                            <div class="panel-body" >
+                                                                <div class="form-group has-success" >
+                                                                    <label class="control-label" for="inputSuccess" > Meta Title </label >
+                                                                    <input type = "text"  name = "metatitle" class="form-control" id = "inputSuccess" value="<?php echo $result['metatitle']; ?>">
+                                                                </div >
+                                                                <div class="form-group has-success" >
+                                                                    <label class="control-label" for="inputSuccess" > Meta Description </label >
+                                                                    <input type = "text"  name = "metadescription" class="form-control" id = "inputSuccess" value="<?php echo $result['metadescription']; ?>">
+                                                                </div >
+                                                                <?php if($data['checkkeyword'] == '1') {?>
+                                                                    <div class="form-group has-success" >
+                                                                        <label class="control-label" for="inputSuccess" > Meta Keywords </label >
+                                                                        <input type = "text"  name = "metakeywords" class="form-control" id = "inputSuccess" value="<?php echo $result['metakeywords']; ?>" >
+                                                                    </div >
+                                                                <?php   }   ?>
+                                                            </div >
+                                                        </div >
                                                     </div>
                                                 </div>
+                                                    <?php   }   ?>
+                                                 <?php
+                                                }
+                                                }
+                                                ?>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <!-- /.col-lg-6 (nested) -->
                             <div class="col-lg-2">
