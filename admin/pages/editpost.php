@@ -19,48 +19,133 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
+                <?php
+                $query = "SELECT * FROM list_seo WHERE id = '1' ";
+                $seo = $database->select($query);
+                if($seo){
+                while($data = $seo->fetch_assoc()){
+                ?>
                 <div class="panel-body">
                     <div class="row">
                         <?php
                         if($_SERVER['REQUEST_METHOD'] == 'POST'){
-                            $title = mysqli_real_escape_string($database->link, $_POST['title']);
-                            $description = mysqli_real_escape_string($database->link, $_POST['description']);
-                            $category = mysqli_real_escape_string($database->link, $_POST['category']);
-                            $tags = mysqli_real_escape_string($database->link, $_POST['tags']);
-                            $metatitle = mysqli_real_escape_string($database->link, $_POST['metatitle']);
-                            $metadescription = mysqli_real_escape_string($database->link, $_POST['metadescription']);
-                            $metakeywords = mysqli_real_escape_string($database->link, $_POST['metakeywords']);
-                            $slug = $format->slug($title);
+                            if($data['checkcontent'] == '2' || $data['checkcontent'] == '1,2' || $data['checkcontent'] == '2,3' || $data['checkcontent'] == '1,2,3') {
+                                $title = mysqli_real_escape_string($database->link, $_POST['title']);
+                                $description = mysqli_real_escape_string($database->link, $_POST['description']);
+                                $category = mysqli_real_escape_string($database->link, $_POST['category']);
+                                $tags = mysqli_real_escape_string($database->link, $_POST['tags']);
+                                $metatitle = mysqli_real_escape_string($database->link, $_POST['metatitle']);
+                                $metadescription = mysqli_real_escape_string($database->link, $_POST['metadescription']);
+                                $metakeywords = mysqli_real_escape_string($database->link, $_POST['metakeywords']);
+                                $slug = $format->slug($title);
 
-                            $permited  = array('jpg', 'jpeg', 'png', 'gif');
-                            $file_name = $_FILES['image']['name'];
-                            $file_size = $_FILES['image']['size'];
-                            $file_temp = $_FILES['image']['tmp_name'];
+                                $permited  = array('jpg', 'jpeg', 'png', 'gif');
+                                $file_name = $_FILES['image']['name'];
+                                $file_size = $_FILES['image']['size'];
+                                $file_temp = $_FILES['image']['tmp_name'];
 
-                            $div = explode('.', $file_name);
-                            $file_ext = strtolower(end($div));
-                            $unique_image = substr(md5(time()), 0, 10).'.'.$file_ext;
-                            $uploaded_image = "../upload/post/".$unique_image;
-                            if($title == "" || $description == "" || $category == ""){
-                                echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Field must not be empty !</div>";
-                            }else{
-                                if(!empty($file_name)){
-                                    if($file_size>1048567){
-                                echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Image Size should be less then 1MB !</div>";
-                            }elseif(in_array($file_ext, $permited) === false) {
-                                echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>You can upload only:-".implode(', ', $permited)."</div>";
+                                $div = explode('.', $file_name);
+                                $file_ext = strtolower(end($div));
+                                $unique_image = substr(md5(time()), 0, 10).'.'.$file_ext;
+                                $uploaded_image = "../upload/post/".$unique_image;
+                                if($title == "" || $description == "" || $category == ""){
+                                    echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Field must not be empty !</div>";
                                 }else{
-                                        move_uploaded_file($file_temp, $uploaded_image);
+                                    if(!empty($file_name)){
+                                        if($file_size>1048567){
+                                            echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Image Size should be less then 1MB !</div>";
+                                        }elseif(in_array($file_ext, $permited) === false) {
+                                            echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>You can upload only:-".implode(', ', $permited)."</div>";
+                                        }else{
+                                            move_uploaded_file($file_temp, $uploaded_image);
+                                            $query = "UPDATE `list_posts` 
+                                                      SET 
+                                                      `title`='$title',
+                                                      `description`='$description',
+                                                      `category`='$category',
+                                                      `image`='upload/post/$unique_image',
+                                                      `tags`='$tags',
+                                                      `metatitle`='$metatitle',
+                                                      `metadescription`='$metadescription',
+                                                      `metakeywords`='$metakeywords',
+                                                      `slug`='$slug' 
+                                                      WHERE `id` = $id ";
+                                            $updated_row = $database->update($query);
+                                            if($updated_row){
+                                                echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post updated successfully !  <a href='posts.php' class='btn btn-primary'>Back</a></div>";
+                                            }else{
+                                                echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post not updated !</div>";
+                                            }
+                                        }
+                                    }else{
                                         $query = "UPDATE `list_posts` 
+                                                      SET 
+                                                      `title`='$title',
+                                                      `description`='$description',
+                                                      `category`='$category',
+                                                      `tags`='$tags',
+                                                      `metatitle`='$metatitle',
+                                                      `metadescription`='$metadescription',
+                                                      `metakeywords`='$metakeywords',
+                                                      `slug`='$slug' 
+                                                      WHERE `id` = $id ";
+                                        $updated_row = $database->update($query);
+                                        if($updated_row){
+                                            echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post updated successfully !  <a href='posts.php' class='btn btn-primary'>Back</a></div>";
+                                        }else{
+                                            echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post not updated !</div>";
+                                        }
+                                    }
+                                }
+                            }else{
+                                $title = mysqli_real_escape_string($database->link, $_POST['title']);
+                                $description = mysqli_real_escape_string($database->link, $_POST['description']);
+                                $category = mysqli_real_escape_string($database->link, $_POST['category']);
+                                $tags = mysqli_real_escape_string($database->link, $_POST['tags']);
+                                $slug = $format->slug($title);
+
+                                $permited  = array('jpg', 'jpeg', 'png', 'gif');
+                                $file_name = $_FILES['image']['name'];
+                                $file_size = $_FILES['image']['size'];
+                                $file_temp = $_FILES['image']['tmp_name'];
+
+                                $div = explode('.', $file_name);
+                                $file_ext = strtolower(end($div));
+                                $unique_image = substr(md5(time()), 0, 10).'.'.$file_ext;
+                                $uploaded_image = "../upload/post/".$unique_image;
+                                if($title == "" || $description == "" || $category == ""){
+                                    echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Field must not be empty !</div>";
+                                }else{
+                                    if(!empty($file_name)){
+                                        if($file_size>1048567){
+                                            echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Image Size should be less then 1MB !</div>";
+                                        }elseif(in_array($file_ext, $permited) === false) {
+                                            echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>You can upload only:-".implode(', ', $permited)."</div>";
+                                        }else{
+                                            move_uploaded_file($file_temp, $uploaded_image);
+                                            $query = "UPDATE `list_posts` 
                                                   SET 
                                                   `title`='$title',
                                                   `description`='$description',
                                                   `category`='$category',
                                                   `image`='upload/post/$unique_image',
                                                   `tags`='$tags',
-                                                  `metatitle`='$metatitle',
-                                                  `metadescription`='$metadescription',
-                                                  `metakeywords`='$metakeywords',
+                                                  `slug`='$slug' 
+                                                  WHERE `id` = $id ";
+                                            $updated_row = $database->update($query);
+                                            if($updated_row){
+                                                echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post updated successfully !  <a href='posts.php' class='btn btn-primary'>Back</a></div>";
+                                            }else{
+                                                echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post not updated !</div>";
+                                            }
+                                        }
+                                    }else{
+                                        $query = "UPDATE `list_posts` 
+                                                  SET 
+                                                  `title`='$title',
+                                                  `description`='$description',
+                                                  `category`='$category',
+                                                  `tags`='$tags',
                                                   `slug`='$slug' 
                                                   WHERE `id` = $id ";
                                         $updated_row = $database->update($query);
@@ -69,24 +154,6 @@
                                         }else{
                                             echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post not updated !</div>";
                                         }
-                                    }
-                                }else{
-                                    $query = "UPDATE `list_posts` 
-                                                  SET 
-                                                  `title`='$title',
-                                                  `description`='$description',
-                                                  `category`='$category',
-                                                  `tags`='$tags',
-                                                  `metatitle`='$metatitle',
-                                                  `metadescription`='$metadescription',
-                                                  `metakeywords`='$metakeywords',
-                                                  `slug`='$slug' 
-                                                  WHERE `id` = $id ";
-                                    $updated_row = $database->update($query);
-                                    if($updated_row){
-                                        echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post updated successfully !  <a href='posts.php' class='btn btn-primary'>Back</a></div>";
-                                    }else{
-                                        echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post not updated !</div>";
                                     }
                                 }
                             }
@@ -108,12 +175,6 @@
                                     <textarea class="form-control" name="description" rows="10" id="summernote"  name="editordata"><?php echo $result['description']; ?></textarea>
                                 </div>
                                             <div class="panel-body seo-meta-panel">
-                                                <?php
-                                                $query = "SELECT * FROM list_seo WHERE id = '1' ";
-                                                $seo = $database->select($query);
-                                                if($seo){
-                                                while($data = $seo->fetch_assoc()){
-                                                ?>
                                                     <?php if($data['checkcontent'] == '2' || $data['checkcontent'] == '1,2' || $data['checkcontent'] == '2,3' || $data['checkcontent'] == '1,2,3') {?>
                                                 <div class="panel-group" id="accordion">
                                                     <div class="panel panel-default">
@@ -143,10 +204,6 @@
                                                     </div>
                                                 </div>
                                                     <?php   }   ?>
-                                                 <?php
-                                                }
-                                                }
-                                                ?>
                                             </div>
                             </div>
                             <!-- /.col-lg-6 (nested) -->
@@ -188,6 +245,10 @@
                         <!-- /.col-lg-6 (nested) -->
                     </div>
                     <!-- /.row (nested) -->
+                    <?php
+                    }
+                    }
+                    ?>
                 </div>
                 <!-- /.panel-body -->
             </div>

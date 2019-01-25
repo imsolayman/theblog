@@ -10,7 +10,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-7">
-            <h1><?php echo $result['title']; ?></h1><a href="post.php?id=<?php echo $result['id']; ?>" class="hero-link">Discover More</a>
+            <h1><?php echo $result['title']; ?></h1><a href="./posts/<?php echo $result['slug']; ?>" class="hero-link">Discover More</a>
           </div>
         </div><a href=".intro" class="continue link-scroll"><i class="fa fa-long-arrow-down"></i> Scroll Down</a>
       </div>
@@ -35,7 +35,7 @@
         <!-- Post-->
         <div class="row d-flex align-items-stretch">
             <?php
-            $query = "SELECT list_posts.id, title, description, image, list_posts.created_at, list_posts.category, name, firstname, lastname  FROM list_posts, list_category, list_user WHERE list_category.id = list_posts.category AND list_user.id = list_posts.author ORDER BY list_posts.id ASC limit 1 ";
+            $query = "SELECT list_posts.id, title, description, image, list_posts.created_at, list_posts.category,  list_posts.slug, name, firstname, lastname  FROM list_posts, list_category, list_user WHERE list_category.id = list_posts.category AND list_user.id = list_posts.author ORDER BY list_posts.id ASC limit 1 ";
             $post = $database->select($query);
             if($post){
                 while ($result = $post->fetch_assoc()) {
@@ -44,11 +44,11 @@
             <div class="text-inner d-flex align-items-center">
               <div class="content">
                 <header class="post-header">
-                  <div class="category"><a href="#"><?php echo $result['name']; ?></a></div><a href="post.php?id=<?php echo $result['id']; ?>">
+                  <div class="category"><a href="#"><?php echo $result['name']; ?></a></div><a href="./posts/<?php echo $result['slug']; ?>">
                     <h2 class="h4"><?php echo $result['title']; ?></h2></a>
                 </header>
                 <p><?php echo $format->textShorten($result['description'], 320); ?> <a href="post.php?id=<?php echo $result['id']; ?>" class="hero-link"> Read More </a> </p>
-                <footer class="post-footer d-flex align-items-center"><a href="post.php?id=<?php echo $result['id']; ?>" class="author d-flex align-items-center flex-wrap">
+                <footer class="post-footer d-flex align-items-center"><a href="./posts/<?php echo $result['slug']; ?>" class="author d-flex align-items-center flex-wrap">
                     <div class="avatar"><img src="img/avatar-2.jpg" alt="..." class="img-fluid"></div>
                     <div class="title"><span><?php echo $result['firstname'] . ' ' . $result['lastname']; ?></span></div></a>
                   <div class="date"><i class="icon-clock"></i> <?php echo $format->humanTiming(strtotime($result['created_at'])); ?></div>
@@ -78,7 +78,7 @@
         <!-- Post        -->
       <div class="row d-flex align-items-stretch row-image-left">
         <?php
-        $query = "SELECT list_posts.id, title, description, image, list_posts.created_at, list_posts.category, name, firstname, lastname  FROM list_posts, list_category, list_user WHERE list_category.id = list_posts.category AND list_user.id = list_posts.author ORDER BY list_posts.id DESC limit 1 ";
+        $query = "SELECT list_posts.id, title, description, image, list_posts.created_at, list_posts.category,  list_posts.slug, name, firstname, lastname  FROM list_posts, list_category, list_user WHERE list_category.id = list_posts.category AND list_user.id = list_posts.author ORDER BY list_posts.id DESC limit 1 ";
         $post = $database->select($query);
         if($post){
             while ($result = $post->fetch_assoc()) {
@@ -88,10 +88,10 @@
               <div class="text-inner d-flex align-items-center">
                   <div class="content">
                       <header class="post-header">
-                          <div class="category"><a href="#"><?php echo $result['name']; ?></a></div><a href="post.php?id=<?php echo $result['id']; ?>">
+                          <div class="category"><a href="#"><?php echo $result['name']; ?></a></div><a href="./posts/<?php echo $result['slug']; ?>">
                               <h2 class="h4"><?php echo $result['title']; ?></h2></a>
                       </header>
-                      <p><?php echo $format->textShorten($result['description'], 320); ?> <a href="post.php?id=<?php echo $result['id']; ?>" class="hero-link"> Read More </a> </p>
+                      <p><?php echo $format->textShorten($result['description'], 320); ?> <a href="./posts/<?php echo $result['slug']; ?>" class="hero-link"> Read More </a> </p>
                       <footer class="post-footer d-flex align-items-center"><a href="post.php?id=<?php echo $result['id']; ?>" class="author d-flex align-items-center flex-wrap">
                               <div class="avatar"><img src="img/avatar-2.jpg" alt="..." class="img-fluid"></div>
                               <div class="title"><span><?php echo $result['firstname'] . ' ' . $result['lastname']; ?></span></div></a>
@@ -135,7 +135,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-7">
-            <h2><?php echo $result['title']; ?></h2><a href="post.php?id=<?php echo $result['id']; ?>" class="hero-link">View More</a>
+            <h2><?php echo $result['title']; ?></h2><a href="./posts/<?php echo $result['slug']; ?>" class="hero-link">View More</a>
           </div>
         </div>
       </div>
@@ -153,7 +153,7 @@
             </header>
             <div class="row">
             <?php
-                $query = "SELECT list_posts.id, title, description, image, list_posts.created_at, list_posts.category, name, firstname, lastname  FROM list_posts, list_category, list_user WHERE list_category.id = list_posts.category AND list_user.id = list_posts.author ORDER BY list_posts.id DESC limit 3 ";
+                $query = "SELECT list_posts.id, title, description, image, list_posts.created_at, list_posts.category,  list_posts.slug, name, firstname, lastname  FROM list_posts, list_category, list_user WHERE list_category.id = list_posts.category AND list_user.id = list_posts.author ORDER BY list_posts.id DESC limit 3 ";
                 $post = $database->select($query);
                 if($post){
                     while($result = $post->fetch_assoc()){
@@ -164,7 +164,7 @@
                         <div class="post-meta d-flex justify-content-between">
                             <div class="date"><?php echo $format->formatYear($result['created_at']); ?></div>
                             <div class="category"><a href="#"><?php echo $result['name']; ?></a></div>
-                        </div><a href="post.php?id=<?php echo $result['id']; ?>">
+                        </div><a href="./posts/<?php echo $result['slug']; ?>">
                             <h3 class="h4"><?php echo $result['title']; ?></h3></a>
                         <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
                     </div>

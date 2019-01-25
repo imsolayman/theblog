@@ -11,6 +11,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Ezeblog - Simple Dynamic Blog Template</title>
+    <base href="<?php echo SITE_URL; ?>" />
     <link rel="icon" href="admin/upload/favicon.ico" sizes="16x16" type="image/ico">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">

@@ -9,7 +9,8 @@
                         <!--                        pagination top php goes here-->
                         <?php
                         if(!isset($_GET['category']) || $_GET['category'] == null){
-                            header("Location: 404.php");
+//                            header("Location: 404.php");
+                            echo "<script type='text/javascript'> window.location ='404.php'; </script>";
                         }else{
                             $category = $_GET['category'];
                         }
@@ -21,14 +22,14 @@
                             while ($result = $post->fetch_assoc()) {
                                 ?>
                                 <div class="post col-xl-6">
-                                    <div class="post-thumbnail"><a href="post.php?id=<?php echo $result['id']; ?>"><img src="admin/<?php echo $result['image']; ?>" alt="..."
+                                    <div class="post-thumbnail"><a href="./posts/<?php echo $result['slug']; ?>"><img src="admin/<?php echo $result['image']; ?>" alt="..."
                                                                                                                         class="img-fluid"></a></div>
                                     <div class="post-details">
                                         <div class="post-meta d-flex justify-content-between">
                                             <div class="date meta-last"><?php echo $format->formatYear($result['created_at']); ?></div>
                                             <div class="category"><a href="#">#<?php echo $result['tags']; ?></a></div>
                                         </div>
-                                        <a href="post.php?id=<?php echo $result['id']; ?>">
+                                        <a href="./posts/<?php echo $result['slug']; ?>">
                                             <h3 class="h4"><?php echo $result['title']; ?></h3></a>
                                         <p class="text-muted"><?php echo $format->textShorten($result['description'], 120); ?></p>
                                         <!--                    static content for temporary except name of author-->

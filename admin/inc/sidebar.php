@@ -73,6 +73,9 @@
                     <li>
                         <a href="spam.php">Spam</a>
                     </li>
+                    <li>
+                        <a href="configuration.php">Configuration</a>
+                    </li>
                 </ul>
                 <!-- /.nav-second-level -->
             </li>

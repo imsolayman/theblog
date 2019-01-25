@@ -16,20 +16,20 @@
                         $startFrom = ($id - 1) * $postPerPage;
                         ?>
                         <?php
-                        $query = "SELECT list_posts.id, title, description, image, list_posts.created_at, list_posts.category, name, firstname, lastname  FROM list_posts, list_category, list_user WHERE list_category.id = list_posts.category AND list_user.id = list_posts.author ORDER BY list_posts.id DESC limit $startFrom, $postPerPage";
+                        $query = "SELECT list_posts.id, title, description, image, list_posts.created_at, list_posts.slug, list_posts.category, name, firstname, lastname  FROM list_posts, list_category, list_user WHERE list_category.id = list_posts.category AND list_user.id = list_posts.author ORDER BY list_posts.id DESC limit $startFrom, $postPerPage";
                         $post = $database->select($query);
                         if($post){
                         while ($result = $post->fetch_assoc()) {
                             ?>
                             <div class="post col-xl-6">
-                                <div class="post-thumbnail"><a href="post.php?id=<?php echo $result['id']; ?>"><img src="admin/<?php echo $result['image']; ?>" alt="..."
+                                <div class="post-thumbnail"><a href="./posts/<?php echo $result['slug']; ?>"><img src="admin/<?php echo $result['image']; ?>" alt="..."
                                                                                                                     class="img-fluid"></a></div>
                                 <div class="post-details">
                                     <div class="post-meta d-flex justify-content-between">
                                         <div class="date meta-last"><?php echo $format->formatYear($result['created_at']); ?></div>
                                         <div class="category"><a href="#"><?php echo $result['name']; ?></a></div>
                                     </div>
-                                    <a href="post.php?id=<?php echo $result['id']; ?>">
+                                    <a href="./posts/<?php echo $result['slug']; ?>">
                                         <h3 class="h4"><?php echo $result['title']; ?></h3></a>
                                     <p class="text-muted"><?php echo $format->textShorten($result['description'], 120); ?></p>
                                     <!--                    static content for temporary except name of author-->

@@ -7,13 +7,14 @@
                     <!--              post starts here-->
                     <?php
                     if(!isset($_GET['id']) || $_GET['id'] == null){
-                        header("Location: 404.php");
+//                        header('Location: 404.php');
+                        echo "<script type='text/javascript'> window.location ='404.php'; </script>";
                     }else{
                         $id = $_GET['id'];
                     }
                     ?>
                     <?php
-                    $query = "SELECT list_posts.id, title, description, image, tags, list_posts.created_at, list_posts.category, name, firstname, lastname  FROM list_posts, list_category, list_user WHERE list_category.id = list_posts.category AND list_user.id = list_posts.author AND list_posts.id = '$id' ";
+                    $query = "SELECT list_posts.id, title, description, image, tags, list_posts.created_at, list_posts.category, name, firstname, lastname  FROM list_posts, list_category, list_user WHERE list_category.id = list_posts.category AND list_user.id = list_posts.author AND list_posts.slug = '$id' ";
                     $post = $database->select($query);
                     if($post){
                     while ($result = $post->fetch_assoc()) {
@@ -59,7 +60,7 @@
                                 if($post){
                                     while($result = $post->fetch_assoc()){
                                         ?>
-                                        <a href="post.php?id=<?php echo $result['id']; ?>" class="prev-post text-left d-flex align-items-center">
+                                        <a href="./posts/<?php echo $result['slug']; ?>" class="prev-post text-left d-flex align-items-center">
                                             <div class="icon prev"><i class="fa fa-angle-left"></i></div>
                                             <div class="text">
                                                 <strong class="text-primary">#<?php echo $result['tags']; ?></strong>
@@ -80,7 +81,14 @@
                             <!--                  comment starts here-->
                             <div class="post-comments">
                                 <?php
-                                $query = "SELECT *  FROM list_comment WHERE post = '$id' AND status = '1' ";
+                                $getquery = "SELECT *  FROM list_posts WHERE slug = '$id' ";
+                                $getdata = $database->select($getquery);
+                                if($getdata){
+                                    while($getresult = $getdata->fetch_assoc()){
+                                ?>
+                                <?php
+                                $getid = $getresult['id'];
+                                $query = "SELECT *  FROM list_comment WHERE post = '$getid' AND status = '1' ";
                                 $comment = $database->select($query);
                                 //                    $comments = mysqli_num_rows($comment);
                                 ?>
@@ -112,6 +120,11 @@
                                     }
                                 }
                                 ?>
+
+                             <?php
+                                    }
+                                }
+                              ?>
                             </div>
                             <!--                  add comment starts here-->
                             <div class="add-comment">

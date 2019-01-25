@@ -24,7 +24,7 @@
                 if($post){
                     while($result = $post->fetch_assoc()){
              ?>
-            <a href="post.php?id=<?php echo $result['id']; ?>">
+            <a href="./posts/<?php echo $result['slug']; ?>">
                 <div class="item d-flex align-items-center">
                     <div class="image"><img src="admin/<?php echo $result['image']; ?>" alt="..." class="img-fluid" width="60px" height="60px"></div>
                     <div class="title"><strong><?php echo $result['title']; ?></strong>

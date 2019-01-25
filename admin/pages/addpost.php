@@ -11,46 +11,87 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
+                <?php
+                    $query = "SELECT * FROM list_seo WHERE id = '1' ";
+                    $seo = $database->select($query);
+                    if($seo){
+                         while($data = $seo->fetch_assoc()){
+                ?>
                 <div class="panel-body">
                     <div class="row">
                         <?php
-                        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-                            $title = mysqli_real_escape_string($database->link, $_POST['title']);
-                            $description = mysqli_real_escape_string($database->link, $_POST['description']);
-                            $category = mysqli_real_escape_string($database->link, $_POST['category']);
-                            $tags = mysqli_real_escape_string($database->link, $_POST['tags']);
-                            $metatitle = mysqli_real_escape_string($database->link, $_POST['metatitle']);
-                            $metadescription = mysqli_real_escape_string($database->link, $_POST['metadescription']);
-                            $metakeywords = mysqli_real_escape_string($database->link, $_POST['metakeywords']);
-                            $author = mysqli_real_escape_string($database->link, Session::get('userId'));
-                            $slug = $format->slug($title);
+                            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                                if($data['checkcontent'] == '2' || $data['checkcontent'] == '1,2' || $data['checkcontent'] == '2,3' || $data['checkcontent'] == '1,2,3') {
+                                    $title = mysqli_real_escape_string($database->link, $_POST['title']);
+                                    $description = mysqli_real_escape_string($database->link, $_POST['description']);
+                                    $category = mysqli_real_escape_string($database->link, $_POST['category']);
+                                    $tags = mysqli_real_escape_string($database->link, $_POST['tags']);
+                                    $metatitle = mysqli_real_escape_string($database->link, $_POST['metatitle']);
+                                    $metadescription = mysqli_real_escape_string($database->link, $_POST['metadescription']);
+                                    $metakeywords = mysqli_real_escape_string($database->link, $_POST['metakeywords']);
+                                    $author = mysqli_real_escape_string($database->link, Session::get('userId'));
+                                    $slug = $format->slug($title);
 
-                            $permited  = array('jpg', 'jpeg', 'png', 'gif');
-                            $file_name = $_FILES['image']['name'];
-                            $file_size = $_FILES['image']['size'];
-                            $file_temp = $_FILES['image']['tmp_name'];
+                                    $permited  = array('jpg', 'jpeg', 'png', 'gif');
+                                    $file_name = $_FILES['image']['name'];
+                                    $file_size = $_FILES['image']['size'];
+                                    $file_temp = $_FILES['image']['tmp_name'];
 
-                            $div = explode('.', $file_name);
-                            $file_ext = strtolower(end($div));
-                            $unique_image = substr(md5(time()), 0, 10).'.'.$file_ext;
-                            $uploaded_image = "../upload/post/".$unique_image;
-                            if($title == "" || $description == "" || $category == ""){
-                                echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Field must not be empty !</div>";
-                            }elseif($file_size>1048567){
-                                echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Image Size should be less then 1MB !</div>";
-                            }elseif(in_array($file_ext, $permited) === false) {
-                                echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>You can upload only:-".implode(', ', $permited)."</div>";
-                            }else{
-                                move_uploaded_file($file_temp, $uploaded_image);
-                                $query = "INSERT INTO list_posts (title, description, category, image, tags, metatitle, metadescription, metakeywords, slug, author) VALUES ('$title', '$description', '$category', 'upload/post/$unique_image', '$tags', '$metatitle', '$metadescription', '$metakeywords', '$slug', '$author')";
-                                $inserted_row = $database->insert($query);
-                                if($inserted_row){
-                                    echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post inserted successfully !</div>";
+                                    $div = explode('.', $file_name);
+                                    $file_ext = strtolower(end($div));
+                                    $unique_image = substr(md5(time()), 0, 10).'.'.$file_ext;
+                                    $uploaded_image = "../upload/post/".$unique_image;
+                                    if($title == "" || $description == "" || $category == ""){
+                                        echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Field must not be empty !</div>";
+                                    }elseif($file_size>1048567){
+                                        echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Image Size should be less then 1MB !</div>";
+                                    }elseif(in_array($file_ext, $permited) === false) {
+                                        echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>You can upload only:-".implode(', ', $permited)."</div>";
+                                    }else{
+                                        move_uploaded_file($file_temp, $uploaded_image);
+                                        $query = "INSERT INTO list_posts (title, description, category, image, tags, metatitle, metadescription, metakeywords, slug, author) VALUES ('$title', '$description', '$category', 'upload/post/$unique_image', '$tags', '$metatitle', '$metadescription', '$metakeywords', '$slug', '$author')";
+                                        $inserted_row = $database->insert($query);
+                                        if($inserted_row){
+                                            echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post inserted successfully !</div>";
+                                        }else{
+                                            echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post not inserted !</div>";
+                                        }
+                                    }
                                 }else{
-                                    echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post not inserted !</div>";
+                                    $title = mysqli_real_escape_string($database->link, $_POST['title']);
+                                    $description = mysqli_real_escape_string($database->link, $_POST['description']);
+                                    $category = mysqli_real_escape_string($database->link, $_POST['category']);
+                                    $tags = mysqli_real_escape_string($database->link, $_POST['tags']);
+                                    $author = mysqli_real_escape_string($database->link, Session::get('userId'));
+                                    $slug = $format->slug($title);
+
+                                    $permited  = array('jpg', 'jpeg', 'png', 'gif');
+                                    $file_name = $_FILES['image']['name'];
+                                    $file_size = $_FILES['image']['size'];
+                                    $file_temp = $_FILES['image']['tmp_name'];
+
+                                    $div = explode('.', $file_name);
+                                    $file_ext = strtolower(end($div));
+                                    $unique_image = substr(md5(time()), 0, 10).'.'.$file_ext;
+                                    $uploaded_image = "../upload/post/".$unique_image;
+                                    if($title == "" || $description == "" || $category == ""){
+                                        echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Field must not be empty !</div>";
+                                    }elseif($file_size>1048567){
+                                        echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Image Size should be less then 1MB !</div>";
+                                    }elseif(in_array($file_ext, $permited) === false) {
+                                        echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>You can upload only:-".implode(', ', $permited)."</div>";
+                                    }else{
+                                        move_uploaded_file($file_temp, $uploaded_image);
+                                        $query = "INSERT INTO list_posts (title, description, category, image, tags, slug, author) VALUES ('$title', '$description', '$category', 'upload/post/$unique_image', '$tags', '$slug', '$author')";
+                                        $inserted_row = $database->insert($query);
+                                        if($inserted_row){
+                                            echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post inserted successfully !</div>";
+                                        }else{
+                                            echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Post not inserted !</div>";
+                                        }
+                                    }
                                 }
                             }
-                        }
                         ?>
                         <form role="form" action="" method="post" enctype="multipart/form-data">
                             <div class="col-lg-9">
@@ -61,12 +102,6 @@
                                     <label>Write Post</label>
                                     <textarea class="form-control" name="description" rows="10" id="summernote" name="editordata"></textarea>
                                 </div>
-                                <?php
-                                $query = "SELECT * FROM list_seo WHERE id = '1' ";
-                                $seo = $database->select($query);
-                                if($seo){
-                                while($data = $seo->fetch_assoc()){
-                                ?>
                                 <?php if($data['checkcontent'] == '2' || $data['checkcontent'] == '1,2' || $data['checkcontent'] == '2,3' || $data['checkcontent'] == '1,2,3') {?>
                                 <div class="panel-body seo-meta-panel">
                                     <div class="panel-group" id="accordion">
@@ -98,10 +133,6 @@
                                     </div>
                                 </div>
                                     <?php   }   ?>
-                                    <?php
-                                }
-                                }
-                                ?>
                             </div>
                             <!-- /.col-lg-6 (nested) -->
                             <div class="col-lg-2">
@@ -134,6 +165,10 @@
                         </form>
                         <!-- /.col-lg-6 (nested) -->
                     </div>
+                    <?php
+                           }
+                        }
+                    ?>
                     <!-- /.row (nested) -->
                 </div>
                 <!-- /.panel-body -->
