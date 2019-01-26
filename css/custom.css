@@ -63,3 +63,8 @@
 .row-image-left {
     background: #f3f3f3;
 }
+/*post.php related*/
+.posts-nav .text .text-primary {
+    text-transform: uppercase !important;
+    color: #c5b0b0 !important;
+}

@@ -16,7 +16,16 @@
                         }
                         ?>
                         <?php
-                            $query = "SELECT *  FROM list_posts WHERE category = '$category' LIMIT 6";
+                            $getquery = "SELECT *  FROM list_category WHERE slug = '$category' ";
+                            $getdata = $database->select($getquery);
+                            if($getdata){
+                                while($getresult = $getdata->fetch_assoc()){
+                        ?>
+
+                        <?php
+                            $getid = $getresult['id'];
+                            $getname = $getresult['name'];
+                            $query = "SELECT *  FROM list_posts WHERE category = '$getid' LIMIT 6";
                             $post = $database->select($query);
                             if($post){
                             while ($result = $post->fetch_assoc()) {
@@ -27,7 +36,7 @@
                                     <div class="post-details">
                                         <div class="post-meta d-flex justify-content-between">
                                             <div class="date meta-last"><?php echo $format->formatYear($result['created_at']); ?></div>
-                                            <div class="category"><a href="#">#<?php echo $result['tags']; ?></a></div>
+                                            <div class="category"><a href="#"><?php echo $getname; ?></a></div>
                                         </div>
                                         <a href="./posts/<?php echo $result['slug']; ?>">
                                             <h3 class="h4"><?php echo $result['title']; ?></h3></a>
@@ -58,6 +67,11 @@
                                 </div>
                                 <?php
                             }
+                        ?>
+
+                        <?php
+                                }
+                             }
                         ?>
                     </div>
                     <!-- Pagination -->

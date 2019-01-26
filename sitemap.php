@@ -12,6 +12,7 @@ while($row = mysqli_fetch_array($check)){
     if($row['checksitemap'] != 1){
         header('Location:index.php');
     }else{
+        define("POST_URL", "http://theblog.test/posts/");
 ?>
 <?php
 //sitemap.php
@@ -29,7 +30,7 @@ if($sitemap){
     while($result = $sitemap->fetch_assoc())
     {
         echo '<url>' . PHP_EOL;
-        echo '<loc>'.SITE_URL. $result['slug'] .'/</loc>' . PHP_EOL;
+        echo '<loc>'.POST_URL. $result['slug'] .'</loc>' . PHP_EOL;
         echo '<lastmod>'.$format->formatDate($result['created_at']).'</lastmod>' . PHP_EOL;
         echo '<changefreq>daily</changefreq>' . PHP_EOL;
         echo '</url>' . PHP_EOL;

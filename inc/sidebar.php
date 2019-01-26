@@ -53,7 +53,7 @@
         if($category){
             while($result = $category->fetch_assoc()){
          ?>
-         <div class="item d-flex justify-content-between"><a href="category.php?category=<?php echo $result['id']; ?>"><?php echo $result['name']; ?></a>
+         <div class="item d-flex justify-content-between"><a href="./categories/<?php echo $result['slug']; ?>"><?php echo $result['name']; ?></a>
              <span>
                 <?php
                 $catid = $result['id'];

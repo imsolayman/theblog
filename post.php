@@ -55,6 +55,7 @@
                             <div class="posts-nav d-flex justify-content-between align-items-stretch flex-column flex-md-row">
                                 <?php
                                 $category = $result['category'];
+                                $getname = $result['name'];
                                 $query = "SELECT * FROM list_posts WHERE category = '$category' ORDER BY rand() LIMIT 2";
                                 $post = $database->select($query);
                                 if($post){
@@ -63,7 +64,7 @@
                                         <a href="./posts/<?php echo $result['slug']; ?>" class="prev-post text-left d-flex align-items-center">
                                             <div class="icon prev"><i class="fa fa-angle-left"></i></div>
                                             <div class="text">
-                                                <strong class="text-primary">#<?php echo $result['tags']; ?></strong>
+                                                <strong class="text-primary"><?php echo $getname; ?></strong>
                                                 <h6><?php echo $result['title']; ?></h6>
                                             </div>
                                             <div class="icon next"><i class="fa fa-angle-right">   </i></div></a>
@@ -145,7 +146,7 @@
                                     }elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
                                         echo "<button class='btn btn-danger'>Error ! Please enter a valid email address</button>";
                                     }else {
-                                        $query = "INSERT INTO list_comment (post, name, email, comment, ip) VALUES ('$id', '$name', '$email', '$comment', '$ip') ";
+                                        $query = "INSERT INTO list_comment (post, name, email, comment, ip) VALUES ('$getid', '$name', '$email', '$comment', '$ip') ";
                                         $insert_row = $database->insert($query);
                                         if ($insert_row) {
                                             echo "<button class='btn btn-success'>Thanks ! Your comment is awaiting for moderation</button>";
