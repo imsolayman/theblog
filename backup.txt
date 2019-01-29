@@ -1,46 +1,35 @@
-Options +FollowSymlinks
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-
-
-
-#Secure htaccess file <----Remember to put every space and consider no space-->
-<Files .htaccess>
-order allow,deny
-deny from all
-</Files>
-#By this no one can see my htaccess code ---> For security
-
-
-#Simple redirects for index page
-#Thus you can make any redirect for any page like that,
-#Here, I've refirected all of the index pages written in format to home page,
-#You can redirect to any page
-RewriteRule ^index\.php http://theblog.test/ [R=301,L]
-
-#this is to remove .php extension
-RewriteCond %{THE_REQUEST} /([^.]+)\.php [NC]
-RewriteRule ^ /%1 [NC,L,R]
-RewriteCond %{REQUEST_FILENAME}.php -f
-RewriteRule ^ %{REQUEST_URI}.php [NC,L]
-
-
-#------------------------------------------------------------------------------
-#For showing with post text
-#RewriteRule ^post([0-9]+)/([0-9a-zA-Z_-]+)$ post.php?post_id=$1&post_url=$2 [NC,L]
-#For showing without post.php
-RewriteRule ^posts/([^/.]+)?$ /post.php?id=$1 [L]
-
-#For showing without search.php
-#RewriteRule ^searches/(.*)$ ./search.php?search=$1
-
-
-#For showing without category.php
-#RewriteRule ^categories/([^/.]+)?$ /category.php?category=$2 [L]
-#RewriteRule ^categories/(\d+)*$ ./category.php?category=$1
-RewriteRule ^categories/([^/.]+)?$ /category.php?category=$1
-
-
-#this is for xml sitemap
-RewriteRule ^sitemap\.xml/?$ sitemap.php
+<?php include 'inc/header.php'; ?>
+    <?php
+    if(!isset($_GET['page']) || $_GET['page'] == null){
+    //                        header('Location: 404.php');
+        echo "<script type='text/javascript'> window.location ='404.php'; </script>";
+    }else{
+        $id = $_GET['page'];
+    }
+    ?>
+    <?php
+    $query = "SELECT *  FROM list_pages WHERE slug = '$page' ";
+    $pages = $database->select($query);
+    if($pages){
+        while($result = $pages->fetch_assoc()){
+    ?>
+    <nav aria-label="breadcrumb"  class="breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="<?php echo SITE_URL; ?>">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><?php echo $result['title']; ?></li>
+            </ol>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <!-- Latest Posts -->
+            <?php echo $result['description']; ?>
+            <!--              post starts here-->
+        </div>
+    </div>
+    <?php
+            }
+        }
+    ?>
+<?php include 'inc/footer.php'; ?>

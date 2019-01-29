@@ -60,13 +60,13 @@ if(isset($_GET['delete'])){
                                         <td  class="center"><?php echo $result['email']; ?></td>
                                         <td>
                                             <?php
-                                                if($result['role'] == 0){
+                                                if($result['role'] == 1){
                                                         echo "Admin";
-                                                    }elseif($result['role'] == 1){
-                                                        echo "Editor";
                                                     }elseif($result['role'] == 2){
-                                                        echo "Author";
+                                                        echo "Editor";
                                                     }elseif($result['role'] == 3){
+                                                        echo "Author";
+                                                    }elseif($result['role'] == 4){
                                                         echo "Subscriber";
                                                 }
                                             ?>
@@ -84,7 +84,7 @@ if(isset($_GET['delete'])){
                                                 }
                                             ?>
                                         </td>
-                                        <td  class="center"><a href="editpost.php?edit=<?php echo $result['id']; ?>"><i class="fa fa-edit  fa-fw"></i></a>  <a onclick="return confirm('Are you sure?')" href="?delete=<?php echo $result['id']; ?>"><i class="fa fa-trash  fa-fw"></i></a>  </td>
+                                        <td  class="center"><a href="profile.php?edit=<?php echo $result['id']; ?>"><i class="fa fa-edit  fa-fw"></i></a>  <a onclick="return confirm('Are you sure?')" href="?delete=<?php echo $result['id']; ?>"><i class="fa fa-trash  fa-fw"></i></a>  </td>
                                     </tr>
                                     <?php
                                 }

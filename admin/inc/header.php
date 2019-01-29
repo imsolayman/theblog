@@ -1,7 +1,7 @@
 <?php include '../../config/config.php'; ?>
-<?php include '../../lib/session.php'; ?>
-<?php include '../../lib/database.php'; ?>
-<?php include '../../lib/format.php'; ?>
+<?php include '../../lib/Session.php'; ?>
+<?php include '../../lib/Database.php'; ?>
+<?php include '../../lib/Format.php'; ?>
 <?php
     Session::checkSession();
     $database = new Database();
@@ -45,8 +45,7 @@
 
     <!-- DataTables CSS -->
     <link href="../vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
-
-    <!-- DataTables Responsive CSS -->
+    <link rel="stylesheet" href="../vendor/datatables-plugins/buttons.bootstrap4.min.css">
     <link href="../vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
@@ -93,44 +92,30 @@
                     <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-messages">
+                    <?php
+                    $query = "SELECT * FROM list_contact WHERE status = '1' ORDER BY id DESC LIMIT 3";
+                    $mail = $database->select($query);
+                    if($mail){
+                    while($result = $mail->fetch_assoc()){
+                    ?>
                     <li>
                         <a href="#">
                             <div>
-                                <strong>John Smith</strong>
+                                <strong><?php echo $result['name']; ?></strong>
                                 <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
+                                        <em><?php echo $format->humanTiming(strtotime($result['created_at'])); ?></em>
                                     </span>
                             </div>
-                            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                            <div><?php echo $result['subject'].' - '.$format->textShorten($result['description'], 50); ?></div>
                         </a>
                     </li>
                     <li class="divider"></li>
+                    <?php
+                    }
+                    }
+                    ?>
                     <li>
-                        <a href="#">
-                            <div>
-                                <strong>John Smith</strong>
-                                <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                            </div>
-                            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#">
-                            <div>
-                                <strong>John Smith</strong>
-                                <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                            </div>
-                            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a class="text-center" href="#">
+                        <a class="text-center" href="inbox.php">
                             <strong>Read All Messages</strong>
                             <i class="fa fa-angle-right"></i>
                         </a>

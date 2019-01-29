@@ -1,6 +1,7 @@
 <?php include 'config/config.php'; ?>
 <?php include 'lib/database.php'; ?>
 <?php include 'lib/format.php'; ?>
+<?php include 'vendor/autoload.php'; ?>
 <?php
     $database = new Database();
     $format = new Format();
@@ -10,12 +11,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Ezeblog - Simple Dynamic Blog Template</title>
     <base href="<?php echo SITE_URL; ?>" />
     <link rel="icon" href="admin/upload/favicon.ico" sizes="16x16" type="image/ico">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--    meta contents-->
+    <?php include 'meta.php'; ?>
     <meta name="robots" content="all,follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--    Google verification-->
     <meta name="google-site-verification" content="w9_oQ7sF8QulKrv8FCU3z6UF9X-pl151c5YjUqGCb5Q" />
     <!-- Bootstrap CSS-->
@@ -66,7 +67,7 @@
                     if($data){
                     while($result = $data->fetch_assoc()){
                 ?>
-                <!-- Navbar Brand --><a href="index.php" class="navbar-brand"> <img src="admin/<?php echo $result['logo']; ?>" alt="" height="25px" width="25px"> <?php echo $result['title']; ?></a>
+                <!-- Navbar Brand --><a href="<?php echo SITE_URL; ?>" class="navbar-brand"> <img src="admin/<?php echo $result['logo']; ?>" alt="" height="25px" width="25px"> <?php echo $result['title']; ?></a>
                 <!-- Toggle Button-->
                 <button type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span></span><span></span><span></span></button>
                 <?php

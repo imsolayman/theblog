@@ -1,5 +1,4 @@
 <?php
-
 class Format{
 
         public function formatDate($date){
@@ -53,6 +52,17 @@ class Format{
         public function slug($string){
             $string = preg_replace('/[^a-z0-9-]+/', '-', trim(strtolower($string)));
             return $string;
+        }
+        public function title(){
+            $path = $_SERVER['SCRIPT_FILENAME'];
+            $title = basename($path, '.php');
+            $title = str_replace('_', ' ', $title);
+            if($title == 'index'){
+                $title = 'home';
+            }elseif($title == 'contact'){
+                $title = 'contact';
+            }
+            return $title = ucfirst($title);
         }
 
     }

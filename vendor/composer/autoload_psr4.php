@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'theblog\\' => array($baseDir . '/lib'),
+    'Porject\\' => array($baseDir . '/lib'),
 );

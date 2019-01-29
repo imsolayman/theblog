@@ -76,7 +76,7 @@ p.error, a.error{
 }
 /*apppost.php*/
 .seo-meta-panel{
-    padding: 0px;
+    padding: 0;
 }
 /*theme.php*/
 .typography > select {
@@ -87,4 +87,8 @@ p.error, a.error{
 }
 .form-group.col-md-4.typography {
     padding: 0;
+}
+/*newsletter.php*/
+.panel-newsletter #example_filter input[type="search"], .panel-newsletter #confirmed_filter input[type="search"]  {
+    width: 75%;
 }

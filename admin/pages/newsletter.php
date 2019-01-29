@@ -24,15 +24,15 @@ if(isset($_GET['confirm'])){
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
-    <div class="row">
+    <div class="row panel-newsletter">
         <div class="col-lg-7">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Recent Subscription
+                        Recent Subscription
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-subscribe">
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="example">
                         <thead>
                         <tr>
                             <th>No</th>
@@ -77,7 +77,7 @@ if(isset($_GET['confirm'])){
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-newsletter">
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="confirmed">
                         <thead>
                         <tr>
                             <th>No</th>
@@ -118,15 +118,29 @@ if(isset($_GET['confirm'])){
 </div>
 <!-- /#page-wrapper -->
 <?php include '../inc/footer.php'; ?>
-
-<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#dataTables-subscribe').DataTable({
+        var table = $('#example').DataTable( {
+            lengthChange: false,
+            buttons: [ 'copy', 'csv', 'pdf', 'colvis' ]
+        } );
+
+        table.buttons().container()
+            .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+
+        $('#confirmed').DataTable({
             responsive: true
         });
-        $('#dataTables-newsletter').DataTable({
-            responsive: true
-        });
-    });
+    } );
 </script>
+
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->

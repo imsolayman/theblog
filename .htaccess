@@ -13,10 +13,7 @@ deny from all
 #By this no one can see my htaccess code ---> For security
 
 
-#Simple redirects for index page
-#Thus you can make any redirect for any page like that,
-#Here, I've refirected all of the index pages written in format to home page,
-#You can redirect to any page
+#Simple redirects for index page (very important- need to deactivate any time if conflict with page.php)
 RewriteRule ^index\.php http://theblog.test/ [R=301,L]
 
 
@@ -32,7 +29,11 @@ RewriteRule ^ %{REQUEST_URI}.php [NC,L]
 #For showing with post text
 #RewriteRule ^post([0-9]+)/([0-9a-zA-Z_-]+)$ post.php?post_id=$1&post_url=$2 [NC,L]
 #For showing without post.php
-RewriteRule ^posts/([^/.]+)?$ /post.php?id=$1 [L]
+RewriteRule ^posts/([^/.]+)/?$ /post.php?id=$1 [L]
+
+
+#For showing without page.php
+RewriteRule ^([^/.]+)/?$ /page.php?title=$1
 
 #For showing without search.php
 #RewriteRule ^searches/(.*)$ ./search.php?search=$1
@@ -41,7 +42,7 @@ RewriteRule ^posts/([^/.]+)?$ /post.php?id=$1 [L]
 #For showing without category.php
 #RewriteRule ^categories/([^/.]+)?$ /category.php?category=$2 [L]
 #RewriteRule ^categories/(\d+)*$ ./category.php?category=$1
-RewriteRule ^categories/([^/.]+)?$ /category.php?category=$1
+RewriteRule ^categories/([^/.]+)/?$ /category.php?category=$1
 
 
 #this is for xml sitemap

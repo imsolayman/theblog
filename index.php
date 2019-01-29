@@ -1,4 +1,5 @@
 <?php include 'inc/header.php'; ?>
+
     <!-- Hero Section-->
     <?php
         $query = "SELECT * FROM list_posts ORDER BY id DESC LIMIT 1";

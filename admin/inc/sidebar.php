@@ -79,6 +79,18 @@
                 </ul>
                 <!-- /.nav-second-level -->
             </li>
+            <li>
+                <a href="#"><i class="fa fa-sticky-note fa-fw"></i> Pages<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="pages.php">All Pages</a>
+                    </li>
+                    <li>
+                        <a href="addpage.php">Add New Page</a>
+                    </li>
+                </ul>
+                <!-- /.nav-second-level -->
+            </li>
             <?php } ?>
             <li>
                 <a href="#"><i class="fa fa-newspaper-o fa-fw"></i> Posts<span class="fa arrow"></span></a>
@@ -115,12 +127,14 @@
                 </ul>
                 <!-- /.nav-second-level -->
             </li>
+            <?php if(Session::get('userRole') == '1'){ ?>
             <li>
                 <a href="seo.php"><i class="fa fa-line-chart fa-fw"></i> SEO</a>
             </li>
             <li>
                 <a href="theme.php"><i class="fa fa-cog fa-fw"></i> Theme Options</a>
             </li>
+            <?php } ?>
         </ul>
     </div>
     <!-- /.sidebar-collapse -->
