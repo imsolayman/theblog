@@ -84,10 +84,7 @@
                                 <?php
                                 $getquery = "SELECT *  FROM list_posts WHERE slug = '$id' ";
                                 $getdata = $database->select($getquery);
-                                if($getdata){
-                                    while($getresult = $getdata->fetch_assoc()){
-                                ?>
-                                <?php
+                                $getresult = $getdata->fetch_assoc();
                                 $getid = $getresult['id'];
                                 $query = "SELECT *  FROM list_comment WHERE post = '$getid' AND status = '1' ";
                                 $comment = $database->select($query);
@@ -122,10 +119,6 @@
                                 }
                                 ?>
 
-                             <?php
-                                    }
-                                }
-                              ?>
                             </div>
                             <!--                  add comment starts here-->
                             <div class="add-comment">
@@ -133,7 +126,7 @@
                                     <h3 class="h6">Leave a reply</h3>
                                 </header>
                                 <?php
-                                if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                                if(isset($_POST["addcomment"])){
                                     $name = $format->validation($_POST['name']);
                                     $email = $format->validation($_POST['email']);
                                     $comment = $_POST['comment'];
@@ -168,7 +161,7 @@
                                             <textarea name="comment" id="usercomment" placeholder="Type your comment" class="form-control"></textarea>
                                         </div>
                                         <div class="form-group col-md-12">
-                                            <button type="submit" class="btn btn-secondary">Submit Comment</button>
+                                            <button type="submit" name="addcomment" class="btn btn-secondary">Submit Comment</button>
                                         </div>
                                     </div>
                                 </form>

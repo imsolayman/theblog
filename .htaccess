@@ -29,6 +29,7 @@ RewriteRule ^ %{REQUEST_URI}.php [NC,L]
 #For showing with post text
 #RewriteRule ^post([0-9]+)/([0-9a-zA-Z_-]+)$ post.php?post_id=$1&post_url=$2 [NC,L]
 #For showing without post.php
+#RewriteRule ^([^/.]+)/?$ /post.php?id=$1 [L]
 RewriteRule ^posts/([^/.]+)/?$ /post.php?id=$1 [L]
 
 

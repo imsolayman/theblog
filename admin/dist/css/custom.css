@@ -92,3 +92,34 @@ p.error, a.error{
 .panel-newsletter #example_filter input[type="search"], .panel-newsletter #confirmed_filter input[type="search"]  {
     width: 75%;
 }
+/*widget.php*/
+.box-panel > h2:nth-child(1) {
+    display: block;
+    margin-top: 0;
+    padding: 5px 25px;
+    background: #dddd;
+    color: #7f6868;
+    font-size: 25px;
+    border: 1px solid #ababab;
+    border-radius: 5px;
+}
+.box-panel > .col-lg-6 {
+    padding: 0;
+}
+.single-modals > a.btn.btn-default {
+    width: 95%;
+    margin-bottom: 14px;
+}
+#WidgetArea .modal-footer{
+    text-align: left !important;
+}
+
+.single-modals .alert-warning {
+    color: #8a6d3b;
+    background-color: #fff;
+    border-color: #faebcc;
+}
+.single-modals .alert {
+    padding: 0;
+    margin-bottom: 0;
+    border: none;

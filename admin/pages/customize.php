@@ -11,7 +11,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Customize</h1>
+                <h1 class="page-header">Apperance</h1>
             </div>
             <!-- /.col-lg-12 -->
     <!--            customize content starts here-->
@@ -68,16 +68,16 @@
                         </div>
                     </div>
                     <!-- /.col-lg-4 -->
-                    <div class="col-lg-4">
+                    <div class="col-lg-8">
                         <div class="panel panel-success">
                             <div class="panel-heading">
                                 Logo
                             </div>
                             <div class="panel-body">
-                                <div class="col-md-4">
+                                <div class="col-md-8">
                                     <img src="../<?php echo $result['logo']; ?>" alt="" width="80px" height="80px">
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-4">
                                     <?php
                                         if(isset($_POST['logo'])){
                                             $permited  = array('jpg', 'jpeg', 'png', 'gif');
@@ -126,114 +126,9 @@
               </div>
     <!--            customize content starts here-->
                 <div id="contact-panel">
-                    <div class="col-lg-6">
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                Contact Info
-                            </div>
-                            <div class="panel-body">
-                                <?php
-                                if(isset($_POST["contact"])){
-                                    $title = $format->validation($_POST['title']);
-                                    $address = $format->validation($_POST['address']);
-                                    $phone = $format->validation($_POST['phone']);
-                                    $email = $format->validation($_POST['email']);
-                                    $title = mysqli_real_escape_string($database->link, $title);
-                                    $address = mysqli_real_escape_string($database->link, $address);
-                                    $phone = mysqli_real_escape_string($database->link, $phone);
-                                    $email = mysqli_real_escape_string($database->link, $email);
-                                    if($title == "" || $address == "" || $phone == "" || $email == ""){
-                                        echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Field must not be empty !</div>";
-                                    }else{
-                                        $query = "UPDATE list_customize
-                                                SET 
-                                                title = '$title',
-                                                address = '$address',
-                                                phone = '$phone',
-                                                email = '$email'
-                                                WHERE
-                                                id = '1' ";
-                                        $updated_row = $database->update($query);
-                                        if($updated_row){
-                                            echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Contact updated successfully !</div>";
-                                        }else{
-                                            echo "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Contact not updated !</div>";
-                                        }
-                                    }
-                                }
-                                ?>
-                                <form action=""  method="post">
-                                    <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" name="title" class="form-control" id="inputEmail3" value="<?php echo $result['title']; ?>">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Address</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" name="address" class="form-control" id="inputEmail3" value="<?php echo $result['address']; ?>">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Phone</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" name="phone" class="form-control" id="inputEmail3" value="<?php echo $result['phone']; ?>">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" name="email" class="form-control" id="inputEmail3" value="<?php echo $result['email']; ?>">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-10">
-                                            <input type="submit" class="btn btn-primary mb-2" name="contact" value="Update">
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-<!--                        copyright-section-->
-                        <div class="panel panel-danger">
-                            <div class="panel-heading">
-                                Copyright
-                            </div>
-                            <div class="panel-body">
-                                <?php
-                                if(isset($_POST["copytext"])){
-                                    $copyright = $format->validation($_POST['copyright']);
-                                    $copyright = mysqli_real_escape_string($database->link, $copyright);
-                                    if($copyright == ""){
-                                        echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Field must not be empty !</div>";
-                                    }else{
-                                        $query = "UPDATE list_customize
-                                                SET 
-                                                copyright = '$copyright'
-                                                WHERE
-                                                id = '1' ";
-                                        $updated_row = $database->update($query);
-                                        if($updated_row){
-                                            echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Copyright updated successfully !</div>";
-                                        }else{
-                                            echo "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Copyright not updated !</div>";
-                                        }
-                                    }
-                                }
-                                ?>
-                                <form  action="" method="post">
-                                    <div class="form-group col-md-10">
-<!--                                        <label for="inputPassword2" class="sr-only">Tagline</label>-->
-                                        <input type="text" name="copyright" class="form-control" id="inputPassword2" value="<?php echo $result['copyright']; ?>">
-                                    </div>
-                                    <input type="submit" class="btn btn-primary mb-2" name="copytext" value="Update">
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+
                     <!-- /.col-lg-4 -->
-                    <div class="col-lg-6">
+                    <div class="col-lg-8">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 Social Icons
@@ -329,6 +224,54 @@
                     </div>
                     <!-- /.col-lg-4 -->
               </div>
+                <div class="col-lg-8">
+                    <!--                        copyright-section-->
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            Copyright
+                        </div>
+                        <div class="panel-body">
+                            <?php
+                            if(isset($_POST["copytext"])){
+                                $copyright = $format->validation($_POST['copyright']);
+                                $copyright = mysqli_real_escape_string($database->link, $copyright);
+                                if($copyright == ""){
+                                    echo "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Field must not be empty !</div>";
+                                }else{
+                                    $query = "UPDATE list_customize
+                                    SET 
+                                    copyright = '$copyright'
+                                    WHERE
+                                    id = '1' ";
+                                    $updated_row = $database->update($query);
+                                    if($updated_row){
+                                        echo "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Copyright updated successfully !</div>";
+                                    }else{
+                                        echo "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Copyright not updated !</div>";
+                                    }
+                                }
+                            }
+                            ?>
+                            <form  action="" method="post">
+                                <?php
+                                    $query = "SELECT * FROM list_customize WHERE id = '1'  ";
+                                    $data = $database->select($query);
+                                    if($data){
+                                    while($result = $data->fetch_assoc()){
+                                ?>
+                                <div class="form-group col-md-10">
+                                    <!--                                        <label for="inputPassword2" class="sr-only">Tagline</label>-->
+                                    <input type="text" name="copyright" class="form-control" id="inputPassword2" value="<?php echo $result['copyright']; ?>">
+                                </div>
+                                <input type="submit" class="btn btn-primary mb-2" name="copytext" value="Update">
+                                <?php
+                                        }
+                                    }
+                                ?>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             <?php
                     }
                 }

@@ -1,97 +1,119 @@
 
 <aside class="col-lg-4">
+    <?php
+    $query = "SELECT * FROM list_widget WHERE id = '1'";
+    $data = $database->select($query);
+    if($data){
+        while($widget = $data->fetch_assoc()){
+    ?>
     <!-- Widget [Search Bar Widget]-->
-    <div class="widget search">
-        <header>
-            <h3 class="h6">Search the blog</h3>
-        </header>
-        <form action="search.php" method="get">
-            <div class="form-group">
-                <input type="search" name="search" id="search" placeholder="What are you looking for?">
-                <button type="submit" class="submit"><i class="icon-search-1"></i></button>
-            </div>
-        </form>
-    </div>
+    <?php
+            if(!empty($widget['sidebar1'])){
+                $name = $widget['sidebar1'];
+//                $name =  $widget["{$sidebar1}"];
+                if($name == 'category'){
+                    include 'helper/widget/category.php';
+                }elseif($name == 'contactinfo'){
+                    include 'helper/widget/contactinfo.php';
+                }elseif($name == 'footermenu'){
+                    include 'helper/widget/footermenu.php';
+                }elseif($name == 'newsletter'){
+                    include 'helper/widget/newsletter.php';
+                }elseif($name == 'recentpost'){
+                    include 'helper/widget/recentpost.php';
+                }elseif($name == 'searchbox'){
+                    include 'helper/widget/searchbox.php';
+                }elseif($name == 'socialicon'){
+                    include 'helper/widget/socialicon.php';
+                }elseif($name == 'tags'){
+                    include 'helper/widget/tags.php';
+                }
+            }else{
+                echo "";
+            }
+    ?>
+    <!--            widget here-->
+            <?php
+            if(!empty($widget['sidebar2'])){
+                $name = $widget['sidebar2'];
+//                $name =  $widget["{$sidebar1}"];
+                if($name == 'category'){
+                    include 'helper/widget/category.php';
+                }elseif($name == 'contactinfo'){
+                    include 'helper/widget/contactinfo.php';
+                }elseif($name == 'footermenu'){
+                    include 'helper/widget/footermenu.php';
+                }elseif($name == 'newsletter'){
+                    include 'helper/widget/newsletter.php';
+                }elseif($name == 'recentpost'){
+                    include 'helper/widget/recentpost.php';
+                }elseif($name == 'searchbox'){
+                    include 'helper/widget/searchbox.php';
+                }elseif($name == 'socialicon'){
+                    include 'helper/widget/socialicon.php';
+                }elseif($name == 'tags'){
+                    include 'helper/widget/tags.php';
+                }
+            }else{
+                echo "";
+            }
+            ?>
+
     <!-- Widget [Latest Posts Widget]        -->
-    <div class="widget latest-posts">
-        <header>
-            <h3 class="h6">Latest Posts</h3>
-        </header>
-        <div class="blog-posts">
             <?php
-                $query = "SELECT * FROM list_posts ORDER BY id DESC LIMIT 3";
-                $post = $database->select($query);
-                if($post){
-                    while($result = $post->fetch_assoc()){
-             ?>
-            <a href="./posts/<?php echo $result['slug']; ?>">
-                <div class="item d-flex align-items-center">
-                    <div class="image"><img src="admin/<?php echo $result['image']; ?>" alt="..." class="img-fluid" width="60px" height="60px"></div>
-                    <div class="title"><strong><?php echo $result['title']; ?></strong>
-                        <div class="d-flex align-items-center">
-<!--                            static elements-->
-                            <div class="views"><i class="icon-eye"></i> 500</div>
-                            <div class="comments"><i class="icon-comment"></i>12</div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-             <?php
-                  }
+            if(!empty($widget['sidebar3'])){
+                $name = $widget['sidebar3'];
+//                $name =  $widget["{$sidebar1}"];
+                if($name == 'category'){
+                    include 'helper/widget/category.php';
+                }elseif($name == 'contactinfo'){
+                    include 'helper/widget/contactinfo.php';
+                }elseif($name == 'footermenu'){
+                    include 'helper/widget/footermenu.php';
+                }elseif($name == 'newsletter'){
+                    include 'helper/widget/newsletter.php';
+                }elseif($name == 'recentpost'){
+                    include 'helper/widget/recentpost.php';
+                }elseif($name == 'searchbox'){
+                    include 'helper/widget/searchbox.php';
+                }elseif($name == 'socialicon'){
+                    include 'helper/widget/socialicon.php';
+                }elseif($name == 'tags'){
+                    include 'helper/widget/tags.php';
                 }
+            }else{
+                echo "";
+            }
             ?>
-        </div>
-    </div>
+
     <!-- Widget [Categories Widget]-->
-    <div class="widget categories">
-        <header>
-            <h3 class="h6">Categories</h3>
-        </header>
-        <?php
-        $query = "SELECT * FROM list_category";
-        $category = $database->select($query);
-        if($category){
-            while($result = $category->fetch_assoc()){
-         ?>
-         <div class="item d-flex justify-content-between"><a href="./categories/<?php echo $result['slug']; ?>"><?php echo $result['name']; ?></a>
-             <span>
-                <?php
-                $catid = $result['id'];
-                $query = "SELECT * FROM list_posts WHERE category = '$catid' ";
-                $catcount = $database->select($query);
-                if($catcount){
-                    $count = mysqli_num_rows($catcount);
-                    echo $count;
-                }else{
-                    echo 0;
-                }
-                ?>
-             </span>
-         </div> <!--here is one static value-->
-         <?php
-                     }
-                }else{
-                echo "<div class='item d-flex justify-content-between'><a href='#'>No Category Found</a></div>";
-            }
-        ?>
-    </div>
-    <!-- Widget [Tags Cloud Widget]-->
-    <div class="widget tags">
-        <header>
-            <h3 class="h6">Tags</h3>
-        </header>
-        <ul class="list-inline">
             <?php
-            $query = "SELECT tags FROM list_posts LIMIT 5";
-            $tags = $database->select($query);
-            if($tags){
-                while($result = $tags->fetch_assoc()){
-                    ?>
-                    <li class="list-inline-item"><a href="#" class="tag">#<?php echo $result['tags']; ?></a></li>
-                    <?php
+            if(!empty($widget['sidebar4'])){
+                $name = $widget['sidebar4'];
+//                $name =  $widget["{$sidebar1}"];
+                if($name == 'category'){
+                    include 'helper/widget/category.php';
+                }elseif($name == 'contactinfo'){
+                    include 'helper/widget/contactinfo.php';
+                }elseif($name == 'footermenu'){
+                    include 'helper/widget/footermenu.php';
+                }elseif($name == 'newsletter'){
+                    include 'helper/widget/newsletter.php';
+                }elseif($name == 'recentpost'){
+                    include 'helper/widget/recentpost.php';
+                }elseif($name == 'searchbox'){
+                    include 'helper/widget/searchbox.php';
+                }elseif($name == 'socialicon'){
+                    include 'helper/widget/socialicon.php';
+                }elseif($name == 'tags'){
+                    include 'helper/widget/tags.php';
                 }
+            }else{
+                echo "";
             }
             ?>
-        </ul>
-    </div>
+
+    <!-- Widget [Tags Cloud Widget]-->
+
+    <?php } } ?>
 </aside>

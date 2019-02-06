@@ -14,8 +14,8 @@
     <base href="<?php echo SITE_URL; ?>" />
     <link rel="icon" href="admin/upload/favicon.ico" sizes="16x16" type="image/ico">
     <!--    meta contents-->
-    <?php include 'meta.php'; ?>
-    <meta name="robots" content="all,follow">
+    <?php include 'metadata.php'; ?>
+<!--    <meta name="robots" content="all,follow">-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--    Google verification-->
     <meta name="google-site-verification" content="w9_oQ7sF8QulKrv8FCU3z6UF9X-pl151c5YjUqGCb5Q" />

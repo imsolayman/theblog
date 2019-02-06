@@ -10,7 +10,7 @@
                     <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
                     <!-- To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
                     <?php
-                        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                        if(isset($_POST['contact'])){
                             $name = $format->validation($_POST['name']);
                             $email = $format->validation($_POST['email']);
                             $subject = $format->validation($_POST['subject']);
@@ -66,7 +66,7 @@
                         <br>
                         <div id="success"></div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary" id="sendMessageButton">Send</button>
+                            <button type="submit" name="contact" class="btn btn-primary" id="sendMessageButton">Send</button>
                         </div>
                     </form>
                 </div>

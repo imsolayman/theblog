@@ -23,37 +23,16 @@
                 <a href="#"><i class="fa fa-wrench fa-fw"></i> Customize<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="customize.php">Title</a>
+                        <a href="customize.php">Appearance</a>
                     </li>
                     <li>
-                        <a href="customize.php">Tagline</a>
-                    </li>
-                    <li>
-                        <a href="customize.php">Logo</a>
-                    </li>
-                    <li>
-                        <a href="customize.php">Contact Info</a>
-                    </li>
-                    <li>
-                        <a href="customize.php">Social Icons</a>
-                    </li>
-                    <li>
-                        <a href="customize.php">Copyright</a>
+                        <a href="widgets.php">Widgets</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->
             </li>
             <li>
-                <a href="#"><i class="fa fa-bars fa-fw"></i> Menus<span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li>
-                        <a href="menu.php">Main Menu</a>
-                    </li>
-                    <li>
-                        <a href="menu.php">Footer Menu</a>
-                    </li>
-                </ul>
-                <!-- /.nav-second-level -->
+                <a href="menu.php"><i class="fa fa-bars fa-fw"></i> Menus</span></a>
             </li>
             <li>
                 <a href="#"><i class="fa fa-envelope fa-fw"></i> Contact<span class="fa arrow"></span></a>
@@ -129,7 +108,7 @@
             </li>
             <?php if(Session::get('userRole') == '1'){ ?>
             <li>
-                <a href="seo.php"><i class="fa fa-line-chart fa-fw"></i> SEO</a>
+                <a href="seo.php"><i class="fa fa-line-chart fa-fw"></i> SEO Plugin</a>
             </li>
             <li>
                 <a href="theme.php"><i class="fa fa-cog fa-fw"></i> Theme Options</a>

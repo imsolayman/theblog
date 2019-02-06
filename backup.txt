@@ -1,35 +1,9 @@
-<?php include 'inc/header.php'; ?>
-    <?php
-    if(!isset($_GET['page']) || $_GET['page'] == null){
-    //                        header('Location: 404.php');
-        echo "<script type='text/javascript'> window.location ='404.php'; </script>";
-    }else{
-        $id = $_GET['page'];
-    }
-    ?>
-    <?php
-    $query = "SELECT *  FROM list_pages WHERE slug = '$page' ";
-    $pages = $database->select($query);
-    if($pages){
-        while($result = $pages->fetch_assoc()){
-    ?>
-    <nav aria-label="breadcrumb"  class="breadcrumb">
-        <div class="container">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?php echo SITE_URL; ?>">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><?php echo $result['title']; ?></li>
-            </ol>
-        </div>
-    </nav>
-    <div class="container">
-        <div class="row">
-            <!-- Latest Posts -->
-            <?php echo $result['description']; ?>
-            <!--              post starts here-->
-        </div>
-    </div>
-    <?php
-            }
-        }
-    ?>
-<?php include 'inc/footer.php'; ?>
+
+                if(!empty($widget['footer1'])){
+                    $footer1 = $widget['footer1'];
+                    echo $widget["{$footer1}"];
+                }else{
+                    echo "";
+                }
+                ?>
+                <?php include 'helper/widget/footermenu.php'; ?>
