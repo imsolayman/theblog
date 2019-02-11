@@ -50,7 +50,19 @@
                             <div class="post-body">
                                 <p class="lead"><?php echo $result['description']; ?></p>
                             </div>
-                            <div class="post-tags"><a href="#" class="tag">#<?php echo $result['tags']; ?></a></div>
+                                    <?php $tags = explode(',', $result['tags']);
+                                        foreach ($tags as $value){
+                                            ?>
+                            <div class="post-tags">
+                                <a href="#" class="tag">
+                                           <?php
+                                            echo '#'.$value;
+                                           ?>
+                                </a>
+                            </div>
+                                            <?php
+                                        }
+                                     ?>
                             <!--                  related post starts here-->
                             <div class="posts-nav d-flex justify-content-between align-items-stretch flex-column flex-md-row">
                                 <?php

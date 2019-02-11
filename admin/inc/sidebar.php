@@ -38,10 +38,10 @@
                 <a href="#"><i class="fa fa-envelope fa-fw"></i> Contact<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="compose.php">Compose (<i class="fa fa-plus"></i>) </a>
+                        <a href="inbox.php">Inbox</a>
                     </li>
                     <li>
-                        <a href="inbox.php">Inbox</a>
+                        <a href="compose.php">Compose (<i class="fa fa-plus"></i>) </a>
                     </li>
                     <li>
                         <a href="sent-items.php">Sent Items</a>

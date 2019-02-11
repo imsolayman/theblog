@@ -1,5 +1,10 @@
 <?php include '../inc/header.php'; ?>
 <?php include '../inc/sidebar.php'; ?>
+<?php
+if(Session::get('userRole') != '1'){
+    echo "<script type='text/javascript'> window.location ='index.php'; </script>";
+}
+?>
 
 <div id="page-wrapper">
     <div class="row">
@@ -62,8 +67,8 @@
                                         <div class="mail-icon-overlay">
                                             <span class="single-icon"><a onclick="return confirm('Are you sure to delete?')" href="?delete=<?php echo $result['id']; ?>"><abbr title="Delete"><i class="fa fa-trash  fa-fw"></i></abbr></a></span>
                                             <span class="single-icon"><a onclick="return confirm('Are you sure to sent spam?')" href="?spam=<?php echo $result['id']; ?>"><abbr title="Spam"><i class="fa fa-exclamation-triangle  fa-fw"></i></abbr></a></span>
-                                            <span class="single-icon"><a href=""><abbr title="Reply"><i class="fa fa-paper-plane-o fa-fw"></abbr></i></a></span>
-                                            <span class="single-icon"><a href=""><abbr title="View"><i class="fa fa-eye fa-fw"></i></abbr></a></span>
+                                            <span class="single-icon"><a href="replymail.php?mailid=<?php echo $result['id']; ?>"><abbr title="Reply"><i class="fa fa-paper-plane-o fa-fw"></abbr></i></a></span>
+                                            <span class="single-icon"><a href="viewmail.php?viewid=<?php echo $result['id']; ?>"><abbr title="View"><i class="fa fa-eye fa-fw"></i></abbr></a></span>
                                         </div>
                                     </td>
                                     <td width="17%"><?php echo $format->formatDate($result['created_at']); ?></td>

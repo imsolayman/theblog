@@ -30,6 +30,7 @@
     <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
+    <link href="../dist/css/custom.css" rel="stylesheet">
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
@@ -84,8 +85,11 @@
                                     <input class="form-control" placeholder="Password" name="password" type="password" value="" required>
                                 </div>
                                 <div class="checkbox">
-                                    <label>
+                                    <label class="col-md-6  forgot-pass">
                                         <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                    </label>
+                                    <label  class="col-md-6  forgot-pass">
+                                        <span><a href="forgotpass.php">Forgot Password?</a></span>
                                     </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->

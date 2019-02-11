@@ -4,6 +4,7 @@
 <?php include '../../lib/Format.php'; ?>
 <?php
     Session::checkSession();
+    $userid = Session::get('userId');
     $database = new Database();
     $format = new Format();
 ?>
@@ -99,7 +100,7 @@
                     while($result = $mail->fetch_assoc()){
                     ?>
                     <li>
-                        <a href="#">
+                        <a href="viewmail.php?viewid=<?php echo $result['id']; ?>">
                             <div>
                                 <strong><?php echo $result['name']; ?></strong>
                                 <span class="pull-right text-muted">
@@ -265,7 +266,21 @@
             <!-- /.dropdown -->
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    <span class="profile-photo">
+                            <?php
+                            $query = "SELECT * FROM list_user WHERE id = '$userid'";
+                            $getphoto = $database->select($query);
+                            $getresult = $getphoto->fetch_assoc();
+                            $photo = $getresult['photo'];
+                            if(!empty($photo)){
+                                echo "<img src='../$photo' alt='' width='20px' height='20px'>";
+                            }else{
+                                echo "<i class='fa fa-user'></i>";
+                            }
+                            ?>
+
+                    </span>
+                    <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
                     <?php
@@ -275,7 +290,7 @@
                     ?>
                     <li><a href="profile.php"><i class="fa fa-user fa-fw"></i> User Profile</a>
                     </li>
-                    <li><a href="profile.php"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    <li><a href="changepass.php"><i class="fa fa-gear fa-fw"></i> Change Password</a>
                     </li>
                     <li class="divider"></li>
                     <li><a href="?action=logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>

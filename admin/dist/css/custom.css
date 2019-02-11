@@ -8,6 +8,11 @@ p.done, a.done{
 p.error, a.error{
     color: #ff0000;
 }
+/*header.php*/
+span.profile-photo > img{
+    border-radius: 12px;
+}
+}
 /*customize.php form*/
 .title-panel{
     padding-top: 41px;
@@ -122,4 +127,19 @@ p.error, a.error{
 .single-modals .alert {
     padding: 0;
     margin-bottom: 0;
-    border: none;
+    border: none;}
+/*viewmail.php*/
+.panel-body.viewmail{
+    outline: hidden;
+}
+.panel-body.viewmail span {
+    font-weight: 700;
+}
+.panel-body.viewmail span.float-right {
+    float: right !important;
+}
+
+/*login.php*/
+.col-md-6.forgot-pass {
+    margin-bottom: 10px;
+}

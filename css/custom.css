@@ -68,6 +68,9 @@
     text-transform: uppercase !important;
     color: #c5b0b0 !important;
 }
+.post .post-tags {
+    display: inline;
+}
 /*footer.php*/
 
 /*footer.php styles*/
@@ -100,3 +103,4 @@
     right: 0;
     font-family: "Open Sans", sans-serif;
 }
+/*sidebar.php*/
